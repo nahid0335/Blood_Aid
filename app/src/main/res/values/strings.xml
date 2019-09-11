@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Blood Aid</string>
+
+    <string-array name="Spinner_items">
+        <item>Choose District</item>
+        <item>Dhaka</item>
+        <item>Khulna</item>
+        <item>Rajshahi</item>
+        <item>Borishal</item>
+        <item>Chittagong</item>
+        <item>Rungpur</item>
+        <item>Sylhet</item>
+    </string-array>
 </resources>
