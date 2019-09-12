@@ -67,7 +67,9 @@
                             android:layout_height="wrap_content"
                             android:hint="Name"
                             android:inputType="textEmailAddress"
-                            android:textAllCaps="true" />
+                            android:textAllCaps="true"
+                            android:drawableLeft="@drawable/ic_person"
+                            android:drawablePadding="30dp"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
@@ -83,7 +85,9 @@
                         android:layout_height="wrap_content"
                         android:hint="Phone"
                         android:inputType="phone"
-                        android:textAllCaps="true" />
+                        android:textAllCaps="true"
+                        android:drawableLeft="@drawable/ic_phone"
+                        android:drawablePadding="30dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -99,7 +103,9 @@
                             android:layout_height="wrap_content"
                             android:hint="E-mail"
                             android:inputType="textEmailAddress"
-                            android:textAllCaps="true" />
+                            android:textAllCaps="true"
+                            android:drawableLeft="@drawable/ic_email"
+                            android:drawablePadding="30dp"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
