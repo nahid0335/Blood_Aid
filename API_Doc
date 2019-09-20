@@ -1,0 +1,45 @@
+Regisration:
+--------------------
+1. Link: bloodaid.hipranto.com/api/registration.php
+POST Request:
+	{
+		"name":"RK Pranto",
+		"phone":"13432",
+		"email":"rrr@gmail.com",
+	"password":"44323",
+	"donar_status" : "1",
+		"area_id":"4",
+		"admin_status":"0",
+		"latitude": "33.43943",
+		"longitude": "40.43342"
+}
+
+	Here, “donar_status”= “1” means that user is also a donar and “donar_status”=”0” means that user isn’t donar. Similar for “admin_status”
+
+Response json:
+If successfully created
+{
+"created": "true"
+}
+
+Or if failed
+{
+"created": "false"
+}
+
+
+
+LOGIN
+-------
+1. bloodaid.hipranto.com/api/login.php
+POST Request json:
+	{
+		"phone": "93832",
+		"password":"12344"
+	}
+
+Response JSON: boolean validity. if validity= true , then valid user and validity=false, then invalid user.
+	example:
+		{
+			"validity": "true"
+		}
