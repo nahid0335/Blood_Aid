@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Blood Aid</string>
 
-    <string-array name="Spinner_items">
+    <string-array name="district_items">
         <item>Choose District</item>
         <item>Dhaka</item>
         <item>Khulna</item>
@@ -10,5 +10,40 @@
         <item>Chittagong</item>
         <item>Rungpur</item>
         <item>Sylhet</item>
+        <item>Dhaka</item>
+        <item>Khulna</item>
+        <item>Rajshahi</item>
+        <item>Borishal</item>
+        <item>Chittagong</item>
+        <item>Rungpur</item>
+        <item>Sylhet</item>
+        <item>Dhaka</item>
+        <item>Khulna</item>
+        <item>Rajshahi</item>
+        <item>Borishal</item>
+        <item>Chittagong</item>
+        <item>Rungpur</item>
+        <item>Sylhet</item>
+        <item>Dhaka</item>
+        <item>Khulna</item>
+        <item>Rajshahi</item>
+        <item>Borishal</item>
+        <item>Chittagong</item>
+        <item>Rungpur</item>
+        <item>Sylhet</item>
     </string-array>
+
+    <string-array name="blood_items">
+        <item>Choose Blood Group</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+
+    <string name="password_error_text">Phone or Password is not correct!</string>
 </resources>
