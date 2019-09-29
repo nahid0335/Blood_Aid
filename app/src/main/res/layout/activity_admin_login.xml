@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".backand.AdminLoginActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="3"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/blood_aid_logo"
+                    android:padding="5dp"
+                    android:layout_margin="10dp"
+                    android:elevation="10dp"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:elevation="10dp"
+                            android:id="@+id/cardViewAdminLoginId"
+                            >
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="70dp">
+                                <TextView
+                                    android:id="@+id/adminLoginTextField"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/adminLogintxt"
+                                    android:textSize="30dp"
+                                    android:textColor="@color/blackish"
+                                    android:padding="5dp"
+                                    android:layout_margin="10dp"/>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/adminLoginTextField"
+                                    android:id="@+id/textInputLoginPhone"
+                                    android:layout_margin="10dp"
+                                    android:elevation="10dp"
+                                    app:errorEnabled="true">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:drawableStart="@drawable/ic_phone"
+                                        android:drawablePadding="15dp"
+                                        android:padding="20dp"
+                                        android:hint="Phone"
+                                        android:inputType="phone"
+                                        android:textAllCaps="true" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/textInputLoginPass"
+                                    android:layout_below="@+id/textInputLoginPhone"
+                                    android:layout_margin="10dp"
+                                    android:elevation="10dp"
+                                    app:errorEnabled="true"
+                                    app:passwordToggleEnabled="true"
+                                    >
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:drawableStart="@drawable/ic_lock"
+                                        android:drawablePadding="15dp"
+                                        android:padding="20dp"
+                                        android:hint="Password"
+                                        android:inputType="textPassword"
+                                        android:textAllCaps="true" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                            </RelativeLayout>
+
+                        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+                        <RelativeLayout
+                            android:id="@+id/login_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/cardViewAdminLoginId"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="-30dp"
+                            android:layout_marginRight="50dp"
+                            android:elevation="10dp">
+
+                            <Button
+                                android:id="@+id/login_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_register_ui"
+                                android:padding="10dp"
+                                android:text="Login"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="25dp" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                </ScrollView>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

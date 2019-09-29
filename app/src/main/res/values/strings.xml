@@ -1,6 +1,22 @@
 <resources>
     <string name="app_name">Blood Aid</string>
 
+    <string name="password_error_text">Phone or Password is not correct!</string>
+    <string name="adminLogintxt">Administration Login</string>
+
+
+    <string-array name="blood_items">
+        <item>Choose Blood Group</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+
     <string-array name="district_items">
         <item>Choose District</item>
         <item>Dhaka</item>
@@ -32,18 +48,4 @@
         <item>Rungpur</item>
         <item>Sylhet</item>
     </string-array>
-
-    <string-array name="blood_items">
-        <item>Choose Blood Group</item>
-        <item>A+</item>
-        <item>A-</item>
-        <item>B+</item>
-        <item>B-</item>
-        <item>AB+</item>
-        <item>AB-</item>
-        <item>O+</item>
-        <item>O-</item>
-    </string-array>
-
-    <string name="password_error_text">Phone or Password is not correct!</string>
 </resources>
