@@ -3,6 +3,7 @@
 
     <string name="password_error_text">Phone or Password is not correct!</string>
     <string name="adminLogintxt">Administration Login</string>
+    <string name="adminAddContent">Add New User</string>
 
 
     <string-array name="blood_items">

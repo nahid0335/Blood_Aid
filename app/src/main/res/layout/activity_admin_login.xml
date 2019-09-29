@@ -39,7 +39,8 @@
                 android:layout_height="match_parent">
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:scrollbars="none">
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -121,7 +122,7 @@
                             android:elevation="10dp">
 
                             <Button
-                                android:id="@+id/login_btn"
+                                android:id="@+id/Adminlogin_btn"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/button_register_ui"
