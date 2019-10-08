@@ -4,6 +4,9 @@
     <string name="password_error_text">Phone or Password is not correct!</string>
     <string name="adminLogintxt">Administration Login</string>
     <string name="adminAddContent">Add New User</string>
+    <string name="admin_name">Tamzid hasan nahid</string>
+    <string name="adminHome_status">Administrator</string>
+    <string name="todo">TODO</string>
 
 
     <string-array name="blood_items">
