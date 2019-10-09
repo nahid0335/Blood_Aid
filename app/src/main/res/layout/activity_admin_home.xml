@@ -12,6 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:elevation="2dp"
+        android:clickable="true"
+        android:onClick="profile_cardView"
+        android:foreground="?android:selectableItemBackground"
         app:cardElevation="2dp"
         app:cardMaxElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +42,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
+        android:onClick="logout_button"
         android:background="@drawable/user_interface_exit_icon"
         app:layout_constraintBottom_toBottomOf="@+id/cardView_admnHome_topBer"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +115,10 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
+                android:clickable="true"
                 android:elevation="5dp"
+                android:onClick="donor_cardView"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintBottom_toTopOf="@+id/cardView_adminHome_hospital"
                 app:layout_constraintEnd_toStartOf="@+id/cardView_adminHome_ambulence"
                 app:layout_constraintStart_toStartOf="parent"
@@ -128,6 +135,9 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:elevation="5dp"
+                android:clickable="true"
+                android:onClick="ambulence_cardView"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintBottom_toTopOf="@+id/cardView_adminHome_admin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardView_adminHome_Donor"
@@ -142,10 +152,15 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:elevation="5dp"
+                android:clickable="true"
+                android:onClick="hospital_cardView"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintBottom_toTopOf="@+id/cardView_adminHome_report"
                 app:layout_constraintEnd_toStartOf="@+id/cardView_adminHome_admin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView_adminHome_Donor" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView_adminHome_Donor" >
+
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_adminHome_admin"
@@ -156,10 +171,15 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:elevation="5dp"
+                android:clickable="true"
+                android:onClick="admin_cardView"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintBottom_toTopOf="@+id/cardView_adminHome_report"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardView_adminHome_hospital"
-                app:layout_constraintTop_toBottomOf="@+id/cardView_adminHome_ambulence" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView_adminHome_ambulence" >
+
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_adminHome_report"
@@ -168,13 +188,20 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
+                android:clickable="true"
                 android:elevation="5dp"
+                android:foreground="?android:selectableItemBackground"
+                android:onClick="report_cardView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.cardview.widget.CardView>
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageView_adminHome_donorIcon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="20dp"
@@ -187,7 +214,7 @@
                 app:srcCompat="@drawable/blooddrop1" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imageView_adminHome_ambulenceIcon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="20dp"
@@ -199,8 +226,47 @@
                 app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_ambulence"
                 app:srcCompat="@drawable/blooddrop1" />
 
+            <ImageView
+                android:id="@+id/imageView_adminHome_adminIcon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="80dp"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_admin"
+                app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_admin"
+                app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_admin"
+                app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_admin"
+                app:srcCompat="@drawable/blooddrop1" />
+
+            <ImageView
+                android:id="@+id/imageView_adminHome_hospitalIcon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="80dp"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_hospital"
+                app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_hospital"
+                app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_hospital"
+                app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_hospital"
+                app:srcCompat="@drawable/blooddrop1" />
+
+            <ImageView
+                android:id="@+id/imageView_adminHome_reportIcon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="80dp"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_report"
+                app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_report"
+                app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_report"
+                app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_report"
+                app:srcCompat="@drawable/blooddrop1" />
+
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView_admnHome_ambulence"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -216,10 +282,10 @@
                 app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_ambulence"
                 app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_ambulence"
                 app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_ambulence"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView_adminHome_ambulenceIcon" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textView_adminHome_donor"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -235,7 +301,64 @@
                 app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_Donor"
                 app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_Donor"
                 app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_Donor"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView_adminHome_donorIcon" />
+
+            <TextView
+                android:id="@+id/textView_adminHome_hospital"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="10dp"
+                android:padding="5dp"
+                android:text="Hospital"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_hospital"
+                app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_hospital"
+                app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_hospital"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_adminHome_hospitalIcon" />
+
+            <TextView
+                android:id="@+id/textView_adminHome_admin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="10dp"
+                android:padding="5dp"
+                android:text="Admin"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_admin"
+                app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_admin"
+                app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_admin"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_adminHome_adminIcon" />
+
+            <TextView
+                android:id="@+id/textView_adminHome_report"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="10dp"
+                android:padding="5dp"
+                android:text="Reports"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_report"
+                app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_report"
+                app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_report"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_adminHome_reportIcon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
