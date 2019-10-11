@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".backand.DonorActivity"></activity>
+        <activity android:name=".backand.AdminManage"></activity>
+        <activity android:name=".backand.AmbulenceAdmin" />
+        <activity android:name=".backand.HospitalActivity" />
+        <activity android:name=".backand.DonorActivity" />
         <activity android:name=".backand.AdminHome" />
         <activity android:name=".backand.AdminLoginActivity">
             <intent-filter>

@@ -23,15 +23,18 @@ public class AdminHome extends AppCompatActivity {
     }
 
     public void ambulence_cardView(View view) {
-        ErrorToast.successToast(AdminHome.this, "Ambulence");
+        startActivity(new Intent(AdminHome.this,AmbulenceAdmin.class));
+        finish();
     }
 
     public void hospital_cardView(View view) {
-        ErrorToast.successToast(AdminHome.this, "Hospital");
+        startActivity(new Intent(AdminHome.this,HospitalActivity.class));
+        finish();
     }
 
     public void admin_cardView(View view) {
-        ErrorToast.successToast(AdminHome.this, "Admin");
+        startActivity(new Intent(AdminHome.this,AdminManage.class));
+        finish();
     }
 
     public void report_cardView(View view) {
