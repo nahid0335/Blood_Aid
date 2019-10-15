@@ -1,9 +1,8 @@
-package com.example.bloodaid.backand;
+package com.example.bloodaid.adminend;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.bloodaid.R;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;

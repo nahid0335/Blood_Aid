@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.HomeFragment">
+
+    <!--Additions section Start-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/main_addition_card"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        android:elevation="5dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main_info_card"
+        >
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Additions"
+        android:textColor="@color/blackish"
+        android:paddingLeft="10dp"
+        android:elevation="6dp"
+        android:paddingVertical="4dp"
+        android:id="@+id/addition_text"
+        app:layout_constraintTop_toTopOf="@+id/main_addition_card"
+        app:layout_constraintStart_toStartOf="@+id/main_addition_card"
+        app:layout_constraintBottom_toTopOf="@+id/straight_line"
+        />
+
+    <LinearLayout
+        android:id="@+id/straight_line"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:elevation="6dp"
+        android:background="@color/light_black"
+        app:layout_constraintTop_toBottomOf="@id/addition_text"
+        app:layout_constraintStart_toStartOf="@+id/main_addition_card"
+        app:layout_constraintEnd_toEndOf="@id/main_addition_card"
+        app:layout_constraintBottom_toTopOf="@id/donar_add_img"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/donar_add_img"
+        android:elevation="6dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        android:src="@drawable/donar_add"
+        app:layout_constraintTop_toBottomOf="@id/straight_line"
+        app:layout_constraintStart_toStartOf="@+id/main_addition_card"
+        app:layout_constraintBottom_toTopOf="@id/donar_add_text"
+        app:layout_constraintEnd_toStartOf="@+id/organization_add_img"
+        >
+    </ImageView>
+
+    <TextView
+        android:elevation="6dp"
+        android:textAlignment="center"
+        android:id="@+id/donar_add_text"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:text="@string/donar_add_text"
+        android:textColor="@color/blackish"
+        app:layout_constraintTop_toBottomOf="@id/donar_add_img"
+        app:layout_constraintBottom_toBottomOf="@id/main_addition_card"
+        app:layout_constraintStart_toStartOf="@+id/main_addition_card"
+        app:layout_constraintEnd_toStartOf="@id/organization_add_text"
+        />
+
+    <ImageView
+        android:id="@+id/organization_add_img"
+        android:elevation="6dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        android:src="@drawable/organization"
+        app:layout_constraintTop_toBottomOf="@id/straight_line"
+        app:layout_constraintStart_toEndOf="@+id/donar_add_img"
+        app:layout_constraintBottom_toTopOf="@id/organization_add_text"
+        app:layout_constraintEnd_toStartOf="@+id/hospital_add_img"
+        >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/organization_add_text"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:textAlignment="center"
+        android:elevation="6dp"
+        android:text="@string/org_add_text"
+        android:textColor="@color/blackish"
+        app:layout_constraintBottom_toBottomOf="@id/main_addition_card"
+        app:layout_constraintEnd_toStartOf="@id/hospital_add_text"
+        app:layout_constraintStart_toEndOf="@+id/donar_add_text"
+        app:layout_constraintTop_toBottomOf="@id/organization_add_img" />
+
+    <ImageView
+        android:id="@+id/hospital_add_img"
+        android:elevation="6dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        android:src="@drawable/hospital"
+        app:layout_constraintTop_toBottomOf="@id/straight_line"
+        app:layout_constraintStart_toEndOf="@+id/organization_add_img"
+        app:layout_constraintBottom_toTopOf="@id/hospital_add_text"
+        app:layout_constraintEnd_toStartOf="@+id/ambulance_add_img"
+        >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/hospital_add_text"
+        android:layout_width="0dp"
+        android:elevation="6dp"
+        android:layout_height="25dp"
+        android:text="@string/hospital_add_text"
+        android:textAlignment="center"
+        android:textColor="@color/blackish"
+        app:layout_constraintBottom_toBottomOf="@id/main_addition_card"
+        app:layout_constraintEnd_toStartOf="@id/ambulance_add_text"
+        app:layout_constraintStart_toEndOf="@+id/organization_add_text"
+        app:layout_constraintTop_toBottomOf="@id/organization_add_img" />
+
+    <ImageView
+        android:id="@+id/ambulance_add_img"
+        android:elevation="6dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        android:src="@drawable/ambulance"
+        app:layout_constraintTop_toBottomOf="@id/straight_line"
+        app:layout_constraintStart_toEndOf="@+id/hospital_add_img"
+        app:layout_constraintBottom_toTopOf="@id/ambulance_add_text"
+        app:layout_constraintEnd_toEndOf="@+id/main_addition_card"
+        app:layout_constraintVertical_bias=".8"
+        >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/ambulance_add_text"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:elevation="6dp"
+        android:text="@string/ambulance_add_text"
+        android:textAlignment="center"
+        android:textColor="@color/blackish"
+        app:layout_constraintBottom_toBottomOf="@id/main_addition_card"
+        app:layout_constraintEnd_toEndOf="@id/main_addition_card"
+        app:layout_constraintStart_toEndOf="@+id/hospital_add_text"
+        app:layout_constraintTop_toBottomOf="@id/ambulance_add_img"
+        />
+    <!--Additions section End-->
+
+
+
+
+
+<!--Info section Start-->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/main_info_card"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_addition_card">
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Informations"
+        android:textColor="@color/blackish"
+        android:paddingLeft="10dp"
+        android:elevation="6dp"
+        android:paddingVertical="4dp"
+        android:id="@+id/info_text"
+        app:layout_constraintTop_toTopOf="@+id/main_info_card"
+        app:layout_constraintStart_toStartOf="@+id/main_info_card"
+        app:layout_constraintBottom_toTopOf="@+id/straight_line2"
+        />
+
+    <LinearLayout
+        android:id="@+id/straight_line2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:elevation="8dp"
+        android:background="@color/light_black"
+        app:layout_constraintTop_toBottomOf="@id/info_text"
+        app:layout_constraintStart_toStartOf="@+id/main_info_card"
+        app:layout_constraintEnd_toEndOf="@id/main_info_card"
+        app:layout_constraintBottom_toTopOf="@id/top_donar_img"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/top_donar_img"
+        android:elevation="6dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_top_donar"
+        app:layout_constraintTop_toBottomOf="@id/straight_line2"
+        app:layout_constraintStart_toStartOf="@+id/main_info_card"
+        app:layout_constraintBottom_toTopOf="@id/top_donar_text"
+        app:layout_constraintEnd_toStartOf="@+id/facts_img"
+        >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/top_donar_text"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:elevation="6dp"
+        android:text="@string/top_donar_text"
+        android:textAlignment="center"
+        android:textColor="@color/blackish"
+        app:layout_constraintBottom_toBottomOf="@id/main_info_card"
+        app:layout_constraintEnd_toStartOf="@id/facts_text"
+        app:layout_constraintStart_toStartOf="@+id/main_info_card"
+        app:layout_constraintTop_toBottomOf="@id/top_donar_img" />
+
+    <ImageView
+        android:id="@+id/facts_img"
+        android:elevation="6dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_facts"
+        app:layout_constraintTop_toBottomOf="@id/straight_line2"
+        app:layout_constraintStart_toEndOf="@+id/top_donar_img"
+        app:layout_constraintBottom_toTopOf="@id/facts_text"
+        app:layout_constraintEnd_toStartOf="@+id/history_img"
+        >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/facts_text"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:elevation="6dp"
+        android:text="@string/facts_text"
+        android:textAlignment="center"
+        android:textColor="@color/blackish"
+        app:layout_constraintBottom_toBottomOf="@id/main_info_card"
+        app:layout_constraintEnd_toStartOf="@id/history_text"
+        app:layout_constraintStart_toEndOf="@+id/top_donar_text"
+        app:layout_constraintTop_toBottomOf="@id/facts_img" />
+
+    <ImageView
+        android:id="@+id/history_img"
+        android:elevation="6dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_history"
+        app:layout_constraintTop_toBottomOf="@id/straight_line2"
+        app:layout_constraintStart_toEndOf="@+id/facts_img"
+        app:layout_constraintBottom_toTopOf="@id/history_text"
+        app:layout_constraintEnd_toStartOf="@+id/app_info_img"
+        >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/history_text"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:elevation="6dp"
+        android:text="@string/history_text"
+        android:textAlignment="center"
+        android:textColor="@color/blackish"
+        app:layout_constraintBottom_toBottomOf="@id/main_info_card"
+        app:layout_constraintEnd_toStartOf="@id/app_info_text"
+        app:layout_constraintStart_toEndOf="@+id/facts_text"
+        app:layout_constraintTop_toBottomOf="@id/history_img" />
+
+    <ImageView
+        android:id="@+id/app_info_img"
+        android:elevation="6dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_info"
+        app:layout_constraintTop_toBottomOf="@id/straight_line2"
+        app:layout_constraintStart_toEndOf="@+id/history_img"
+        app:layout_constraintBottom_toTopOf="@id/app_info_text"
+        app:layout_constraintEnd_toEndOf="@+id/main_info_card"
+        >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/app_info_text"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:elevation="6dp"
+        android:text="@string/app_info_text"
+        android:textAlignment="center"
+        android:textColor="@color/blackish"
+        app:layout_constraintBottom_toBottomOf="@id/main_info_card"
+        app:layout_constraintEnd_toEndOf="@id/main_info_card"
+        app:layout_constraintStart_toEndOf="@+id/history_text"
+        app:layout_constraintTop_toBottomOf="@id/app_info_img" />
+    <!--Info section End-->
+
+
+
+    <!--Search bar Start-->
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+        android:id="@+id/main_search_card"
+        android:background="@color/white"
+        android:elevation="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/main_info_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+
+        >
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Search Bar"
+        android:textColor="@color/blackish"
+        android:paddingLeft="10dp"
+        android:elevation="6dp"
+        android:paddingVertical="4dp"
+        android:id="@+id/main_search_text"
+        app:layout_constraintTop_toTopOf="@+id/main_search_card"
+        app:layout_constraintStart_toStartOf="@+id/main_search_card"
+        app:layout_constraintEnd_toEndOf="@id/main_search_card"
+        app:layout_constraintBottom_toTopOf="@+id/straight_line3"
+        />
+
+    <LinearLayout
+        android:id="@+id/straight_line3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:elevation="8dp"
+        android:background="@color/light_black"
+        app:layout_constraintTop_toBottomOf="@id/main_search_text"
+        app:layout_constraintStart_toStartOf="@+id/main_search_card"
+        app:layout_constraintEnd_toEndOf="@id/main_search_card"
+        android:orientation="horizontal"/>
+
+
+
+    <Button
+        android:id="@+id/search_btn"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/ic_cancel"
+        app:layout_constraintEnd_toEndOf="@id/main_search_card"
+        app:layout_constraintStart_toStartOf="@id/main_search_card"
+        app:layout_constraintTop_toBottomOf="@id/main_search_text"
+        app:layout_constraintBottom_toBottomOf="@id/main_search_card"
+        />
+
+    <Button
+        android:id="@+id/group_a_pos"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_register_ui"
+        android:text="A+"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintCircle="@id/search_btn"
+        app:layout_constraintCircleAngle="0"
+        app:layout_constraintCircleRadius="60dp"
+        app:layout_constraintEnd_toEndOf="@id/main_search_card"
+        app:layout_constraintStart_toStartOf="@id/main_search_card"
+        app:layout_constraintTop_toBottomOf="@id/main_search_text"
+        app:layout_constraintBottom_toBottomOf="@id/main_search_card"
+        />
+
+    <Button
+        android:id="@+id/group_a_neg"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_register_ui"
+        app:layout_constraintTop_toBottomOf="@id/main_search_text"
+        app:layout_constraintEnd_toEndOf="@id/main_search_card"
+        app:layout_constraintStart_toStartOf="@id/main_search_card"
+        app:layout_constraintBottom_toBottomOf="@id/main_search_card"
+        android:text="A-"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintCircle="@id/search_btn"
+        app:layout_constraintCircleAngle="45"
+        app:layout_constraintCircleRadius="60dp"
+        />
+
+    <Button
+        android:id="@+id/group_o_pos"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_register_ui"
+        android:text="O+"
+        app:layout_constraintTop_toBottomOf="@id/main_search_text"
+        app:layout_constraintEnd_toEndOf="@id/main_search_card"
+        app:layout_constraintStart_toStartOf="@id/main_search_card"
+        app:layout_constraintBottom_toBottomOf="@id/main_search_card"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintCircle="@id/search_btn"
+        app:layout_constraintCircleAngle="90"
+        app:layout_constraintCircleRadius="60dp"
+        />
+
+    <Button
+        android:id="@+id/group_o_neg"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_register_ui"
+        android:text="A-"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/main_search_text"
+        app:layout_constraintEnd_toEndOf="@id/main_search_card"
+        app:layout_constraintStart_toStartOf="@id/main_search_card"
+        app:layout_constraintBottom_toBottomOf="@id/main_search_card"
+        android:textColor="@color/white"
+        app:layout_constraintCircle="@id/search_btn"
+        app:layout_constraintCircleAngle="135"
+        app:layout_constraintCircleRadius="60dp"
+        />
+    <Button
+        android:id="@+id/group_b_pos"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_register_ui"
+        android:text="B+"
+        app:layout_constraintTop_toBottomOf="@id/main_search_text"
+        app:layout_constraintEnd_toEndOf="@id/main_search_card"
+        app:layout_constraintStart_toStartOf="@id/main_search_card"
+        app:layout_constraintBottom_toBottomOf="@id/main_search_card"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintCircle="@id/search_btn"
+        app:layout_constraintCircleAngle="180"
+        app:layout_constraintCircleRadius="60dp"
+        />
+    <Button
+        android:id="@+id/group_b_neg"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_register_ui"
+        android:text="B-"
+        app:layout_constraintTop_toBottomOf="@id/main_search_text"
+        app:layout_constraintEnd_toEndOf="@id/main_search_card"
+        app:layout_constraintStart_toStartOf="@id/main_search_card"
+        app:layout_constraintBottom_toBottomOf="@id/main_search_card"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintCircle="@id/search_btn"
+        app:layout_constraintCircleAngle="225"
+        app:layout_constraintCircleRadius="60dp"
+        />
+    <Button
+        android:id="@+id/group_ab_pos"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_register_ui"
+        android:text="AB+"
+        app:layout_constraintTop_toBottomOf="@id/main_search_text"
+        app:layout_constraintEnd_toEndOf="@id/main_search_card"
+        app:layout_constraintStart_toStartOf="@id/main_search_card"
+        app:layout_constraintBottom_toBottomOf="@id/main_search_card"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintCircle="@id/search_btn"
+        app:layout_constraintCircleAngle="270"
+        app:layout_constraintCircleRadius="60dp"
+        />
+    <Button
+        android:id="@+id/group_ab_neg"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_register_ui"
+        android:text="AB-"
+        app:layout_constraintTop_toBottomOf="@id/main_search_text"
+        app:layout_constraintEnd_toEndOf="@id/main_search_card"
+        app:layout_constraintStart_toStartOf="@id/main_search_card"
+        app:layout_constraintBottom_toBottomOf="@id/main_search_card"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintCircle="@id/search_btn"
+        app:layout_constraintCircleAngle="315"
+        app:layout_constraintCircleRadius="60dp"
+        />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/blood_groups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="group_o_pos,group_b_neg,group_a_pos,group_b_pos,group_o_neg,group_ab_pos,group_ab_neg,group_a_neg"
+        />
+    <!--Search bar End-->
+</androidx.constraintlayout.widget.ConstraintLayout>
+

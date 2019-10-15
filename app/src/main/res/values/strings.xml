@@ -9,6 +9,16 @@
     <string name="todo">TODO</string>
 
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="donar_add_text">Donar</string>
+    <string name="org_add_text">Organization</string>
+    <string name="hospital_add_text">Hospital</string>
+    <string name="ambulance_add_text">Ambulance</string>
+    <string name="top_donar_text">Top Donar</string>
+    <string name="facts_text">Facts</string>
+    <string name="history_text">History</string>
+    <string name="app_info_text">App Info</string>
+
     <string-array name="blood_items">
         <item>Choose Blood Group</item>
         <item>A+</item>
@@ -21,6 +31,7 @@
         <item>O-</item>
     </string-array>
 
+    <!-- TODO: Remove or change this placeholder text -->
     <string-array name="district_items">
         <item>Choose District</item>
         <item>Dhaka</item>

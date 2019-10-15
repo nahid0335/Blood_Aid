@@ -2,10 +2,8 @@ package com.example.bloodaid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,7 +20,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoginActivity extends AppCompatActivity {
     TextInputLayout mPhone, mPassword;
@@ -84,10 +81,10 @@ public class LoginActivity extends AppCompatActivity {
                                         if(status){
                                             finish();
                                             startActivity( new Intent(LoginActivity.this, MainActivity.class) );
-                                            ErrorToast.successToast(LoginActivity.this, "Successfully Logged In");
+                                            AllToasts.successToast(LoginActivity.this, "Successfully Logged In");
                                         }
                                         else{
-                                            ErrorToast.errorToast(LoginActivity.this,"Phone or Password is not correct!" );
+                                            AllToasts.errorToast(LoginActivity.this,"Phone or Password is not correct!" );
                                         }
 
                                     }catch (JSONException e) {

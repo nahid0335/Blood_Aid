@@ -154,20 +154,12 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:orientation="horizontal">
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="District : "
-                           android:layout_marginLeft="10dp"
-                           android:textColor="@color/blackish"
-                           android:textSize="18sp"
-                           android:layout_gravity="center_vertical"/>
 
 
                        <androidx.appcompat.widget.AppCompatSpinner
                            android:id="@+id/district_spinner"
-                           android:layout_width="wrap_content"
-                           android:layout_height="35dp"
+                           android:layout_width="match_parent"
+                           android:layout_height="40dp"
                            android:layout_margin="10dp"
                            android:background="@drawable/border_button_bg"
                            android:entries="@array/district_items"
@@ -179,19 +171,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Blood Group :"
-                            android:layout_marginLeft="10dp"
-                            android:textColor="@color/blackish"
-                            android:textSize="18sp"
-                            android:layout_gravity="center_vertical"/>
-
 
                         <androidx.appcompat.widget.AppCompatSpinner
-                            android:layout_width="wrap_content"
-                            android:layout_height="35dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
                             android:paddingLeft="15dp"
                             android:background="@drawable/border_button_bg"
                             android:textAlignment="center"
@@ -265,7 +248,6 @@
                     android:text="Already have an account?"
                     android:textColor="@color/blackish"
                     android:textSize="18sp">
-
                 </TextView>
 
 

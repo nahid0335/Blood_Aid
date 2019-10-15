@@ -141,7 +141,7 @@
                 android:background="@drawable/border_button_bg"
                 android:gravity="center"
                 android:text="Sign Up"
-                android:textColor="@color/red"
+                android:textColor="@color/redish"
                 android:textSize="14sp" />
 
             <TextView

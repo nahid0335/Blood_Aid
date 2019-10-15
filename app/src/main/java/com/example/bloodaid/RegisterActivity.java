@@ -18,8 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -101,12 +99,12 @@ public class RegisterActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(s);
                             Boolean status = jsonObject.getBoolean("created");
                             if(status){
-                                ErrorToast.successToast(RegisterActivity.this, "Registration Successfully Completed !");
+                                AllToasts.successToast(RegisterActivity.this, "Registration Successfully Completed !");
                                 finish();
                                 startActivity(new Intent(RegisterActivity.this,MainActivity.class));
                             }
                             else{
-                                ErrorToast.errorToast(RegisterActivity.this, "Registration Failed");
+                                AllToasts.errorToast(RegisterActivity.this, "Registration Failed");
                             }
 
                         } catch (IOException e) {
@@ -128,10 +126,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean validateSpinnersValue() {
         if(district.equals("Choose District")){
-            ErrorToast.errorToast(RegisterActivity.this, "Please select your district ");
+            AllToasts.errorToast(RegisterActivity.this, "Please select your district ");
         }
         else if(blood_group.equals("Choose Blood Group")){
-            ErrorToast.errorToast(RegisterActivity.this, "Please select your blood group ");
+            AllToasts.errorToast(RegisterActivity.this, "Please select your blood group ");
         }
         else{
             return true;
@@ -247,6 +245,5 @@ public class RegisterActivity extends AppCompatActivity {
         mRegister = findViewById(R.id.register_button);
         mLogin = findViewById(R.id.login_btn);
     }
-
 
 }

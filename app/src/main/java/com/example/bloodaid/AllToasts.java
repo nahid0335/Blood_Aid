@@ -8,13 +8,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ErrorToast {
+public class AllToasts {
 
     public static void errorToast(Context context, String error_text){
         Toast toast = new Toast(context);
         toast.setDuration(Toast.LENGTH_LONG);
         View v = LayoutInflater.from(context)
-                .inflate(R.layout.error_toast, null);
+                .inflate(R.layout.toast_item, null);
         TextView t = v.findViewById(R.id.error_text);
         t.setText(error_text);
         toast.setView(v);
@@ -25,7 +25,7 @@ public class ErrorToast {
         Toast toast = new Toast(context);
         toast.setDuration(Toast.LENGTH_LONG);
         View v = LayoutInflater.from(context)
-                .inflate(R.layout.error_toast, null);
+                .inflate(R.layout.toast_item, null);
         TextView t = v.findViewById(R.id.error_text);
         ImageView i = v.findViewById(R.id.toast_icon);
         LinearLayout linearLayout = v.findViewById(R.id.toast_view);
