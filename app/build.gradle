@@ -42,6 +42,8 @@ dependencies {
     implementation 'com.android.support:percent:22.2.0'
     //noinspection GradleCompatible
     implementation 'com.android.support:cardview-v7:28.0.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:26.1.0'
 
     //image load
     implementation 'com.squareup.picasso:picasso:2.71828'
