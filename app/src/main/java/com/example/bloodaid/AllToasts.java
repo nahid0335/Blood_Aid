@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ErrorToast {
+public class AllToasts {
 
     public static void errorToast(Context context, String error_text){
         Toast toast = new Toast(context);

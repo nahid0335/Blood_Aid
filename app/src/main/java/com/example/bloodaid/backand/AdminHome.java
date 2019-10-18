@@ -2,7 +2,7 @@ package com.example.bloodaid.backand;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bloodaid.ErrorToast;
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.R;
 
 import android.content.Intent;
@@ -38,14 +38,14 @@ public class AdminHome extends AppCompatActivity {
     }
 
     public void report_cardView(View view) {
-        ErrorToast.successToast(AdminHome.this, "Report");
+        AllToasts.successToast(AdminHome.this, "Report");
     }
 
     public void profile_cardView(View view) {
-        ErrorToast.successToast(AdminHome.this, "profile");
+        AllToasts.successToast(AdminHome.this, "profile");
     }
 
     public void logout_button(View view) {
-        ErrorToast.successToast(AdminHome.this, "Logout");
+        AllToasts.successToast(AdminHome.this, "Logout");
     }
 }
