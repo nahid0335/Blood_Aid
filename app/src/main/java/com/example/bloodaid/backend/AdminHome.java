@@ -48,4 +48,7 @@ public class AdminHome extends AppCompatActivity {
     public void logout_button(View view) {
         AllToasts.successToast(AdminHome.this, "Logout");
     }
+
+    public void organization_cardView(View view) {
+    }
 }

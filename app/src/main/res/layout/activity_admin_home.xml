@@ -107,6 +107,55 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/textView_adminHome_organization"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="10dp"
+                android:padding="5dp"
+                android:text="Organization"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_Organization"
+                app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_Organization"
+                app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_Organization"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_adminHome_organizationIcon" />
+
+            <ImageView
+                android:id="@+id/imageView_adminHome_organizationIcon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="80dp"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_Organization"
+                app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_Organization"
+                app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_Organization"
+                app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_Organization"
+                app:srcCompat="@drawable/blooddrop1" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView_adminHome_Organization"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:foreground="?android:selectableItemBackground"
+                android:onClick="organization_cardView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/cardView_adminHome_report"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView_adminHome_hospital" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_adminHome_Donor"
                 android:layout_width="0dp"
@@ -183,9 +232,10 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_adminHome_report"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:clickable="true"
@@ -194,8 +244,8 @@
                 android:onClick="report_cardView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toEndOf="@+id/cardView_adminHome_Organization"
+                app:layout_constraintTop_toBottomOf="@+id/cardView_adminHome_admin">
 
             </androidx.cardview.widget.CardView>
 
