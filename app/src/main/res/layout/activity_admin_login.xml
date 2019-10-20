@@ -76,6 +76,7 @@
                                     <com.google.android.material.textfield.TextInputEditText
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:id="@+id/editTextAdminLoginPhone"
                                         android:drawableStart="@drawable/ic_phone"
                                         android:drawablePadding="15dp"
                                         android:padding="20dp"
@@ -99,6 +100,7 @@
                                     <com.google.android.material.textfield.TextInputEditText
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:id="@+id/editTextadminLoginPassword"
                                         android:drawableStart="@drawable/ic_lock"
                                         android:drawablePadding="15dp"
                                         android:padding="20dp"

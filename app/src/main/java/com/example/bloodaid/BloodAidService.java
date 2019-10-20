@@ -32,4 +32,11 @@ public interface BloodAidService {
         @Field("blood_group")String blood_group
     );
 
+    @FormUrlEncoded
+    @POST("api/adminLogin.php")
+    Call<ResponseBody> loginAdmin(
+            @Field("phone") String phone,
+            @Field("password") String password
+    );
+
 }
