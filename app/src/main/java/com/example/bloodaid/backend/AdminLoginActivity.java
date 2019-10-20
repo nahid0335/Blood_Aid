@@ -1,4 +1,4 @@
-package com.example.bloodaid.backand;
+package com.example.bloodaid.backend;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.bloodaid.R;

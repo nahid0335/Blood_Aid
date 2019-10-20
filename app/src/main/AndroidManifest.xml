@@ -9,14 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".backand.AdminHome">
+        <activity android:name=".backend.AdminHome">
            <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
-        <activity android:name=".backand.AdminLoginActivity">
+        <activity android:name=".backend.AdminLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,10 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".backand.DonorActivity" />
-        <activity android:name=".backand.HospitalActivity" />
-        <activity android:name=".backand.AdminManage" />
-        <activity android:name=".backand.AmbulenceAdmin" />
+        <activity android:name=".backend.DonorActivity" />
+        <activity android:name=".backend.HospitalActivity" />
+        <activity android:name=".backend.AdminManage" />
+        <activity android:name=".backend.AmbulenceAdmin" />
 
         <activity
             android:name=".SplashScreen"

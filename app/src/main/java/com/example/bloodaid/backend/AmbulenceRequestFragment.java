@@ -1,4 +1,4 @@
-package com.example.bloodaid.backand;
+package com.example.bloodaid.backend;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
