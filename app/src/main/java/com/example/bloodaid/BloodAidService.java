@@ -1,9 +1,14 @@
 package com.example.bloodaid;
 
+import com.example.bloodaid.models.DonorModelClass;
+
+import java.util.List;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface BloodAidService {
@@ -38,5 +43,8 @@ public interface BloodAidService {
             @Field("phone") String phone,
             @Field("password") String password
     );
+
+    @GET("api/donorlist.php")
+    Call<List<DonorModelClass>> donorList();
 
 }
