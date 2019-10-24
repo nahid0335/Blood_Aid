@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.bloodaid.R;
+import com.example.bloodaid.backend.fragments.AmbulenceListFragment;
+import com.example.bloodaid.backend.fragments.AmbulenceRequestFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class AmbulenceAdmin extends AppCompatActivity {

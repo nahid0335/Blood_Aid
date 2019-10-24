@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.bloodaid.R;
+import com.example.bloodaid.backend.fragments.DonorListFragment;
+import com.example.bloodaid.backend.fragments.DonorRequestFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.content.Intent;
