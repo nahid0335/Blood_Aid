@@ -29,8 +29,6 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v =  inflater.inflate(R.layout.fragment_search, container, false);
-        TextView textView = v.findViewById(R.id.tt);
-        textView.setText(this.getArguments().getString("group"));
         return v;
     }
 

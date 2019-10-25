@@ -47,4 +47,17 @@ public interface BloodAidService {
     @GET("api/donorlist.php")
     Call<List<DonorModelClass>> donorList();
 
+    @FormUrlEncoded
+    @POST("api/sendrequest.php")
+    Call<ResponseBody> bloodRequestSend(
+        @Field("name")String name,
+        @Field("phone")String phone,
+        @Field("area_id")int area_id,
+        @Field("blood_unit")int blood_unit,
+        @Field("hospital")String hospital,
+        @Field("reason")String reason,
+        @Field("need_date")String need_date,
+        @Field("blood_group")String blood_group
+    );
+
 }

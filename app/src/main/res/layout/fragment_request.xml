@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".fragments.RequestFragment"
     android:background="@drawable/registrationbackground"
     >
@@ -61,6 +62,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:fitsSystemWindows="true"
                         app:errorEnabled="true"
                         app:boxBackgroundColor="@color/white"
                         >
@@ -69,7 +71,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:hint="Name"
-
+                            android:windowSoftInputMode="adjustPan"
                             android:inputType="textPersonName"
                             android:textAllCaps="true"
                             android:drawableLeft="@drawable/ic_person"
@@ -92,6 +94,7 @@
                             android:layout_height="50dp"
                             android:hint="Phone"
                             android:inputType="phone"
+                            android:windowSoftInputMode="adjustPan"
                             android:textAllCaps="true"
                             android:drawableLeft="@drawable/ic_phone"
                             android:drawablePadding="15dp" />
@@ -112,6 +115,7 @@
                             android:layout_height="50dp"
                             android:hint="Blood Unit"
                             android:inputType="number"
+                            android:windowSoftInputMode="adjustPan"
                             android:drawableLeft="@drawable/blooddrop"
                             android:drawablePadding="15dp"/>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -123,25 +127,38 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         app:boxBackgroundColor="@color/white"
-                        app:passwordToggleEnabled="true"
                         app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_hospital"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
+                            android:windowSoftInputMode="adjustPan"
                             android:drawableStart="@drawable/ic_home"
                             android:drawablePadding="15dp"
                             android:hint="Hospital"
-                            android:textAllCaps="true" />
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <android.inputmethodservice.ExtractEditText
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="When Need Blood ?"
+                        android:background="@color/red"
+                        android:textColor="@color/white"
+                        android:id="@+id/need_date_btn"
+                        android:layout_marginBottom="20dp"
+                        android:textSize="16dp"
+                        android:textAllCaps="false"
+                        />
+
+                    <EditText
                         android:id="@+id/et_reason"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:drawableStart="@drawable/ic_facts"
                         android:drawablePadding="15dp"
+                        android:windowSoftInputMode="adjustPan"
                         android:hint="@string/reason_text"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:background="@color/white"
