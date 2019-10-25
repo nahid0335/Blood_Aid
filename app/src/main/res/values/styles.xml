@@ -13,4 +13,9 @@
         <item name="android:windowBackground">@drawable/background_splashscreen</item>
     </style>
 
+    <style name="HomeTheme">
+        <item name="colorPrimaryDark">#FFFFFF</item>
+        <item name="colorPrimary">@color/super_light_black</item>
+    </style>
+
 </resources>

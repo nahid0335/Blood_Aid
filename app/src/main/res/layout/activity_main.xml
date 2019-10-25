@@ -8,54 +8,6 @@
     android:background="#9B9191"
     tools:context=".MainActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/main_profile"
-        android:layout_width="0dp"
-        android:layout_margin="3dp"
-        android:elevation="10dp"
-        android:layout_height="wrap_content"
-        android:background="@color/green"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:paddingHorizontal="5dp"
-                android:layout_marginHorizontal="15dp"
-                android:src="@drawable/blooddrop"
-                app:civ_border_color="@color/blackish"
-                app:civ_border_width="2dp" />
-
-            <LinearLayout
-                android:layout_gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/main_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Rezwan Pranto" />
-
-                <TextView
-                    android:id="@+id/main_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Sundargonj, Gaibandha" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
 
     <FrameLayout
         android:id="@+id/main_display"
@@ -64,7 +16,7 @@
         app:layout_constraintBottom_toTopOf="@+id/main_bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_profile"
+        app:layout_constraintTop_toTopOf="parent"
         >
 
     </FrameLayout>

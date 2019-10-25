@@ -10,13 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.R;
+import com.squareup.picasso.Picasso;
 
 public class HomeFragment extends Fragment {
     Group mBloodGroups;
     Button mBloodSearchIcon;
     Boolean bloodGroupShowState = true;
+    ImageView mProfilePic;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -28,6 +32,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         init(v);
+        profileWork();
 
         //search bar start
         mBloodSearchIcon.setOnClickListener(new View.OnClickListener() {
@@ -52,8 +57,16 @@ public class HomeFragment extends Fragment {
     }
 
     private void init(View v) {
+        mProfilePic = v.findViewById(R.id.profile_image);
         mBloodGroups = v.findViewById(R.id.blood_groups);
         mBloodSearchIcon = v.findViewById(R.id.search_btn);
+
     }
+
+    private void profileWork() {
+        Picasso.get().load("file:///android_asset/images/profile_pic.jpg").into(mProfilePic);
+    }
+
+
 
 }

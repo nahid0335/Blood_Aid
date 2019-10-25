@@ -18,6 +18,7 @@
     <string name="facts_text">Facts</string>
     <string name="history_text">History</string>
     <string name="app_info_text">App Info</string>
+    <string name="reason_text">Why do he/she need blood ?</string>
 
     <string-array name="blood_items">
         <item>Choose Blood Group</item>

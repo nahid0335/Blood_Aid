@@ -7,27 +7,27 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.example.bloodaid.fragments.FeedFragment;
 import com.example.bloodaid.fragments.HomeFragment;
 import com.example.bloodaid.fragments.NotificationFragment;
 import com.example.bloodaid.fragments.RequestFragment;
+import com.example.bloodaid.fragments.SearchDialog;
 import com.example.bloodaid.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
-    ImageView mProfilePic;
-    BottomNavigationView mBottomNav;
+    public static BottomNavigationView mBottomNav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         init();
-        profileWork();
 
         mBottomNav.setOnNavigationItemSelectedListener(navListener);
         if(savedInstanceState == null){
@@ -38,14 +38,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        mProfilePic = findViewById(R.id.profile_image);
         mBottomNav = findViewById(R.id.main_bottom_nav);
     }
 
-    private void profileWork() {
-
-        Picasso.get().load("file:///android_asset/images/profile_pic.jpg").into(mProfilePic);
-    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -62,18 +57,52 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new HomeFragment();
                     break;
                 case R.id.nav_search:
-                    selectedFragment = new SearchFragment();
-                    break;
+                    SearchDialog searchDialog = new SearchDialog();
+                    searchDialog.show(getSupportFragmentManager(), "Hello");
+                    return true;
                 case R.id.nav_notifications:
                     selectedFragment = new NotificationFragment();
                     break;
                 default:
                     AllToasts.errorToast(MainActivity.this,"Something Goes Wrong !");
                     break;
-
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.main_display, selectedFragment).commit();
             return true;
         }
     };
+
+
+
+
+    public void bloodGroupSearchClicked(View view){
+        SearchDialog searchDialog = new SearchDialog();
+        Bundle bundle = new Bundle();
+        SearchFragment searchFragment = new SearchFragment();
+
+        if(R.id.group_a_pos == view.getId()){
+            searchDialog.show(getSupportFragmentManager(), "A+");
+            bundle.putString("group", "A+");
+            searchFragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_display,searchFragment).commit();
+        }
+        else if(R.id.group_a_neg == view.getId()){
+            searchDialog.show(getSupportFragmentManager(), "A-");
+        }else if(R.id.group_ab_pos == view.getId()){
+            searchDialog.show(getSupportFragmentManager(), "AB+");
+        }else if(R.id.group_ab_neg == view.getId()){
+            searchDialog.show(getSupportFragmentManager(), "AB-");
+        }else if(R.id.group_o_pos == view.getId()){
+            searchDialog.show(getSupportFragmentManager(), "O+");
+        }else if(R.id.group_o_neg == view.getId()){
+            searchDialog.show(getSupportFragmentManager(), "O-");
+        }else if(R.id.group_b_pos == view.getId()){
+            searchDialog.show(getSupportFragmentManager(), "B+");
+        }else if(R.id.group_b_neg == view.getId()){
+            searchDialog.show(getSupportFragmentManager(), "B-");
+        }else {
+            searchDialog.show(getSupportFragmentManager(), "NULL");
+        }
+    }
+
 }
