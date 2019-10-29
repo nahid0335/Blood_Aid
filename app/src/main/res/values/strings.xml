@@ -19,6 +19,8 @@
     <string name="history_text">History</string>
     <string name="app_info_text">App Info</string>
     <string name="reason_text">Why do he/she need blood ?</string>
+    <string name="popupDelete_details">Are you sure to delete ?</string>
+    <string name="popupDelete_delete">Delete</string>
 
     <string-array name="blood_items">
         <item>Choose Blood Group</item>

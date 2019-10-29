@@ -1,10 +1,16 @@
 package com.example.bloodaid.backend.fragments;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.bloodaid.BloodAidService;
@@ -37,6 +43,10 @@ public class DonorListFragment extends Fragment {
     ArrayList<HashMap<String, String>> donorList;
     AdminDonorListAdapter adminDonorListAdapter;
     RecyclerView recyclerView;
+    Dialog dialog;
+    ImageView closepopupimg;
+    Button deletebtn;
+
 
     @Nullable
     @Override
@@ -47,6 +57,13 @@ public class DonorListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         donorList = new ArrayList<>();
+
+
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         final Call<List<DonorModelClass> > call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidService.class)
@@ -102,6 +119,7 @@ public class DonorListFragment extends Fragment {
                         Toast.makeText(getContext(), t.getMessage()+" .", Toast.LENGTH_LONG).show();
                     }
                 });
+                progressDialog.dismiss();
             }
         });
         t.start();
@@ -110,6 +128,7 @@ public class DonorListFragment extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        progressDialog.show();
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         return rootView;
     }
@@ -124,70 +143,87 @@ public class DonorListFragment extends Fragment {
 
         @Override
         public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
+            dialog = new Dialog(getContext());
+            dialog.setContentView(R.layout.popup_negative);
+            closepopupimg = dialog.findViewById(R.id.imageView_popupNegative_close);
+            deletebtn = dialog.findViewById(R.id.button_popupNegative_delete);
+            dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(false);
 
-            String donarId = donorList.get(viewHolder.getAdapterPosition()).get("donorid");
-            final int idx = donorList.indexOf(donorList.get(viewHolder.getAdapterPosition()));
-
-
-            final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
-                    .create(BloodAidService.class)
-                    .deleteDonor(Integer.valueOf(donarId));
-
-            Thread thread =  new Thread(new Runnable() {
+            closepopupimg.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void run() {
-                    call.enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            try {
-                                String s = response.body().string();
+                public void onClick(View view) {
+                    adminDonorListAdapter.notifyDataSetChanged();
+                    dialog.dismiss();
 
-                                //Response parsing
-                                String status;
-                                if (s.isEmpty()) {
-                                    status = "Failed";
-                                    Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-
-                                } else {
-                                    JSONObject object = new JSONObject(s);
-                                    status = object.getString("message");
-                                    Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                    adminDonorListAdapter.notifyDataSetChanged();
-                                    donorList.remove(donorList.get(idx));
-                                }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(getContext(), e.getMessage() + " - JSON", Toast.LENGTH_LONG).show();
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                Toast.makeText(getContext(), e.getMessage() + " - IO", Toast.LENGTH_LONG).show();
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            Toast.makeText(getContext(), t.getMessage() + " .", Toast.LENGTH_LONG).show();
-                        }
-                    });
                 }
             });
-            thread.start();
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            deletebtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String donarId = donorList.get(viewHolder.getAdapterPosition()).get("donorid");
+                    final int idx = donorList.indexOf(donorList.get(viewHolder.getAdapterPosition()));
 
 
+                    final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                            .create(BloodAidService.class)
+                            .deleteDonor(Integer.valueOf(donarId));
+
+                    Thread thread =  new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            call.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    try {
+                                        String s = response.body().string();
+
+                                        //Response parsing
+                                        String status;
+                                        if (s.isEmpty()) {
+                                            status = "Failed";
+                                            Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
+
+                                        } else {
+                                            JSONObject object = new JSONObject(s);
+                                            status = object.getString("message");
+                                            Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
+                                            adminDonorListAdapter.notifyDataSetChanged();
+                                            donorList.remove(donorList.get(idx));
+                                        }
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(), e.getMessage() + " - JSON", Toast.LENGTH_LONG).show();
+
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(), e.getMessage() + " - IO", Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(getContext(), t.getMessage() + " .", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    });
+                    thread.start();
+                    try {
+                        thread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            dialog.show();
         }
-
     };
-
-
-
-
-
 }
