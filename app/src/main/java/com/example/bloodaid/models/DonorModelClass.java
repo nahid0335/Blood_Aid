@@ -2,6 +2,7 @@ package com.example.bloodaid.models;
 
 
 public class DonorModelClass {
+    private Integer DonorId;
    private String Name;
    private String Mobile;
    private String District;
@@ -9,6 +10,10 @@ public class DonorModelClass {
    private Integer DonateCount;
    private String LastDonate;
    private Integer Status;
+
+    public Integer getDonorId() {
+        return DonorId;
+    }
 
     public String getName() {
         return Name;
@@ -36,6 +41,10 @@ public class DonorModelClass {
 
     public Integer getStatus() {
         return Status;
+    }
+
+    public void setDonorId(Integer donorId) {
+        DonorId = donorId;
     }
 
     public void setName(String name) {
