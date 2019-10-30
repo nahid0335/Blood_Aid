@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AdminDonorListAdapter extends RecyclerView.Adapter<AdminDonorListHolder> {
     private Context context;
     private ArrayList<HashMap<String, String>> donorlist;
+
+
     public AdminDonorListAdapter(Context context, ArrayList<HashMap<String, String>> donorlist) {
         this.context = context;
         this.donorlist=donorlist;

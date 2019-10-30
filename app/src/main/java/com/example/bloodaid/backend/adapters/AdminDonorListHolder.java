@@ -22,5 +22,6 @@ public class AdminDonorListHolder extends RecyclerView.ViewHolder {
         lastdonatetxt = itemView.findViewById(R.id.textView_adminDonorList_lastDonate);
         statustxt = itemView.findViewById(R.id.textView_adminDonorList_status);
 
+
     }
 }

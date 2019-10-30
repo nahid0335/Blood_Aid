@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,7 @@ public class DonorListFragment extends Fragment {
 
     ArrayList<HashMap<String, String>> donorList;
     AdminDonorListAdapter adminDonorListAdapter;
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     Dialog dialog;
     ImageView closepopupimg;
     Button deletebtn;
@@ -107,11 +106,10 @@ public class DonorListFragment extends Fragment {
 
                                 donorList.add(donorDetails);
 
-
-                                adminDonorListAdapter = new AdminDonorListAdapter(getContext(),donorList);
-                                recyclerView.setAdapter(adminDonorListAdapter);
                             }
-
+                        adminDonorListAdapter = new AdminDonorListAdapter(getContext(),donorList);
+                        recyclerView.setAdapter(adminDonorListAdapter);
+                        progressDialog.dismiss();
                     }
 
                     @Override
@@ -119,7 +117,6 @@ public class DonorListFragment extends Fragment {
                         Toast.makeText(getContext(), t.getMessage()+" .", Toast.LENGTH_LONG).show();
                     }
                 });
-                progressDialog.dismiss();
             }
         });
         t.start();
@@ -145,8 +142,8 @@ public class DonorListFragment extends Fragment {
         public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
             dialog = new Dialog(getContext());
             dialog.setContentView(R.layout.popup_negative);
-            closepopupimg = dialog.findViewById(R.id.imageView_popupNegative_close);
-            deletebtn = dialog.findViewById(R.id.button_popupNegative_delete);
+            closepopupimg = dialog.findViewById(R.id.imageView_popupNeutral_close);
+            deletebtn = dialog.findViewById(R.id.button_popupNeutral_delete);
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(false);
 

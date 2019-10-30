@@ -21,6 +21,9 @@
     <string name="reason_text">Why do he/she need blood ?</string>
     <string name="popupDelete_details">Are you sure to delete ?</string>
     <string name="popupDelete_delete">Delete</string>
+    <string name="popupneutral_title">Donor Request</string>
+    <string name="popupNeutral_message">What do you want ?</string>
+    <string name="popupNeutral_acceptButton">Accept</string>
 
     <string-array name="blood_items">
         <item>Choose Blood Group</item>

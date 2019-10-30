@@ -1,6 +1,7 @@
 package com.example.bloodaid;
 
 import com.example.bloodaid.models.DonorModelClass;
+import com.example.bloodaid.models.DonorRequestModelClass;
 
 import java.util.List;
 
@@ -66,6 +67,22 @@ public interface BloodAidService {
     @POST("api/deleteDonorListItem.php")
     Call<ResponseBody> deleteDonor(
             @Field("donorid") Integer donorid
+    );
+
+
+    @GET("api/readDonorRequest.php")
+    Call<List<DonorRequestModelClass>> donorRequestList();
+
+    @FormUrlEncoded
+    @POST("api/deleteDonorRequestItem.php")
+    Call<ResponseBody> deleteDonorRequest(
+            @Field("donorrequestid") Integer donorrequestid
+    );
+
+    @FormUrlEncoded
+    @POST("api/acceptDonorRequestItem.php")
+    Call<ResponseBody> acceptDonorRequest(
+            @Field("donorrequestid") Integer donorrequestid
     );
 
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +11,6 @@
         android:layout_height="50dp"
         android:elevation="8dp"
         android:longClickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="@+id/cardView"
         app:srcCompat="@drawable/ic_cancel" />
@@ -20,7 +18,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="10dp"
@@ -36,11 +34,11 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:elevation="5dp"
         android:padding="5dp"
-        android:text="Alert"
-        android:textColor="#FF0F00"
+        android:text="@string/popupneutral_title"
+        android:textColor="#000000"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
@@ -57,40 +55,53 @@
         android:layout_marginBottom="5dp"
         android:elevation="5dp"
         android:padding="5dp"
-        android:text="@string/popupDelete_details"
+        android:text="@string/popupNeutral_message"
         android:textColor="#020202"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/button_popupNeutral_delete"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
         android:id="@+id/button_popupNeutral_delete"
-        android:layout_width="0dp"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/button_register_ui"
         android:elevation="5dp"
-        android:padding="5dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="5dp"
         android:text="@string/popupDelete_delete"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintEnd_toStartOf="@+id/button_popupNeutral_accept"
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="10dp"
+    <Button
+        android:id="@+id/button_popupNeutral_accept"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/acceptbuttonui_popupneutral"
         android:elevation="5dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="5dp"
+        android:text="@string/popupNeutral_acceptButton"
+        android:textColor="#030303"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:srcCompat="@drawable/ic_delete_black_24dp" />
+        app:layout_constraintStart_toEndOf="@+id/button_popupNeutral_delete"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
