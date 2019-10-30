@@ -55,7 +55,7 @@ public class DonorRequestFragment extends Fragment {
 
         donorRequestList = new ArrayList<>();
 
-        Log.v("Tag","1st");
+       // Log.v("Tag","1st");
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Loading...");
         progressDialog.setMessage("Please wait...");

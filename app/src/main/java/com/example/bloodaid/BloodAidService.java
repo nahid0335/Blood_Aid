@@ -1,6 +1,7 @@
 package com.example.bloodaid;
 
 import com.example.bloodaid.models.AmbulanceModelClass;
+import com.example.bloodaid.models.AmbulanceRequestModelClass;
 import com.example.bloodaid.models.DonorModelClass;
 import com.example.bloodaid.models.DonorRequestModelClass;
 
@@ -122,6 +123,26 @@ public interface BloodAidService {
             @Field("ambulanceid") Integer ambulanceid
     );
     //Ambulance List end
+
+
+    //Ambulance Request Start
+    @GET("api/readAmbulanceRequest.php")
+    Call<List<AmbulanceRequestModelClass>> ambulanceRequestList();
+
+    @FormUrlEncoded
+    @POST("api/deleteAmbulanceRequestItem.php")
+    Call<ResponseBody> deleteAmbulanceRequest(
+            @Field("ambulancerequestid") Integer ambulancerequestid
+    );
+
+    @FormUrlEncoded
+    @POST("api/acceptAmbulanceRequestItem.php")
+    Call<ResponseBody> acceptAmbulanceRequest(
+            @Field("ambulancerequestid") Integer ambulancerequestid
+    );
+    //Ambulance Request End
+
+
 
 
     //Backend End
