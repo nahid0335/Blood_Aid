@@ -10,16 +10,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.bloodaid.R;
-import com.example.bloodaid.backend.fragments.AmbulenceListFragment;
-import com.example.bloodaid.backend.fragments.AmbulenceRequestFragment;
+import com.example.bloodaid.backend.fragments.AmbulanceListFragment;
+import com.example.bloodaid.backend.fragments.AmbulanceRequestFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class AmbulenceAdmin extends AppCompatActivity {
+public class AmbulanceAdmin extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ambulence_admin);
+        setContentView(R.layout.activity_ambulance_admin);
 
         BottomNavigationView DonorNavBer = findViewById(R.id.bottomNavigationView_adminAmbulence_navBer);
         DonorNavBer.setOnNavigationItemSelectedListener(navListener);
@@ -27,7 +27,7 @@ public class AmbulenceAdmin extends AppCompatActivity {
 
         //I added this if statement to keep the selected fragment when rotating the device
         if (savedInstanceState == null) {
-            loadFragment(new AmbulenceListFragment());
+            loadFragment(new AmbulanceListFragment());
         }
 
     }
@@ -38,14 +38,14 @@ public class AmbulenceAdmin extends AppCompatActivity {
             Fragment selectedFragment = null;
             switch (menuItem.getItemId()){
                 case R.id.icon_adminMenu_home:
-                    startActivity(new Intent(AmbulenceAdmin.this,AdminHome.class));
+                    startActivity(new Intent(AmbulanceAdmin.this,AdminHome.class));
                     finish();
                 case R.id.icon_adminMenu_list:
-                    selectedFragment = new AmbulenceListFragment();
+                    selectedFragment = new AmbulanceListFragment();
                     loadFragment(selectedFragment);
                     return true;
                 case R.id.icon_adminMenu_request:
-                    selectedFragment = new AmbulenceRequestFragment();
+                    selectedFragment = new AmbulanceRequestFragment();
                     loadFragment(selectedFragment);
                     return true;
             }
@@ -56,8 +56,14 @@ public class AmbulenceAdmin extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameLayout_adminAmbulence_show, fragment);
+        transaction.replace(R.id.frameLayout_adminAmbulence_show, fragment).addToBackStack(null);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AmbulanceAdmin.this,AdminHome.class));
+        finish();
     }
 }

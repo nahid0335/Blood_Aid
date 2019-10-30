@@ -24,6 +24,11 @@
     <string name="popupneutral_title">Donor Request</string>
     <string name="popupNeutral_message">What do you want ?</string>
     <string name="popupNeutral_acceptButton">Accept</string>
+    <string name="recyclerViewAmbulance_email">Email :</string>
+    <string name="recyclerViewAmbulance_details">Details :</string>
+    <string name="random">  open - 7 am\n
+                            close - 10 pm\n
+                            contact me!!</string>
 
     <string-array name="blood_items">
         <item>Choose Blood Group</item>

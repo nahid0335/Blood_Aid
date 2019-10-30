@@ -1,5 +1,6 @@
 package com.example.bloodaid;
 
+import com.example.bloodaid.models.AmbulanceModelClass;
 import com.example.bloodaid.models.DonorModelClass;
 import com.example.bloodaid.models.DonorRequestModelClass;
 
@@ -16,14 +17,15 @@ import retrofit2.http.Path;
 
 public interface BloodAidService {
 
+    //Frontend Start
+
+
     @FormUrlEncoded
     @POST("api/login.php")
     Call<ResponseBody> loginUser(
             @Field("phone") String phone,
             @Field("password") String password
     );
-
-
 
     @FormUrlEncoded
     @POST("api/registration.php")
@@ -41,16 +43,6 @@ public interface BloodAidService {
     );
 
     @FormUrlEncoded
-    @POST("api/adminLogin.php")
-    Call<ResponseBody> loginAdmin(
-            @Field("phone") String phone,
-            @Field("password") String password
-    );
-
-    @GET("api/donorlist.php")
-    Call<List<DonorModelClass>> donorList();
-
-    @FormUrlEncoded
     @POST("api/sendrequest.php")
     Call<ResponseBody> bloodRequestSend(
         @Field("name")String name,
@@ -63,12 +55,44 @@ public interface BloodAidService {
         @Field("blood_group")String blood_group
     );
 
+
+    //Frontend End
+
+
+
+
+
+
+    //Backend Start
+
+    //Admin Login Start
+
+    @FormUrlEncoded
+    @POST("api/adminLogin.php")
+    Call<ResponseBody> loginAdmin(
+            @Field("phone") String phone,
+            @Field("password") String password
+    );
+
+    //Admin Login End
+
+
+    //Donor List start
+
+    @GET("api/readDonorList.php")
+    Call<List<DonorModelClass>> donorList();
+
     @FormUrlEncoded
     @POST("api/deleteDonorListItem.php")
     Call<ResponseBody> deleteDonor(
             @Field("donorid") Integer donorid
     );
 
+    //Donor List end
+
+
+
+    //Donor Request Start
 
     @GET("api/readDonorRequest.php")
     Call<List<DonorRequestModelClass>> donorRequestList();
@@ -84,5 +108,22 @@ public interface BloodAidService {
     Call<ResponseBody> acceptDonorRequest(
             @Field("donorrequestid") Integer donorrequestid
     );
+
+    //Donor Request end
+
+
+    //Ambulance List start
+    @GET("api/readAmbulanceList.php")
+    Call<List<AmbulanceModelClass>> ambulanceList();
+
+    @FormUrlEncoded
+    @POST("api/deleteAmbulanceListItem.php")
+    Call<ResponseBody> deleteAmbulance(
+            @Field("ambulanceid") Integer ambulanceid
+    );
+    //Ambulance List end
+
+
+    //Backend End
 
 }

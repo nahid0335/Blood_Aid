@@ -261,11 +261,12 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="80dp"
                 android:elevation="10dp"
+                android:padding="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_ambulence"
                 app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_ambulence"
                 app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_ambulence"
                 app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_ambulence"
-                app:srcCompat="@drawable/blooddrop1" />
+                app:srcCompat="@drawable/ambulance" />
 
             <ImageView
                 android:id="@+id/imageView_adminHome_adminIcon"
@@ -287,11 +288,12 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="80dp"
                 android:elevation="10dp"
+                android:padding="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_hospital"
                 app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_hospital"
                 app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_hospital"
                 app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_hospital"
-                app:srcCompat="@drawable/blooddrop1" />
+                app:srcCompat="@drawable/hospital" />
 
             <ImageView
                 android:id="@+id/imageView_adminHome_reportIcon"

@@ -23,7 +23,7 @@ public class AdminHome extends AppCompatActivity {
     }
 
     public void ambulence_cardView(View view) {
-        startActivity(new Intent(AdminHome.this,AmbulenceAdmin.class));
+        startActivity(new Intent(AdminHome.this, AmbulanceAdmin.class));
         finish();
     }
 
