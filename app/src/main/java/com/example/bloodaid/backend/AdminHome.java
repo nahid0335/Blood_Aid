@@ -37,6 +37,11 @@ public class AdminHome extends AppCompatActivity {
         finish();
     }
 
+    public void organization_cardView(View view) {
+        startActivity(new Intent(AdminHome.this,OrganizationActivity.class));
+        finish();
+    }
+
     public void report_cardView(View view) {
         AllToasts.successToast(AdminHome.this, "Report");
     }
@@ -49,6 +54,5 @@ public class AdminHome extends AppCompatActivity {
         AllToasts.successToast(AdminHome.this, "Logout");
     }
 
-    public void organization_cardView(View view) {
-    }
+
 }

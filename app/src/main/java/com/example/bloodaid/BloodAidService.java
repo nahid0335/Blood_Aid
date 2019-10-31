@@ -6,6 +6,8 @@ import com.example.bloodaid.models.DonorModelClass;
 import com.example.bloodaid.models.DonorRequestModelClass;
 import com.example.bloodaid.models.HospitalModelClass;
 import com.example.bloodaid.models.HospitalRequestModelClass;
+import com.example.bloodaid.models.OrganizationModelClass;
+import com.example.bloodaid.models.OrganizationRequestModelClass;
 
 import java.util.List;
 
@@ -173,6 +175,37 @@ public interface BloodAidService {
             @Field("hospitalrequestid") Integer hospitalrequestid
     );
     //Hospital Request End
+
+
+
+    //Organization List start
+    @GET("api/readOrganizationList.php")
+    Call<List<OrganizationModelClass>> organizationList();
+
+    @FormUrlEncoded
+    @POST("api/deleteOrganizationListItem.php")
+    Call<ResponseBody> deleteOrganization(
+            @Field("organizationlid") Integer organizationid
+    );
+    //Organization List end
+
+
+    //Organization Request Start
+    @GET("api/readOrganizationRequest.php")
+    Call<List<OrganizationRequestModelClass>> organizationRequestList();
+
+    @FormUrlEncoded
+    @POST("api/deleteOrganizationRequestItem.php")
+    Call<ResponseBody> deleteOrganizationRequest(
+            @Field("organizationrequestid") Integer organizationrequestid
+    );
+
+    @FormUrlEncoded
+    @POST("api/acceptOrganizationRequestItem.php")
+    Call<ResponseBody> acceptOrganizationRequest(
+            @Field("organizationrequestid") Integer organizationrequestid
+    );
+    //Organization Request End
 
 
 
