@@ -4,6 +4,8 @@ import com.example.bloodaid.models.AmbulanceModelClass;
 import com.example.bloodaid.models.AmbulanceRequestModelClass;
 import com.example.bloodaid.models.DonorModelClass;
 import com.example.bloodaid.models.DonorRequestModelClass;
+import com.example.bloodaid.models.HospitalModelClass;
+import com.example.bloodaid.models.HospitalRequestModelClass;
 
 import java.util.List;
 
@@ -141,6 +143,37 @@ public interface BloodAidService {
             @Field("ambulancerequestid") Integer ambulancerequestid
     );
     //Ambulance Request End
+
+
+    //Hospital List start
+    @GET("api/readHospitalList.php")
+    Call<List<HospitalModelClass>> hospitalList();
+
+    @FormUrlEncoded
+    @POST("api/deleteHospitalListItem.php")
+    Call<ResponseBody> deleteHospital(
+            @Field("hospitalid") Integer hospitalid
+    );
+    //Hospital List end
+
+
+    //Hospital Request Start
+    @GET("api/readHospitalRequest.php")
+    Call<List<HospitalRequestModelClass>> hospitalRequestList();
+
+    @FormUrlEncoded
+    @POST("api/deleteHospitalRequestItem.php")
+    Call<ResponseBody> deleteHospitalRequest(
+            @Field("hospitalrequestid") Integer hospitalrequestid
+    );
+
+    @FormUrlEncoded
+    @POST("api/acceptHospitalRequestItem.php")
+    Call<ResponseBody> acceptHospitalRequest(
+            @Field("hospitalrequestid") Integer hospitalrequestid
+    );
+    //Hospital Request End
+
 
 
 

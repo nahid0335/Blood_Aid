@@ -142,8 +142,8 @@ public class DonorListFragment extends Fragment {
         public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
             dialog = new Dialog(getContext());
             dialog.setContentView(R.layout.popup_negative);
-            closepopupimg = dialog.findViewById(R.id.imageView_popupNeutral_close);
-            deletebtn = dialog.findViewById(R.id.button_popupNeutral_delete);
+            closepopupimg = dialog.findViewById(R.id.imageView_popupNegative_close);
+            deletebtn = dialog.findViewById(R.id.button_popupNegative_delete);
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(false);
 

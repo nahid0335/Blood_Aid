@@ -58,8 +58,15 @@ public class HospitalActivity extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameLayout_adminHospital_show, fragment);
+        transaction.replace(R.id.frameLayout_adminHospital_show, fragment).addToBackStack(null);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(HospitalActivity.this,AdminHome.class));
+        finish();
     }
 }
