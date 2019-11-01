@@ -11,15 +11,17 @@
         android:id="@+id/cardView_admnHome_topBer"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:elevation="2dp"
         android:clickable="true"
-        android:onClick="profile_cardView"
+        android:elevation="2dp"
         android:foreground="?android:selectableItemBackground"
+        android:onClick="profile_cardView"
         app:cardElevation="2dp"
         app:cardMaxElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/imageView_adminHome_profilePicture"
@@ -34,19 +36,6 @@
         app:layout_constraintTop_toTopOf="@+id/cardView_admnHome_topBer"
         app:srcCompat="@drawable/profile_default"
         android:contentDescription="@string/todo" />
-
-    <Button
-        android:id="@+id/button_adminHome_logOut"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
-        android:onClick="logout_button"
-        android:background="@drawable/user_interface_exit_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/cardView_admnHome_topBer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cardView_admnHome_topBer" />
 
     <TextView
         android:id="@+id/textView_adminHome_adminName"
@@ -65,9 +54,21 @@
         android:textStyle="bold"
         app:autoSizeMaxTextSize="25dp"
         app:autoSizeMinTextSize="18dp"
-        app:layout_constraintEnd_toStartOf="@+id/button_adminHome_logOut"
+        app:layout_constraintEnd_toStartOf="@+id/imageView5"
         app:layout_constraintStart_toEndOf="@+id/imageView_adminHome_profilePicture"
         app:layout_constraintTop_toTopOf="@+id/cardView_admnHome_topBer" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="5dp"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView_admnHome_topBer"
+        app:layout_constraintEnd_toEndOf="@id/cardView_admnHome_topBer"
+        app:layout_constraintTop_toTopOf="@id/cardView_admnHome_topBer"
+        app:srcCompat="@drawable/ic_notifications_shadow_24dp" />
 
     <TextView
         android:id="@+id/textView_adminHome_adminStatus"
@@ -86,7 +87,7 @@
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/cardView_admnHome_topBer"
-        app:layout_constraintEnd_toStartOf="@+id/button_adminHome_logOut"
+        app:layout_constraintEnd_toStartOf="@+id/imageView5"
         app:layout_constraintStart_toEndOf="@+id/imageView_adminHome_profilePicture"
         app:layout_constraintTop_toBottomOf="@+id/textView_adminHome_adminName" />
 
@@ -224,7 +225,7 @@
                 android:elevation="5dp"
                 android:foreground="?android:selectableItemBackground"
                 android:onClick="admin_cardView"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/cardView2"
                 app:layout_constraintEnd_toStartOf="@+id/cardView_adminHome_report"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView_adminHome_hospital">
@@ -242,7 +243,7 @@
                 android:elevation="5dp"
                 android:foreground="?android:selectableItemBackground"
                 android:onClick="report_cardView"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/cardView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardView_adminHome_admin"
                 app:layout_constraintTop_toBottomOf="@+id/cardView_adminHome_Organization">
@@ -411,6 +412,66 @@
                 app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_report"
                 app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_report"
                 app:layout_constraintTop_toBottomOf="@+id/imageView_adminHome_reportIcon" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+                app:layout_constraintEnd_toEndOf="@id/cardView2"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="@+id/cardView2"
+                app:srcCompat="@drawable/user_interface_exit_icon" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/cardView2"
+                app:srcCompat="@drawable/ic_delete_black_24dp" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+                app:layout_constraintEnd_toStartOf="@+id/cardView2"
+                app:layout_constraintStart_toStartOf="@id/imageView4"
+                app:layout_constraintTop_toTopOf="@+id/cardView2"
+                app:srcCompat="@drawable/ic_account_circle_black_24dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
