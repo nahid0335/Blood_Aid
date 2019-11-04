@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".backend.DonorActivity">
+    tools:context=".backend.ReportActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView_adminDonor_navBer"
-        android:layout_width="match_parent"
+        android:id="@+id/bottomNavigationView_adminReport_navBer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
         android:elevation="5dp"
@@ -17,17 +17,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottomnavigation_admin"/>
+        app:menu="@menu/bottomnavigation_report" />
 
     <FrameLayout
-        android:id="@+id/frameLayout_adminDonor_show"
+        android:id="@+id/frameLayout_adminReport_show"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView_adminDonor_navBer"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView_adminReport_navBer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

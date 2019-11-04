@@ -10,13 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
-import com.example.bloodaid.backend.adapters.AdminAmbulanceListadAdapter;
-import com.example.bloodaid.models.AmbulanceRequestModelClass;
+import com.example.bloodaid.backend.adapters.AdminOrganizationListAdapter;
+import com.example.bloodaid.backend.adapters.AdminReportListAdapter;
+import com.example.bloodaid.models.OrganizationRequestModelClass;
+import com.example.bloodaid.models.ReportDonorModelClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,10 +40,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AmbulanceRequestFragment extends Fragment {
-
-    private ArrayList<HashMap<String, String>> ambulanceRequestList;
-    private AdminAmbulanceListadAdapter adminAmbulanceListadapter;
+public class ReportDonorFragment extends Fragment {
+    private ArrayList<HashMap<String, String>> reportDonorList;
+    private AdminReportListAdapter adminReportListAdapter;
     private RecyclerView recyclerView;
     private Dialog dialog;
 
@@ -49,68 +51,68 @@ public class AmbulanceRequestFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_ambulancerequest,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_reportdonor,container,false);
 
-        recyclerView = rootView.findViewById(R.id.recyclerView_adminAmbulance_requestItem);
+        recyclerView = rootView.findViewById(R.id.recyclerView_adminReport_donorList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ambulanceRequestList = new ArrayList<>();
+        reportDonorList = new ArrayList<>();
 
-       // Log.v("Tag","1st");
+        // Log.v("Tag","1st");
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Loading...");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        final Call<List<AmbulanceRequestModelClass>> call = RetrofitInstance.getRetrofitInstance()
+        final Call<List<ReportDonorModelClass>> call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidService.class)
-                .ambulanceRequestList();
+                .reportDonorList();
 
         Thread t =  new Thread(new Runnable() {
             @Override
             public void run() {
 
-                call.enqueue(new Callback<List<AmbulanceRequestModelClass>>() {
+                call.enqueue(new Callback<List<ReportDonorModelClass>>() {
                     @Override
-                    public void onResponse(Call<List<AmbulanceRequestModelClass>> call, Response<List<AmbulanceRequestModelClass>> response) {
+                    public void onResponse(Call<List<ReportDonorModelClass>> call, Response<List<ReportDonorModelClass>> response) {
 
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                         }
 
 
-                        List<AmbulanceRequestModelClass> arrayObjects = response.body();
+                        List<ReportDonorModelClass> arrayObjects = response.body();
 
                         //Response parsing
-                        for(AmbulanceRequestModelClass value : arrayObjects){
+                        for(ReportDonorModelClass value : arrayObjects){
 
-                            Integer ambulanceRequestId = value.getAmbulanceRequestId();
+                            Integer reportDonorId = value.getReportDonorId();
                             String name = value.getName();
                             String mobile = value.getMobile();
                             String district = value.getDistrict();
                             String email = value.getEmail();
-                            String details = value.getDetails();
+                            Integer count = value.getReportCount();
 
-                            HashMap<String,String> ambulanceDetails = new HashMap<>();
-                            ambulanceDetails.put("ambulancerequestid",Integer.toString(ambulanceRequestId));
-                            ambulanceDetails.put("name",name);
-                            ambulanceDetails.put("mobile",mobile);
-                            ambulanceDetails.put("district",district);
-                            ambulanceDetails.put("email",email);
-                            ambulanceDetails.put("details",details);
+                            HashMap<String,String> reportDonorDetails = new HashMap<>();
+                            reportDonorDetails.put("reportdonorid",Integer.toString(reportDonorId));
+                            reportDonorDetails.put("name",name);
+                            reportDonorDetails.put("mobile",mobile);
+                            reportDonorDetails.put("district",district);
+                            reportDonorDetails.put("email",email);
+                            reportDonorDetails.put("reportcount",Integer.toString(count));
 
-                            ambulanceRequestList.add(ambulanceDetails);
+                            reportDonorList.add(reportDonorDetails);
 
                         }
-                        adminAmbulanceListadapter = new AdminAmbulanceListadAdapter(getContext(),ambulanceRequestList);
-                        recyclerView.setAdapter(adminAmbulanceListadapter);
+                        adminReportListAdapter = new AdminReportListAdapter(getContext(),reportDonorList);
+                        recyclerView.setAdapter(adminReportListAdapter);
                         progressDialog.dismiss();
 
                     }
 
                     @Override
-                    public void onFailure(Call<List<AmbulanceRequestModelClass>> call, Throwable t) {
+                    public void onFailure(Call<List<ReportDonorModelClass>> call, Throwable t) {
                         Toast.makeText(getContext(), t.getMessage()+" .", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -139,32 +141,32 @@ public class AmbulanceRequestFragment extends Fragment {
         @Override
         public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
             dialog = new Dialog(getContext());
-            dialog.setContentView(R.layout.popup_neutral);
-            ImageView closepopupimg = dialog.findViewById(R.id.imageView_popupNeutral_close);
-            Button deletebtn = dialog.findViewById(R.id.button_popupNeutral_delete);
-            Button acceptbtn = dialog.findViewById(R.id.button_popupNeutral_accept);
+            dialog.setContentView(R.layout.popup_reportdismiss);
+            ImageView closepopupimg = dialog.findViewById(R.id.imageView_popupReport_cancel);
+            TextView deletetxt = dialog.findViewById(R.id.textView_popupReport_delete);
+            TextView removetxt = dialog.findViewById(R.id.textView_popupReport_remove);
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(false);
 
             closepopupimg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    adminAmbulanceListadapter.notifyDataSetChanged();
+                    adminReportListAdapter.notifyDataSetChanged();
                     dialog.dismiss();
 
                 }
             });
 
-            deletebtn.setOnClickListener(new View.OnClickListener() {
+            removetxt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String ambulancerequestId = ambulanceRequestList.get(viewHolder.getAdapterPosition()).get("ambulancerequestid");
-                    final int idx = ambulanceRequestList.indexOf(ambulanceRequestList.get(viewHolder.getAdapterPosition()));
+                    String reportDonorId = reportDonorList.get(viewHolder.getAdapterPosition()).get("reportdonorid");
+                    final int idx = reportDonorList.indexOf(reportDonorList.get(viewHolder.getAdapterPosition()));
 
 
                     final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
                             .create(BloodAidService.class)
-                            .deleteAmbulanceRequest(Integer.valueOf(ambulancerequestId));
+                            .deleteReportDonor(Integer.valueOf(reportDonorId));
 
                     Thread thread =  new Thread(new Runnable() {
                         @Override
@@ -185,8 +187,8 @@ public class AmbulanceRequestFragment extends Fragment {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminAmbulanceListadapter.notifyDataSetChanged();
-                                            ambulanceRequestList.remove(ambulanceRequestList.get(idx));
+                                            adminReportListAdapter.notifyDataSetChanged();
+                                            reportDonorList.remove(reportDonorList.get(idx));
                                         }
 
                                     } catch (JSONException e) {
@@ -217,16 +219,16 @@ public class AmbulanceRequestFragment extends Fragment {
                 }
             });
 
-            acceptbtn.setOnClickListener(new View.OnClickListener() {
+            deletetxt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String ambulancerequestId = ambulanceRequestList.get(viewHolder.getAdapterPosition()).get("ambulancerequestid");
-                    final int idx = ambulanceRequestList.indexOf(ambulanceRequestList.get(viewHolder.getAdapterPosition()));
+                    String reportDonorId = reportDonorList.get(viewHolder.getAdapterPosition()).get("reportdonorid");
+                    final int idx = reportDonorList.indexOf(reportDonorList.get(viewHolder.getAdapterPosition()));
 
 
                     final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
                             .create(BloodAidService.class)
-                            .acceptAmbulanceRequest(Integer.valueOf(ambulancerequestId));
+                            .deleteReportDonorAccount(Integer.valueOf(reportDonorId));
 
                     Thread thread =  new Thread(new Runnable() {
                         @Override
@@ -247,8 +249,8 @@ public class AmbulanceRequestFragment extends Fragment {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminAmbulanceListadapter.notifyDataSetChanged();
-                                            ambulanceRequestList.remove(ambulanceRequestList.get(idx));
+                                            adminReportListAdapter.notifyDataSetChanged();
+                                            reportDonorList.remove(reportDonorList.get(idx));
                                         }
 
                                     } catch (JSONException e) {
@@ -285,4 +287,6 @@ public class AmbulanceRequestFragment extends Fragment {
             dialog.show();
         }
     };
+
+
 }

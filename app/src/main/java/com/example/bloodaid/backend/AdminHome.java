@@ -52,7 +52,8 @@ public class AdminHome extends AppCompatActivity {
     }
 
     public void report_cardView(View view) {
-        AllToasts.successToast(AdminHome.this, "Report");
+        startActivity(new Intent(AdminHome.this,ReportActivity.class));
+        finish();
     }
 
 

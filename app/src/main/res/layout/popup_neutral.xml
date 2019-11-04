@@ -11,6 +11,7 @@
         android:layout_height="50dp"
         android:elevation="8dp"
         android:longClickable="true"
+        android:foreground="?android:selectableItemBackground"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="@+id/cardView"
         app:srcCompat="@drawable/ic_cancel" />
@@ -78,6 +79,7 @@
         android:text="@string/popupDelete_delete"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:foreground="?android:selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toStartOf="@+id/button_popupNeutral_accept"
         app:layout_constraintStart_toStartOf="@+id/cardView"
@@ -99,6 +101,7 @@
         android:textColor="#030303"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:foreground="?android:selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintStart_toEndOf="@+id/button_popupNeutral_delete"

@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
-import com.example.bloodaid.backend.adapters.AdminAmbulanceListadApter;
+import com.example.bloodaid.backend.adapters.AdminAmbulanceListadAdapter;
 import com.example.bloodaid.models.AmbulanceModelClass;
 
 import org.json.JSONException;
@@ -40,7 +40,7 @@ import retrofit2.Response;
 public class AmbulanceListFragment extends Fragment {
 
     ArrayList<HashMap<String, String>> ambulanceList;
-    AdminAmbulanceListadApter adminAmbulanceListadapter;
+    AdminAmbulanceListadAdapter adminAmbulanceListadapter;
     private RecyclerView recyclerView;
     Dialog dialog;
     ImageView closepopupimg;
@@ -105,7 +105,7 @@ public class AmbulanceListFragment extends Fragment {
                             ambulanceList.add(ambulanceDetails);
 
                         }
-                        adminAmbulanceListadapter = new AdminAmbulanceListadApter(getContext(),ambulanceList);
+                        adminAmbulanceListadapter = new AdminAmbulanceListadAdapter(getContext(),ambulanceList);
                         recyclerView.setAdapter(adminAmbulanceListadapter);
                         progressDialog.dismiss();
                     }

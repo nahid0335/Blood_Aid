@@ -14,12 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AdminAmbulanceListadApter extends RecyclerView.Adapter<AdminAmbulanceListHolder> {
+public class AdminAmbulanceListadAdapter extends RecyclerView.Adapter<AdminAmbulanceListHolder> {
     private Context context;
     private ArrayList<HashMap<String, String>> ambulanceList;
 
 
-    public AdminAmbulanceListadApter(Context context, ArrayList<HashMap<String, String>> ambulanceList) {
+    public AdminAmbulanceListadAdapter(Context context, ArrayList<HashMap<String, String>> ambulanceList) {
         this.context = context;
         this.ambulanceList=ambulanceList;
     }

@@ -29,6 +29,10 @@
     <string name="random">  open - 7 am\n
                             close - 10 pm\n
                             contact me!!</string>
+    <string name="recycleViewAdminReport_reportCount">Report Count :</string>
+    <string name="popupReport_details">What do you want to do ?</string>
+    <string name="popupReport_removetextView">Remove ID</string>
+    <string name="popupReport_deletetextView">Delete ID</string>
 
     <string-array name="blood_items">
         <item>Choose Blood Group</item>

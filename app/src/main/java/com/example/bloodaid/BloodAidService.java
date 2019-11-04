@@ -10,6 +10,10 @@ import com.example.bloodaid.models.HospitalModelClass;
 import com.example.bloodaid.models.HospitalRequestModelClass;
 import com.example.bloodaid.models.OrganizationModelClass;
 import com.example.bloodaid.models.OrganizationRequestModelClass;
+import com.example.bloodaid.models.ReportAmbulanceModelClass;
+import com.example.bloodaid.models.ReportDonorModelClass;
+import com.example.bloodaid.models.ReportHospitalModelClass;
+import com.example.bloodaid.models.ReportOrganizationModelClass;
 
 import java.util.List;
 
@@ -236,6 +240,86 @@ public interface BloodAidService {
             @Field("adminrequestid") Integer adminrequestid
     );
     //Organization Request End
+
+
+
+    //Report Start
+
+    //Report Donor Start
+    @GET("api/readReportDonorList.php")
+    Call<List<ReportDonorModelClass>> reportDonorList();
+
+    @FormUrlEncoded
+    @POST("api/deleteReportDonorItem.php")
+    Call<ResponseBody> deleteReportDonor(
+            @Field("reportdonorid") Integer reportdonorid
+    );
+
+    @FormUrlEncoded
+    @POST("api/deleteReportDonorAccount.php")
+    Call<ResponseBody> deleteReportDonorAccount(
+            @Field("reportdonorid") Integer reportdonorid
+    );
+    //Report Donor End
+
+
+
+    //Report Ambulance Start
+    @GET("api/readReportAmbulanceList.php")
+    Call<List<ReportAmbulanceModelClass>> reportAmbulanceList();
+
+    @FormUrlEncoded
+    @POST("api/deleteReportAmbulanceItem.php")
+    Call<ResponseBody> deleteReportAmbulance(
+            @Field("reportambulanceid") Integer reportambulanceid
+    );
+
+    @FormUrlEncoded
+    @POST("api/deleteReportAmbulanceAccount.php")
+    Call<ResponseBody> deleteReportAmbulanceAccount(
+            @Field("reportambulanceid") Integer reportambulanceid
+    );
+    //Report Ambulance End
+
+
+
+    //Report Hospital Start
+    @GET("api/readReportHospitalList.php")
+    Call<List<ReportHospitalModelClass>> reportHospitalList();
+
+    @FormUrlEncoded
+    @POST("api/deleteReportHospitalItem.php")
+    Call<ResponseBody> deleteReportHospital(
+            @Field("reporthospitalid") Integer reporthospitalid
+    );
+
+    @FormUrlEncoded
+    @POST("api/deleteReportHospitalAccount.php")
+    Call<ResponseBody> deleteReportHospitalAccount(
+            @Field("reporthospitalid") Integer reporthospitalid
+    );
+    //Report Hospital End
+
+
+
+    //Report Organization Start
+    @GET("api/readReportOrganizationList.php")
+    Call<List<ReportOrganizationModelClass>> reportOrganizationList();
+
+    @FormUrlEncoded
+    @POST("api/deleteReportOrganizationItem.php")
+    Call<ResponseBody> deleteReportOrganization(
+            @Field("reportorganizationid") Integer reportorganizationid
+    );
+
+    @FormUrlEncoded
+    @POST("api/deleteReportOrganizationAccount.php")
+    Call<ResponseBody> deleteReportOrganizationAccount(
+            @Field("reportorganizationid") Integer reportorganizationid
+    );
+    //Report Organization End
+    
+    //Report End
 
 
 

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".backend.OrganizationActivity"></activity>
+        <activity android:name=".backend.ReportActivity"></activity>
+        <activity android:name=".backend.OrganizationActivity" />
         <activity android:name=".backend.AdminHome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

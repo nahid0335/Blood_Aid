@@ -8,15 +8,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
-import com.example.bloodaid.backend.adapters.AdminAmbulanceListadAdapter;
-import com.example.bloodaid.models.AmbulanceRequestModelClass;
+import com.example.bloodaid.backend.adapters.AdminReportListAdapter;
+import com.example.bloodaid.models.ReportDonorModelClass;
+import com.example.bloodaid.models.ReportOrganizationModelClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,10 +38,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AmbulanceRequestFragment extends Fragment {
+public class ReportOrganizationFragment extends Fragment {
 
-    private ArrayList<HashMap<String, String>> ambulanceRequestList;
-    private AdminAmbulanceListadAdapter adminAmbulanceListadapter;
+    private ArrayList<HashMap<String, String>> reportOrganizationList;
+    private AdminReportListAdapter adminReportListAdapter;
     private RecyclerView recyclerView;
     private Dialog dialog;
 
@@ -49,68 +50,68 @@ public class AmbulanceRequestFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_ambulancerequest,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_reportorganization,container,false);
 
-        recyclerView = rootView.findViewById(R.id.recyclerView_adminAmbulance_requestItem);
+        recyclerView = rootView.findViewById(R.id.recyclerView_adminReport_organizationList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ambulanceRequestList = new ArrayList<>();
+        reportOrganizationList = new ArrayList<>();
 
-       // Log.v("Tag","1st");
+        // Log.v("Tag","1st");
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Loading...");
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        final Call<List<AmbulanceRequestModelClass>> call = RetrofitInstance.getRetrofitInstance()
+        final Call<List<ReportOrganizationModelClass>> call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidService.class)
-                .ambulanceRequestList();
+                .reportOrganizationList();
 
         Thread t =  new Thread(new Runnable() {
             @Override
             public void run() {
 
-                call.enqueue(new Callback<List<AmbulanceRequestModelClass>>() {
+                call.enqueue(new Callback<List<ReportOrganizationModelClass>>() {
                     @Override
-                    public void onResponse(Call<List<AmbulanceRequestModelClass>> call, Response<List<AmbulanceRequestModelClass>> response) {
+                    public void onResponse(Call<List<ReportOrganizationModelClass>> call, Response<List<ReportOrganizationModelClass>> response) {
 
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                         }
 
 
-                        List<AmbulanceRequestModelClass> arrayObjects = response.body();
+                        List<ReportOrganizationModelClass> arrayObjects = response.body();
 
                         //Response parsing
-                        for(AmbulanceRequestModelClass value : arrayObjects){
+                        for(ReportOrganizationModelClass value : arrayObjects){
 
-                            Integer ambulanceRequestId = value.getAmbulanceRequestId();
+                            Integer reportOrganizationId = value.getReportOrganizationId();
                             String name = value.getName();
                             String mobile = value.getMobile();
                             String district = value.getDistrict();
                             String email = value.getEmail();
-                            String details = value.getDetails();
+                            Integer count = value.getReportCount();
 
-                            HashMap<String,String> ambulanceDetails = new HashMap<>();
-                            ambulanceDetails.put("ambulancerequestid",Integer.toString(ambulanceRequestId));
-                            ambulanceDetails.put("name",name);
-                            ambulanceDetails.put("mobile",mobile);
-                            ambulanceDetails.put("district",district);
-                            ambulanceDetails.put("email",email);
-                            ambulanceDetails.put("details",details);
+                            HashMap<String,String> reportOrganizationDetails = new HashMap<>();
+                            reportOrganizationDetails.put("reportorganizationid",Integer.toString(reportOrganizationId));
+                            reportOrganizationDetails.put("name",name);
+                            reportOrganizationDetails.put("mobile",mobile);
+                            reportOrganizationDetails.put("district",district);
+                            reportOrganizationDetails.put("email",email);
+                            reportOrganizationDetails.put("reportcount",Integer.toString(count));
 
-                            ambulanceRequestList.add(ambulanceDetails);
+                            reportOrganizationList.add(reportOrganizationDetails);
 
                         }
-                        adminAmbulanceListadapter = new AdminAmbulanceListadAdapter(getContext(),ambulanceRequestList);
-                        recyclerView.setAdapter(adminAmbulanceListadapter);
+                        adminReportListAdapter = new AdminReportListAdapter(getContext(),reportOrganizationList);
+                        recyclerView.setAdapter(adminReportListAdapter);
                         progressDialog.dismiss();
 
                     }
 
                     @Override
-                    public void onFailure(Call<List<AmbulanceRequestModelClass>> call, Throwable t) {
+                    public void onFailure(Call<List<ReportOrganizationModelClass>> call, Throwable t) {
                         Toast.makeText(getContext(), t.getMessage()+" .", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -139,32 +140,32 @@ public class AmbulanceRequestFragment extends Fragment {
         @Override
         public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
             dialog = new Dialog(getContext());
-            dialog.setContentView(R.layout.popup_neutral);
-            ImageView closepopupimg = dialog.findViewById(R.id.imageView_popupNeutral_close);
-            Button deletebtn = dialog.findViewById(R.id.button_popupNeutral_delete);
-            Button acceptbtn = dialog.findViewById(R.id.button_popupNeutral_accept);
+            dialog.setContentView(R.layout.popup_reportdismiss);
+            ImageView closepopupimg = dialog.findViewById(R.id.imageView_popupReport_cancel);
+            TextView deletetxt = dialog.findViewById(R.id.textView_popupReport_delete);
+            TextView removetxt = dialog.findViewById(R.id.textView_popupReport_remove);
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(false);
 
             closepopupimg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    adminAmbulanceListadapter.notifyDataSetChanged();
+                    adminReportListAdapter.notifyDataSetChanged();
                     dialog.dismiss();
 
                 }
             });
 
-            deletebtn.setOnClickListener(new View.OnClickListener() {
+            removetxt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String ambulancerequestId = ambulanceRequestList.get(viewHolder.getAdapterPosition()).get("ambulancerequestid");
-                    final int idx = ambulanceRequestList.indexOf(ambulanceRequestList.get(viewHolder.getAdapterPosition()));
+                    final String reportorganizationid = reportOrganizationList.get(viewHolder.getAdapterPosition()).get("reportorganizationid");
+                    final int idx = reportOrganizationList.indexOf(reportOrganizationList.get(viewHolder.getAdapterPosition()));
 
 
                     final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
                             .create(BloodAidService.class)
-                            .deleteAmbulanceRequest(Integer.valueOf(ambulancerequestId));
+                            .deleteReportOrganization(Integer.valueOf(reportorganizationid));
 
                     Thread thread =  new Thread(new Runnable() {
                         @Override
@@ -185,8 +186,8 @@ public class AmbulanceRequestFragment extends Fragment {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminAmbulanceListadapter.notifyDataSetChanged();
-                                            ambulanceRequestList.remove(ambulanceRequestList.get(idx));
+                                            adminReportListAdapter.notifyDataSetChanged();
+                                            reportOrganizationList.remove(reportOrganizationList.get(idx));
                                         }
 
                                     } catch (JSONException e) {
@@ -217,16 +218,16 @@ public class AmbulanceRequestFragment extends Fragment {
                 }
             });
 
-            acceptbtn.setOnClickListener(new View.OnClickListener() {
+            deletetxt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String ambulancerequestId = ambulanceRequestList.get(viewHolder.getAdapterPosition()).get("ambulancerequestid");
-                    final int idx = ambulanceRequestList.indexOf(ambulanceRequestList.get(viewHolder.getAdapterPosition()));
+                    String reportorganizationid = reportOrganizationList.get(viewHolder.getAdapterPosition()).get("reportorganizationid");
+                    final int idx = reportOrganizationList.indexOf(reportOrganizationList.get(viewHolder.getAdapterPosition()));
 
 
                     final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
                             .create(BloodAidService.class)
-                            .acceptAmbulanceRequest(Integer.valueOf(ambulancerequestId));
+                            .deleteReportOrganizationAccount(Integer.valueOf(reportorganizationid));
 
                     Thread thread =  new Thread(new Runnable() {
                         @Override
@@ -247,8 +248,8 @@ public class AmbulanceRequestFragment extends Fragment {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminAmbulanceListadapter.notifyDataSetChanged();
-                                            ambulanceRequestList.remove(ambulanceRequestList.get(idx));
+                                            adminReportListAdapter.notifyDataSetChanged();
+                                            reportOrganizationList.remove(reportOrganizationList.get(idx));
                                         }
 
                                     } catch (JSONException e) {
@@ -285,4 +286,6 @@ public class AmbulanceRequestFragment extends Fragment {
             dialog.show();
         }
     };
+
+
 }

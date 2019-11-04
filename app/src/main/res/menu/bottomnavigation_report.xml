@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/icon_adminReport_home"
+        android:icon="@drawable/ic_home_black"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/icon_adminReport_donor"
+        android:icon="@drawable/ic_person_outline_black_24dp"
+        android:title="Donor"/>
+
+    <item
+        android:id="@+id/icon_adminReport_ambulance"
+        android:icon="@drawable/ic_directions_car_black_24dp"
+        android:title="Ambulance"/>
+
+    <item
+        android:id="@+id/icon_adminReport_hospital"
+        android:icon="@drawable/ic_account_balance_black_24dp"
+        android:title="Hospital"/>
+
+    <item
+        android:id="@+id/icon_adminReport_organization"
+        android:icon="@drawable/ic_group_work_black_24dp"
+        android:title="Organization"/>
+</menu>
