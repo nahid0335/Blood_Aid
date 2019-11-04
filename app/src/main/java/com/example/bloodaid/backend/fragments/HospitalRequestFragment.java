@@ -15,9 +15,7 @@ import android.widget.Toast;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
-import com.example.bloodaid.backend.adapters.AdminAmbulanceListadapter;
 import com.example.bloodaid.backend.adapters.AdminHospitalListAdapter;
-import com.example.bloodaid.models.AmbulanceRequestModelClass;
 import com.example.bloodaid.models.HospitalRequestModelClass;
 
 import org.json.JSONException;

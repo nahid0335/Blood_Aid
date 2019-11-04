@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,8 @@ import android.widget.Toast;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
-import com.example.bloodaid.backend.adapters.AdminAmbulanceListadapter;
-import com.example.bloodaid.backend.adapters.AdminDonorListAdapter;
+import com.example.bloodaid.backend.adapters.AdminAmbulanceListadApter;
 import com.example.bloodaid.models.AmbulanceRequestModelClass;
-import com.example.bloodaid.models.DonorRequestModelClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,7 +40,7 @@ import retrofit2.Response;
 public class AmbulanceRequestFragment extends Fragment {
 
     private ArrayList<HashMap<String, String>> ambulanceRequestList;
-    private AdminAmbulanceListadapter adminAmbulanceListadapter;
+    private AdminAmbulanceListadApter adminAmbulanceListadapter;
     private RecyclerView recyclerView;
     private Dialog dialog;
 
@@ -106,7 +103,7 @@ public class AmbulanceRequestFragment extends Fragment {
                             ambulanceRequestList.add(ambulanceDetails);
 
                         }
-                        adminAmbulanceListadapter = new AdminAmbulanceListadapter(getContext(),ambulanceRequestList);
+                        adminAmbulanceListadapter = new AdminAmbulanceListadApter(getContext(),ambulanceRequestList);
                         recyclerView.setAdapter(adminAmbulanceListadapter);
                         progressDialog.dismiss();
 

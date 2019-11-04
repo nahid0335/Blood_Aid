@@ -14,19 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView_adminAmbulanceList_email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="TamzidHasan10@gmail.com"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView7"
-            app:layout_constraintTop_toBottomOf="@+id/imageView_adminDonorList_profilePic" />
-
         <ImageView
             android:id="@+id/imageView_adminDonorList_profilePic"
             android:layout_width="60dp"
@@ -37,7 +24,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ambulance" />
+            app:srcCompat="@drawable/ic_account_circle_black_24dp" />
 
         <TextView
             android:id="@+id/textView8"
@@ -48,7 +35,7 @@
             android:text="Mobile :"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/imageView_adminDonorList_profilePic"
-            app:layout_constraintTop_toBottomOf="@id/textView_adminAmbulanceList_ambulanceName" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_adminManage_name" />
 
         <TextView
             android:id="@+id/textView7"
@@ -56,43 +43,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/recyclerViewAmbulance_email"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView_adminDonorList_profilePic" />
 
         <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/recyclerViewAmbulance_details"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-        <TextView
-            android:id="@+id/textView_adminAmbulanceList_details"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:ellipsize="end"
-            android:minLines="1"
-            android:padding="5dp"
-            android:singleLine="false"
-            android:text="@string/random"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
-            app:layout_constraintTop_toBottomOf="@+id/textView_adminAmbulanceList_email" />
-
-        <TextView
-            android:id="@+id/textView_adminAmbulanceList_ambulanceName"
+            android:id="@+id/textView_adminManage_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -100,7 +59,7 @@
             android:layout_marginEnd="10dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="Tamzid hasan Nahid"
+            android:text="Tamzid Hasan Nahid"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -108,18 +67,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView_adminAmbulanceList_mobile"
+            android:id="@+id/textView_adminManage_mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-            android:text="+8801521431995"
+            android:text="+8801521431005"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/textView8"
-            app:layout_constraintTop_toBottomOf="@+id/textView_adminAmbulanceList_ambulanceName" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_adminManage_name" />
 
         <TextView
-            android:id="@+id/textView_adminAmbulanceList_district"
+            android:id="@+id/textView_adminManage_dristict"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -127,11 +86,26 @@
             android:layout_marginEnd="10dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="Chittagong"
+            android:text="chittagong"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView_adminAmbulanceList_mobile"
-            app:layout_constraintTop_toBottomOf="@+id/textView_adminAmbulanceList_ambulanceName" />
+            app:layout_constraintStart_toEndOf="@+id/textView_adminManage_mobile"
+            app:layout_constraintTop_toBottomOf="@+id/textView_adminManage_name" />
+
+        <TextView
+            android:id="@+id/textView_adminManage_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="tamzidHasan1607005@gmail.com"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView7"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_adminDonorList_profilePic" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

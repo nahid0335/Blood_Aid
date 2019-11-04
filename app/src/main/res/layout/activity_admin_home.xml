@@ -54,21 +54,23 @@
         android:textStyle="bold"
         app:autoSizeMaxTextSize="25dp"
         app:autoSizeMinTextSize="18dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_adminHome_notificationIcon"
         app:layout_constraintStart_toEndOf="@+id/imageView_adminHome_profilePicture"
         app:layout_constraintTop_toTopOf="@+id/cardView_admnHome_topBer" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/imageView_adminHome_notificationIcon"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginEnd="10dp"
         android:elevation="5dp"
+        android:onClick="notification_imageView"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/cardView_admnHome_topBer"
         app:layout_constraintEnd_toEndOf="@id/cardView_admnHome_topBer"
         app:layout_constraintTop_toTopOf="@id/cardView_admnHome_topBer"
-        app:srcCompat="@drawable/ic_notifications_shadow_24dp" />
+        app:srcCompat="@drawable/ic_notifications_shadow_24dp"
+        tools:ignore="OnClick" />
 
     <TextView
         android:id="@+id/textView_adminHome_adminStatus"
@@ -87,7 +89,7 @@
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/cardView_admnHome_topBer"
-        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_adminHome_notificationIcon"
         app:layout_constraintStart_toEndOf="@+id/imageView_adminHome_profilePicture"
         app:layout_constraintTop_toBottomOf="@+id/textView_adminHome_adminName" />
 
@@ -225,7 +227,7 @@
                 android:elevation="5dp"
                 android:foreground="?android:selectableItemBackground"
                 android:onClick="admin_cardView"
-                app:layout_constraintBottom_toTopOf="@+id/cardView2"
+                app:layout_constraintBottom_toTopOf="@+id/cardView_adminHome_bottomBer"
                 app:layout_constraintEnd_toStartOf="@+id/cardView_adminHome_report"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView_adminHome_hospital">
@@ -236,6 +238,7 @@
                 android:id="@+id/cardView_adminHome_report"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -243,7 +246,7 @@
                 android:elevation="5dp"
                 android:foreground="?android:selectableItemBackground"
                 android:onClick="report_cardView"
-                app:layout_constraintBottom_toTopOf="@+id/cardView2"
+                app:layout_constraintBottom_toTopOf="@+id/cardView_adminHome_bottomBer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardView_adminHome_admin"
                 app:layout_constraintTop_toBottomOf="@+id/cardView_adminHome_Organization">
@@ -414,7 +417,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView_adminHome_reportIcon" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imageView_adminHome_logOutIcon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
@@ -423,14 +426,15 @@
                 android:layout_marginBottom="10dp"
                 android:elevation="5dp"
                 android:padding="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView2"
-                app:layout_constraintEnd_toEndOf="@id/cardView2"
-                app:layout_constraintStart_toEndOf="@+id/imageView4"
-                app:layout_constraintTop_toTopOf="@+id/cardView2"
+                android:onClick="logOut_imageView"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_bottomBer"
+                app:layout_constraintEnd_toEndOf="@id/cardView_adminHome_bottomBer"
+                app:layout_constraintStart_toEndOf="@+id/imageView_adminHome_deleteAccountIcon"
+                app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_bottomBer"
                 app:srcCompat="@drawable/user_interface_exit_icon" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/imageView_adminHome_deleteAccountIcon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
@@ -439,30 +443,32 @@
                 android:layout_marginBottom="10dp"
                 android:elevation="5dp"
                 android:padding="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView2"
-                app:layout_constraintEnd_toEndOf="@+id/imageView"
-                app:layout_constraintStart_toStartOf="@id/imageView3"
-                app:layout_constraintTop_toTopOf="@+id/cardView2"
+                android:onClick="deleteAccount_imageView"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_bottomBer"
+                app:layout_constraintEnd_toEndOf="@+id/imageView_adminHome_userModeIcon"
+                app:layout_constraintStart_toStartOf="@id/imageView_adminHome_logOutIcon"
+                app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_bottomBer"
                 app:srcCompat="@drawable/ic_delete_black_24dp" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageView_adminHome_userModeIcon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
+                android:onClick="userMode_imageView"
                 android:elevation="5dp"
                 android:padding="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView2"
-                app:layout_constraintEnd_toStartOf="@+id/cardView2"
-                app:layout_constraintStart_toStartOf="@id/imageView4"
-                app:layout_constraintTop_toTopOf="@+id/cardView2"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_bottomBer"
+                app:layout_constraintEnd_toStartOf="@+id/cardView_adminHome_bottomBer"
+                app:layout_constraintStart_toStartOf="@id/imageView_adminHome_deleteAccountIcon"
+                app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_bottomBer"
                 app:srcCompat="@drawable/ic_account_circle_black_24dp" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
+                android:id="@+id/cardView_adminHome_bottomBer"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="10dp"

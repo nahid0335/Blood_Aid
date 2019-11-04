@@ -56,8 +56,14 @@ public class AdminManage extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameLayout_adminManage_show, fragment);
+        transaction.replace(R.id.frameLayout_adminManage_show, fragment).addToBackStack(null);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AdminManage.this,AdminHome.class));
+        finish();
     }
 }

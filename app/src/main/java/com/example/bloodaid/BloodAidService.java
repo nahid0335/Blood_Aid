@@ -1,5 +1,7 @@
 package com.example.bloodaid;
 
+import com.example.bloodaid.models.AdminModelClass;
+import com.example.bloodaid.models.AdminRequestModelClass;
 import com.example.bloodaid.models.AmbulanceModelClass;
 import com.example.bloodaid.models.AmbulanceRequestModelClass;
 import com.example.bloodaid.models.DonorModelClass;
@@ -82,6 +84,7 @@ public interface BloodAidService {
     //Admin Login End
 
 
+
     //Donor List start
 
     @GET("api/readDonorList.php")
@@ -94,8 +97,6 @@ public interface BloodAidService {
     );
 
     //Donor List end
-
-
 
     //Donor Request Start
 
@@ -117,6 +118,7 @@ public interface BloodAidService {
     //Donor Request end
 
 
+
     //Ambulance List start
     @GET("api/readAmbulanceList.php")
     Call<List<AmbulanceModelClass>> ambulanceList();
@@ -127,7 +129,6 @@ public interface BloodAidService {
             @Field("ambulanceid") Integer ambulanceid
     );
     //Ambulance List end
-
 
     //Ambulance Request Start
     @GET("api/readAmbulanceRequest.php")
@@ -147,6 +148,7 @@ public interface BloodAidService {
     //Ambulance Request End
 
 
+
     //Hospital List start
     @GET("api/readHospitalList.php")
     Call<List<HospitalModelClass>> hospitalList();
@@ -157,7 +159,6 @@ public interface BloodAidService {
             @Field("hospitalid") Integer hospitalid
     );
     //Hospital List end
-
 
     //Hospital Request Start
     @GET("api/readHospitalRequest.php")
@@ -189,7 +190,6 @@ public interface BloodAidService {
     );
     //Organization List end
 
-
     //Organization Request Start
     @GET("api/readOrganizationRequest.php")
     Call<List<OrganizationRequestModelClass>> organizationRequestList();
@@ -204,6 +204,36 @@ public interface BloodAidService {
     @POST("api/acceptOrganizationRequestItem.php")
     Call<ResponseBody> acceptOrganizationRequest(
             @Field("organizationrequestid") Integer organizationrequestid
+    );
+    //Organization Request End
+
+
+
+    //Admin List start
+    @GET("api/readAdminList.php")
+    Call<List<AdminModelClass>> adminList();
+
+    @FormUrlEncoded
+    @POST("api/deleteAdminListItem.php")
+    Call<ResponseBody> deleteAdmin(
+            @Field("userid") Integer userid
+    );
+    //Admin List end
+
+    //Admin Request Start
+    @GET("api/readAdminRequest.php")
+    Call<List<AdminRequestModelClass>> adminRequestList();
+
+    @FormUrlEncoded
+    @POST("api/deleteAdminRequestItem.php")
+    Call<ResponseBody> deleteAdminRequest(
+            @Field("adminrequestid") Integer adminrequestid
+    );
+
+    @FormUrlEncoded
+    @POST("api/acceptAdminRequestItem.php")
+    Call<ResponseBody> acceptAdminRequest(
+            @Field("adminrequestid") Integer adminrequestid
     );
     //Organization Request End
 

@@ -3,6 +3,7 @@ package com.example.bloodaid.backend;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bloodaid.AllToasts;
+import com.example.bloodaid.MainActivity;
 import com.example.bloodaid.R;
 
 import android.content.Intent;
@@ -15,6 +16,14 @@ public class AdminHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home);
+    }
+
+    public void profile_cardView(View view) {
+        AllToasts.successToast(AdminHome.this, "profile");
+    }
+
+
+    public void notification_imageView(View view) {
     }
 
     public void donor_cardView(View view) {
@@ -46,13 +55,15 @@ public class AdminHome extends AppCompatActivity {
         AllToasts.successToast(AdminHome.this, "Report");
     }
 
-    public void profile_cardView(View view) {
-        AllToasts.successToast(AdminHome.this, "profile");
+
+    public void userMode_imageView(View view) {
+        startActivity(new Intent(AdminHome.this, MainActivity.class));
+        finish();
     }
 
-    public void logout_button(View view) {
-        AllToasts.successToast(AdminHome.this, "Logout");
+    public void deleteAccount_imageView(View view) {
     }
 
-
+    public void logOut_imageView(View view) {
+    }
 }
