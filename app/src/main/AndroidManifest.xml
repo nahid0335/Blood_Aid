@@ -15,11 +15,11 @@
         <activity android:name=".backend.ReportActivity"></activity>
         <activity android:name=".backend.OrganizationActivity" />
         <activity android:name=".backend.AdminHome">
-            <intent-filter>
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".backend.AdminLoginActivity">
 
@@ -39,14 +39,11 @@
         <activity
             android:name=".SplashScreen"
             android:theme="@style/splashScreenTheme">
-
-            <!--
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
+            </intent-filter>-->
 
         </activity>
         <activity android:name=".LoginActivity">
@@ -59,13 +56,10 @@
             -->
         </activity>
         <activity android:name=".MainActivity">
-
-            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
         </activity>
     </application>
 
