@@ -1,18 +1,18 @@
 package com.example.bloodaid.fragments;
 
 
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.constraintlayout.widget.Group;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.bloodaid.AllToasts;
+import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.Group;
+import androidx.fragment.app.Fragment;
+
 import com.example.bloodaid.R;
 import com.squareup.picasso.Picasso;
 
@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         init(v);
@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
 
         //search bar start
         mBloodSearchIcon.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View view) {
                 if(bloodGroupShowState){
@@ -48,6 +49,7 @@ public class HomeFragment extends Fragment {
                     mBloodSearchIcon.setBackground(getResources().getDrawable(R.drawable.ic_cancel));
                     bloodGroupShowState = true;
                 }
+
             }
         });
 
@@ -60,13 +62,15 @@ public class HomeFragment extends Fragment {
         mProfilePic = v.findViewById(R.id.profile_image);
         mBloodGroups = v.findViewById(R.id.blood_groups);
         mBloodSearchIcon = v.findViewById(R.id.search_btn);
-
     }
 
     private void profileWork() {
         Picasso.get().load("file:///android_asset/images/profile_pic.jpg").into(mProfilePic);
     }
 
+    public void bloodGroupSearchClicked(View v){
+
+    }
 
 
 }

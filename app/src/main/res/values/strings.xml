@@ -34,6 +34,8 @@
     <string name="popupReport_removetextView">Remove ID</string>
     <string name="popupReport_deletetextView">Delete ID</string>
 
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
     <string-array name="blood_items">
         <item>Choose Blood Group</item>
         <item>A+</item>

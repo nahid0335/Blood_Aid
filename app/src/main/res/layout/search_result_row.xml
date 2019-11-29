@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/red_border"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/blood_group_text"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:background="@color/redish"
+        android:text="O+"
+        android:textColor="@color/white"
+        android:textSize="60dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="10dp"></TextView>
+
+    <TextView
+        android:id="@+id/name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="start"
+        android:text="Name: Rk Prnato"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/blackish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintStart_toEndOf="@+id/blood_group_text"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/district_text"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="start"
+        android:text="District: Gaibandha"
+        android:textColor="@color/blackish"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.112"
+        app:layout_constraintStart_toEndOf="@+id/blood_group_text"
+        app:layout_constraintTop_toBottomOf="@id/name_text" />
+
+    <TextView
+        android:id="@+id/reason_text"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="start"
+        android:text="Reason: Dengue or something"
+        android:textColor="@color/blackish"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toEndOf="@+id/blood_group_text"
+        app:layout_constraintTop_toBottomOf="@id/district_text" />
+
+    <TextView
+        android:id="@+id/hospital_text"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="start"
+        android:text="Hospital: RMC"
+        android:textSize="18sp"
+        android:textColor="@color/blackish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintStart_toEndOf="@+id/blood_group_text"
+        app:layout_constraintTop_toBottomOf="@id/reason_text" />
+
+
+    <Button
+        android:id="@+id/call_btn"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/red_border"
+        android:drawableLeft="@drawable/ic_phone"
+        android:gravity="center"
+        android:padding="7dp"
+        android:text="Call"
+        android:textColor="@color/redish"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/message_btn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/blood_group_text"
+        app:layout_constraintTop_toBottomOf="@id/hospital_text" />
+
+    <Button
+        android:id="@+id/message_btn"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:background="@drawable/red_border"
+        android:drawableLeft="@drawable/ic_email"
+        android:gravity="center"
+        android:padding="7dp"
+        android:layout_margin="10dp"
+        android:text="Message"
+        android:textColor="@color/redish"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.802"
+        app:layout_constraintStart_toEndOf="@+id/call_btn"
+        app:layout_constraintTop_toBottomOf="@id/hospital_text"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

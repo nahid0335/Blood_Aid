@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "818061300158",
+    "firebase_url": "https://bloodaid-f6bf4.firebaseio.com",
+    "project_id": "bloodaid-f6bf4",
+    "storage_bucket": "bloodaid-f6bf4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818061300158:android:8fe24bb35155863b9469ef",
+        "android_client_info": {
+          "package_name": "com.example.bloodaid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818061300158-g5a0l6khqqounvb2tg1m12v10eg3n659.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bloodaid",
+            "certificate_hash": "e725b8c14bfe615fd972629ca73a3fd443c8fcd8"
+          }
+        },
+        {
+          "client_id": "818061300158-1rio2jit5q027tdr39658dskpp2hodic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBslm4tq9xLAqji0yK5G2AmDTvY1mYYOIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818061300158-1rio2jit5q027tdr39658dskpp2hodic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

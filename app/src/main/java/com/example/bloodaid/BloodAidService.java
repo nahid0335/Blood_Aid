@@ -15,6 +15,7 @@ import com.example.bloodaid.models.ReportDonorModelClass;
 import com.example.bloodaid.models.ReportHospitalModelClass;
 import com.example.bloodaid.models.ReportOrganizationModelClass;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -67,9 +68,11 @@ public interface BloodAidService {
     );
 
 
+    @GET("api/getrequestfeed.php")
+    Call<ArrayList<DonorRequestModelClass>> donorRequestsFeed();
+
+
     //Frontend End
-
-
 
 
 

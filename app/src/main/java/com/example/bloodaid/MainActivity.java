@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,18 +17,55 @@ import com.example.bloodaid.fragments.NotificationFragment;
 import com.example.bloodaid.fragments.RequestFragment;
 import com.example.bloodaid.fragments.SearchDialog;
 import com.example.bloodaid.fragments.SearchFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     public static BottomNavigationView mBottomNav;
+    Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /////////
+        FirebaseMessaging.getInstance().subscribeToTopic("bloodaid");
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.d("TAG", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("TAG", msg);
+
+                    }
+                });
+
+
+
+        //////
+
         init();
+
+        mToolbar.setLogo(R.drawable.blood_aid_logo);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mBottomNav.setOnNavigationItemSelectedListener(navListener);
         if(savedInstanceState == null){
@@ -39,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         mBottomNav = findViewById(R.id.main_bottom_nav);
+        mToolbar = findViewById(R.id.main_toolbar);
     }
 
 

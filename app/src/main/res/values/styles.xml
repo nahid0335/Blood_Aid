@@ -9,6 +9,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="WhiteTheme" >
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/roboto_regular</item>
+        <item name="android:colorPrimary">@color/white</item>
+        <item name="android:background">@color/white</item>
+        <item name="colorPrimaryDark">@color/super_light_black</item>
+        <item name="colorAccent">@color/light_green</item>
+    </style>
+
     <style name="splashScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/background_splashscreen</item>
     </style>

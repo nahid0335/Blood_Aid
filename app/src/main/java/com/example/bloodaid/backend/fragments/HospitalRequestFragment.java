@@ -44,8 +44,6 @@ public class HospitalRequestFragment extends Fragment {
     private RecyclerView recyclerView;
     private Dialog dialog;
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

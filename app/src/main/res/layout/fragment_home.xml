@@ -12,26 +12,54 @@
         android:layout_height="wrap_content">
 
         <!--Profile section-->
-        <ImageView
-            android:id="@+id/profile_image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:elevation="6dp"
-            android:src="@drawable/profile_default"
-            app:layout_constraintBottom_toBottomOf="@+id/main_profile"
-            app:layout_constraintStart_toStartOf="@+id/main_profile"
-            app:layout_constraintTop_toTopOf="@+id/main_profile" />
-
         <androidx.cardview.widget.CardView
             android:id="@+id/main_profile"
             android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:background="#FDFFFD"
             android:elevation="10dp"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/main_addition_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:elevation="35dp"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:paddingHorizontal="5dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:src="@drawable/ic_person"
+                    app:civ_border_color="@color/blackish"
+                    app:civ_border_width="2dp" />
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/main_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Rezwan Al Kaoser" />
+
+                    <TextView
+                        android:id="@+id/main_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Khulna, Bangladesh" />
+                </LinearLayout>
+
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -42,33 +70,30 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/main_addition_card"
             android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="100dp"
             android:background="@color/white"
-            android:elevation="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:elevation="5dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_search_card"></androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toBottomOf="@id/main_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/main_info_card"
+            >
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/addition_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:elevation="6dp"
-            android:paddingVertical="4dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:text="Additions"
             android:textColor="@color/blackish"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/straight_line"
+            android:paddingLeft="10dp"
+            android:elevation="6dp"
+            android:paddingVertical="4dp"
+            android:id="@+id/addition_text"
+            app:layout_constraintTop_toTopOf="@+id/main_addition_card"
             app:layout_constraintStart_toStartOf="@+id/main_addition_card"
-            app:layout_constraintTop_toTopOf="@+id/main_addition_card" />
+            app:layout_constraintBottom_toTopOf="@+id/straight_line"
+            />
 
         <LinearLayout
             android:id="@+id/straight_line"
@@ -99,19 +124,18 @@
         </ImageView>
 
         <TextView
+            android:elevation="6dp"
+            android:textAlignment="center"
             android:id="@+id/donar_add_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:elevation="6dp"
-            android:padding="5dp"
+            android:layout_height="25dp"
             android:text="@string/donar_add_text"
-            android:textAlignment="center"
             android:textColor="@color/blackish"
-            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/donar_add_img"
             app:layout_constraintBottom_toBottomOf="@id/main_addition_card"
-            app:layout_constraintEnd_toStartOf="@id/organization_add_text"
             app:layout_constraintStart_toStartOf="@+id/main_addition_card"
-            app:layout_constraintTop_toBottomOf="@id/donar_add_img" />
+            app:layout_constraintEnd_toStartOf="@id/organization_add_text"
+            />
 
         <ImageView
             android:id="@+id/organization_add_img"
@@ -130,15 +154,11 @@
         <TextView
             android:id="@+id/organization_add_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:elevation="6dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:singleLine="true"
-            android:text="@string/org_add_text"
+            android:layout_height="25dp"
             android:textAlignment="center"
+            android:elevation="6dp"
+            android:text="@string/org_add_text"
             android:textColor="@color/blackish"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/main_addition_card"
             app:layout_constraintEnd_toStartOf="@id/hospital_add_text"
             app:layout_constraintStart_toEndOf="@+id/donar_add_text"
@@ -161,13 +181,11 @@
         <TextView
             android:id="@+id/hospital_add_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:elevation="6dp"
-            android:padding="5dp"
+            android:layout_height="25dp"
             android:text="@string/hospital_add_text"
             android:textAlignment="center"
             android:textColor="@color/blackish"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/main_addition_card"
             app:layout_constraintEnd_toStartOf="@id/ambulance_add_text"
             app:layout_constraintStart_toEndOf="@+id/organization_add_text"
@@ -191,17 +209,16 @@
         <TextView
             android:id="@+id/ambulance_add_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:elevation="6dp"
-            android:padding="5dp"
             android:text="@string/ambulance_add_text"
             android:textAlignment="center"
             android:textColor="@color/blackish"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/main_addition_card"
             app:layout_constraintEnd_toEndOf="@id/main_addition_card"
             app:layout_constraintStart_toEndOf="@+id/hospital_add_text"
-            app:layout_constraintTop_toBottomOf="@id/ambulance_add_img" />
+            app:layout_constraintTop_toBottomOf="@id/ambulance_add_img"
+            />
         <!--Additions section End-->
 
 
@@ -213,33 +230,28 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/main_info_card"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:elevation="10dp"
+            android:elevation="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_addition_card"></androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toBottomOf="@id/main_addition_card">
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/info_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:elevation="6dp"
-            android:paddingVertical="4dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:text="Informations"
             android:textColor="@color/blackish"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/straight_line2"
+            android:paddingLeft="10dp"
+            android:elevation="6dp"
+            android:paddingVertical="4dp"
+            android:id="@+id/info_text"
+            app:layout_constraintTop_toTopOf="@+id/main_info_card"
             app:layout_constraintStart_toStartOf="@+id/main_info_card"
-            app:layout_constraintTop_toTopOf="@+id/main_info_card" />
+            app:layout_constraintBottom_toTopOf="@+id/straight_line2"
+            />
 
         <LinearLayout
             android:id="@+id/straight_line2"
@@ -272,13 +284,11 @@
         <TextView
             android:id="@+id/top_donar_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:elevation="6dp"
-            android:padding="5dp"
             android:text="@string/top_donar_text"
             android:textAlignment="center"
             android:textColor="@color/blackish"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/main_info_card"
             app:layout_constraintEnd_toStartOf="@id/facts_text"
             app:layout_constraintStart_toStartOf="@+id/main_info_card"
@@ -301,13 +311,11 @@
         <TextView
             android:id="@+id/facts_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:elevation="6dp"
-            android:padding="5dp"
             android:text="@string/facts_text"
             android:textAlignment="center"
             android:textColor="@color/blackish"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/main_info_card"
             app:layout_constraintEnd_toStartOf="@id/history_text"
             app:layout_constraintStart_toEndOf="@+id/top_donar_text"
@@ -330,13 +338,11 @@
         <TextView
             android:id="@+id/history_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:elevation="6dp"
-            android:padding="5dp"
             android:text="@string/history_text"
             android:textAlignment="center"
             android:textColor="@color/blackish"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/main_info_card"
             app:layout_constraintEnd_toStartOf="@id/app_info_text"
             app:layout_constraintStart_toEndOf="@+id/facts_text"
@@ -359,13 +365,11 @@
         <TextView
             android:id="@+id/app_info_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:elevation="6dp"
-            android:padding="5dp"
             android:text="@string/app_info_text"
             android:textAlignment="center"
             android:textColor="@color/blackish"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/main_info_card"
             app:layout_constraintEnd_toEndOf="@id/main_info_card"
             app:layout_constraintStart_toEndOf="@+id/history_text"
@@ -377,16 +381,19 @@
         <!--Search bar Start-->
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/main_search_card"
             android:layout_width="0dp"
             android:layout_height="220dp"
-            android:layout_marginTop="10dp"
+            android:id="@+id/main_search_card"
             android:background="@color/white"
             android:elevation="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-
+            android:layout_marginBottom="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/main_info_card"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_profile"></androidx.cardview.widget.CardView>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+
+            >
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:layout_width="0dp"
@@ -443,7 +450,7 @@
             app:layout_constraintStart_toStartOf="@id/main_search_card"
             app:layout_constraintTop_toBottomOf="@id/main_search_text"
             app:layout_constraintBottom_toBottomOf="@id/main_search_card"
-            tools:ignore="OnClick" />
+            />
 
         <Button
             android:id="@+id/group_a_neg"
@@ -461,7 +468,7 @@
             app:layout_constraintCircle="@id/search_btn"
             app:layout_constraintCircleAngle="45"
             app:layout_constraintCircleRadius="60dp"
-            tools:ignore="OnClick" />
+            />
 
         <Button
             android:id="@+id/group_o_pos"
@@ -479,7 +486,7 @@
             app:layout_constraintCircle="@id/search_btn"
             app:layout_constraintCircleAngle="90"
             app:layout_constraintCircleRadius="60dp"
-            tools:ignore="OnClick" />
+            />
 
         <Button
             android:id="@+id/group_o_neg"
@@ -497,7 +504,7 @@
             app:layout_constraintCircle="@id/search_btn"
             app:layout_constraintCircleAngle="135"
             app:layout_constraintCircleRadius="60dp"
-            tools:ignore="OnClick" />
+            />
         <Button
             android:id="@+id/group_b_pos"
             android:onClick="bloodGroupSearchClicked"
@@ -514,7 +521,7 @@
             app:layout_constraintCircle="@id/search_btn"
             app:layout_constraintCircleAngle="180"
             app:layout_constraintCircleRadius="60dp"
-            tools:ignore="OnClick" />
+            />
         <Button
             android:id="@+id/group_b_neg"
             android:onClick="bloodGroupSearchClicked"
@@ -531,7 +538,7 @@
             app:layout_constraintCircle="@id/search_btn"
             app:layout_constraintCircleAngle="225"
             app:layout_constraintCircleRadius="60dp"
-            tools:ignore="OnClick" />
+            />
         <Button
             android:id="@+id/group_ab_pos"
             android:onClick="bloodGroupSearchClicked"
@@ -548,7 +555,7 @@
             app:layout_constraintCircle="@id/search_btn"
             app:layout_constraintCircleAngle="270"
             app:layout_constraintCircleRadius="60dp"
-            tools:ignore="OnClick" />
+            />
         <Button
             android:id="@+id/group_ab_neg"
             android:onClick="bloodGroupSearchClicked"
@@ -565,7 +572,7 @@
             app:layout_constraintCircle="@id/search_btn"
             app:layout_constraintCircleAngle="315"
             app:layout_constraintCircleRadius="60dp"
-            tools:ignore="OnClick" />
+            />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/blood_groups"
