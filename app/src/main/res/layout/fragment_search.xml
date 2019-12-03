@@ -5,9 +5,124 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="15dp"
+    android:layout_marginHorizontal="10dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
+
+    <Button
+        android:layout_margin="10dp"
+        android:layout_width="0dp"
+        android:background="@drawable/red_border"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ambulance_search_btn"
+        android:id="@+id/donar_search_btn"
+        android:text="Donar"
+        />
+
+    <Button
+        android:layout_margin="10dp"
+        android:background="@drawable/red_border"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/donar_search_btn"
+        android:id="@+id/ambulance_search_btn"
+        android:text="Ambulance"
+        />
+
+    <Button
+        android:layout_margin="10dp"
+        android:background="@drawable/red_border"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/donar_search_btn"
+        android:text="Hospital"
+        app:layout_constraintEnd_toStartOf="@id/org_search_btn"
+        android:id="@+id/hospital_search_btn"
+        />
+    <Button
+        android:layout_margin="10dp"
+        android:background="@drawable/red_border"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/hospital_search_btn"
+        app:layout_constraintTop_toBottomOf="@+id/ambulance_search_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Organization"
+        android:id="@+id/org_search_btn"
+        />
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_search_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="25dp"
+        app:layout_constraintTop_toBottomOf="@id/hospital_search_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="15dp"
+        android:elevation="8dp"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:paddingLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/border_button_bg"
+        android:textAlignment="center"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/blood_spinner"
+        android:entries="@array/blood_items"
+        app:layout_constraintTop_toTopOf="@+id/card_search_dialog"
+        app:layout_constraintStart_toStartOf="@id/card_search_dialog"
+        app:layout_constraintEnd_toEndOf="@id/card_search_dialog"
+        app:layout_constraintBottom_toTopOf="@id/district_spinner"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/district_spinner"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@drawable/border_button_bg"
+        android:entries="@array/district_items"
+        android:paddingLeft="15dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/blood_spinner"
+        app:layout_constraintStart_toStartOf="@id/card_search_dialog"
+        app:layout_constraintEnd_toEndOf="@id/card_search_dialog"
+        app:layout_constraintBottom_toTopOf="@+id/search_text_button"
+        android:textAlignment="center" />
+
+
+    <Button
+        android:id="@+id/search_text_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_ui"
+        android:text="Search"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="@id/card_search_dialog"
+        app:layout_constraintStart_toStartOf="@id/card_search_dialog"
+        app:layout_constraintTop_toBottomOf="@id/district_spinner" />
+
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/donar_con_group"
+        app:constraint_referenced_ids="blood_spinner,district_spinner,search_text_button"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
