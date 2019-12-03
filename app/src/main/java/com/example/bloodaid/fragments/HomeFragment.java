@@ -1,6 +1,7 @@
 package com.example.bloodaid.fragments;
 
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +11,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
 
+import com.example.bloodaid.ProfileActivity;
 import com.example.bloodaid.R;
 import com.squareup.picasso.Picasso;
 
@@ -21,6 +24,8 @@ public class HomeFragment extends Fragment {
     Button mBloodSearchIcon;
     Boolean bloodGroupShowState = true;
     ImageView mProfilePic;
+    CardView userProfile;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -32,7 +37,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         init(v);
-        profileWork();
+//        profileWork();
 
         //search bar start
         mBloodSearchIcon.setOnClickListener(new View.OnClickListener() {
@@ -55,13 +60,20 @@ public class HomeFragment extends Fragment {
 
         //search bar end
 
+        userProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ProfileActivity.class));
+            }
+        });
+
         return v;
     }
 
     private void init(View v) {
-        mProfilePic = v.findViewById(R.id.profile_image);
         mBloodGroups = v.findViewById(R.id.blood_groups);
         mBloodSearchIcon = v.findViewById(R.id.search_btn);
+        userProfile = v.findViewById(R.id.main_profile);
     }
 
     private void profileWork() {

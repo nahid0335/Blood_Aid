@@ -68,6 +68,7 @@
             android:layout_height="100dp"
             android:background="#FFFFFF"
             android:elevation="2dp"
+            android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
