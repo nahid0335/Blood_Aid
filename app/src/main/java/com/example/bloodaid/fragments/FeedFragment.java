@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
-import com.example.bloodaid.backend.adapters.AdminDonorListAdapter;
 import com.example.bloodaid.models.DonorRequestModelClass;
 
 import java.util.ArrayList;
@@ -60,7 +59,7 @@ public class FeedFragment extends Fragment {
 
                 //Response parsing
                 for(DonorRequestModelClass value : responseList){
-                    responseList.add(value);
+                    arrayList.add(value);
                 }
                 Log.d("TAG", responseList.toString());
                 arrayList = responseList;

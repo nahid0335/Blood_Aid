@@ -56,10 +56,12 @@ public class FeedListAdapter extends BaseAdapter {
 
 
         mBloodGroup.setText(arrayList.get(i).getBloodGroup());
-        mName.setText(arrayList.get(i).getName());
-        mDistrict.setText(arrayList.get(i).getDistrict());
-        mLastDonated.setText(arrayList.get(i).getLastDonate());
-        mDonateCount.setText(arrayList.get(i).getDonateCount());
+        mName.setText("Name: "+arrayList.get(i).getName());
+        mDistrict.setText("District: "+arrayList.get(i).getDistrict());
+        mLastDonated.setText("Last donate: "+arrayList.get(i).getLastDonate());
+        mDonateCount.setText("Donated: "+
+                String.valueOf(arrayList.get(i).getDonateCount())
+        +" times");
 
         String number = arrayList.get(i).getMobile();
 

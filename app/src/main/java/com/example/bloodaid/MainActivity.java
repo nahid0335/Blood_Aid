@@ -96,9 +96,11 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new HomeFragment();
                     break;
                 case R.id.nav_search:
-                    SearchDialog searchDialog = new SearchDialog();
+                    /*SearchDialog searchDialog = new SearchDialog();
                     searchDialog.show(getSupportFragmentManager(), "Hello");
-                    return true;
+                    return true;*/
+                    selectedFragment = new SearchFragment();
+                    break;
                 case R.id.nav_notifications:
                     selectedFragment = new NotificationFragment();
                     break;

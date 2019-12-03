@@ -35,4 +35,5 @@ public class AllToasts {
         toast.setView(v);
         toast.show();
     }
+
 }
