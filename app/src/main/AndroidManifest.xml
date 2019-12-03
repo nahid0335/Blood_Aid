@@ -32,11 +32,11 @@
         <activity
             android:name=".SplashScreen"
             android:theme="@style/splashScreenTheme">
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
 
         </activity>
         <activity android:name=".LoginActivity">
@@ -46,10 +46,10 @@
             </intent-filter>-->
         </activity>
         <activity android:name=".MainActivity" >
-            <intent-filter>
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter> -->
         </activity>
 
         <service android:name=".BloodAidFirebaseNotificationService"

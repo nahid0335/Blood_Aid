@@ -3,18 +3,21 @@ package com.example.bloodaid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bloodaid.models.UserModelClass;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -26,6 +29,12 @@ public class LoginActivity extends AppCompatActivity {
     Button mLogin, mRegister;
     TextView mForgotPass;
     String userphone, userpass;
+    Integer user_id = -1;
+
+
+
+    public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
+    public static final String USER_ID = "user_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +42,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         init();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+        if(sharedPreferences.contains(USER_ID)){
+            finish();
+            startActivity( new Intent(LoginActivity.this, MainActivity.class) );
+        }
+
 
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,10 +91,25 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                         else{
                                             JSONObject object = new JSONObject(s);
-                                            status = object.getBoolean("validity"); // true or false will be returned as response
+                                            user_id = object.getInt("user_id"); // true or false will be returned as response
+                                           // AllToasts.successToast(LoginActivity.this, String.valueOf(user_id));
+
+                                            status = true;
+                                            if(user_id==-1){
+                                                status = false;
+                                            }
                                         }
 
                                         if(status){
+
+                                            //Share preference save data
+                                            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                            editor.putInt(USER_ID, user_id);
+                                            editor.apply();
+                                            // end share preference
+
                                             finish();
                                             startActivity( new Intent(LoginActivity.this, MainActivity.class) );
                                             AllToasts.successToast(LoginActivity.this, "Successfully Logged In");
