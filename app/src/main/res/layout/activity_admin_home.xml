@@ -93,20 +93,80 @@
         app:layout_constraintStart_toEndOf="@+id/imageView_adminHome_profilePicture"
         app:layout_constraintTop_toBottomOf="@+id/textView_adminHome_adminName" />
 
+    <ImageView
+        android:id="@+id/imageView_adminHome_logOutIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="5dp"
+        android:onClick="logOut_imageView"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/cardView_adminHome_bottomBer"
+        app:layout_constraintEnd_toEndOf="@id/cardView_adminHome_bottomBer"
+        app:layout_constraintStart_toEndOf="@+id/imageView_adminHome_deleteAccountIcon"
+        app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_bottomBer"
+        app:srcCompat="@drawable/user_interface_exit_icon" />
+
+    <ImageView
+        android:id="@+id/imageView_adminHome_deleteAccountIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="5dp"
+        android:onClick="deleteAccount_imageView"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_bottomBer"
+        app:layout_constraintEnd_toStartOf="@id/imageView_adminHome_logOutIcon"
+        app:layout_constraintStart_toEndOf="@id/imageView_adminHome_userModeIcon"
+
+
+        app:layout_constraintTop_toTopOf="@id/cardView_adminHome_bottomBer"
+        app:srcCompat="@drawable/ic_delete_black_24dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_adminHome_bottomBer"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/imageView_adminHome_userModeIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="5dp"
+        android:onClick="userMode_imageView"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/cardView_adminHome_bottomBer"
+        app:layout_constraintEnd_toStartOf="@id/imageView_adminHome_deleteAccountIcon"
+        app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_bottomBer"
+        app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_bottomBer"
+        app:srcCompat="@drawable/ic_account_circle_black_24dp" />
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cardView_adminHome_bottomBer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView_admnHome_topBer">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout_adminHome_insideScrollview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -227,7 +287,7 @@
                 android:elevation="5dp"
                 android:foreground="?android:selectableItemBackground"
                 android:onClick="admin_cardView"
-                app:layout_constraintBottom_toTopOf="@+id/cardView_adminHome_bottomBer"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/cardView_adminHome_report"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView_adminHome_hospital">
@@ -246,7 +306,7 @@
                 android:elevation="5dp"
                 android:foreground="?android:selectableItemBackground"
                 android:onClick="report_cardView"
-                app:layout_constraintBottom_toTopOf="@+id/cardView_adminHome_bottomBer"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardView_adminHome_admin"
                 app:layout_constraintTop_toBottomOf="@+id/cardView_adminHome_Organization">
@@ -415,69 +475,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/cardView_adminHome_report"
                 app:layout_constraintStart_toStartOf="@+id/cardView_adminHome_report"
                 app:layout_constraintTop_toBottomOf="@+id/imageView_adminHome_reportIcon" />
-
-            <ImageView
-                android:id="@+id/imageView_adminHome_logOutIcon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:elevation="5dp"
-                android:padding="5dp"
-                android:onClick="logOut_imageView"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_bottomBer"
-                app:layout_constraintEnd_toEndOf="@id/cardView_adminHome_bottomBer"
-                app:layout_constraintStart_toEndOf="@+id/imageView_adminHome_deleteAccountIcon"
-                app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_bottomBer"
-                app:srcCompat="@drawable/user_interface_exit_icon" />
-
-            <ImageView
-                android:id="@+id/imageView_adminHome_deleteAccountIcon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:elevation="5dp"
-                android:padding="5dp"
-                android:onClick="deleteAccount_imageView"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_bottomBer"
-                app:layout_constraintEnd_toEndOf="@+id/imageView_adminHome_userModeIcon"
-                app:layout_constraintStart_toStartOf="@id/imageView_adminHome_logOutIcon"
-                app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_bottomBer"
-                app:srcCompat="@drawable/ic_delete_black_24dp" />
-
-            <ImageView
-                android:id="@+id/imageView_adminHome_userModeIcon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:onClick="userMode_imageView"
-                android:elevation="5dp"
-                android:padding="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_bottomBer"
-                app:layout_constraintEnd_toStartOf="@+id/cardView_adminHome_bottomBer"
-                app:layout_constraintStart_toStartOf="@id/imageView_adminHome_deleteAccountIcon"
-                app:layout_constraintTop_toTopOf="@+id/cardView_adminHome_bottomBer"
-                app:srcCompat="@drawable/ic_account_circle_black_24dp" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_adminHome_bottomBer"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:elevation="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
