@@ -12,54 +12,66 @@
         android:layout_height="wrap_content">
 
         <!--Profile section-->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:elevation="5dp"
+            android:src="@drawable/ic_person_outline_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/main_profile"
+            app:layout_constraintStart_toStartOf="@id/main_profile"
+            app:layout_constraintTop_toTopOf="@id/main_profile"
+            app:srcCompat="@drawable/profile_default" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:elevation="5dp"
+            android:ellipsize="end"
+            android:paddingLeft="5dp"
+            android:paddingTop="2dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="2dp"
+            android:singleLine="true"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imageView3"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@id/main_profile" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="5dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_notifications_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/main_profile"
+            app:layout_constraintEnd_toEndOf="@+id/main_profile"
+            app:layout_constraintTop_toTopOf="@+id/main_profile" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/main_profile"
             android:layout_width="0dp"
-            android:elevation="10dp"
-            android:layout_height="wrap_content"
-            android:background="@color/green"
+            android:layout_height="100dp"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
+            android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/main_addition_card">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:elevation="35dp"
-                android:orientation="horizontal">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:paddingHorizontal="5dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:src="@drawable/ic_person"
-                    app:civ_border_color="@color/blackish"
-                    app:civ_border_width="2dp" />
-
-                <LinearLayout
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/main_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Rezwan Al Kaoser" />
-
-                    <TextView
-                        android:id="@+id/main_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Khulna, Bangladesh" />
-                </LinearLayout>
-
-            </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent">
 
         </androidx.cardview.widget.CardView>
 
@@ -70,16 +82,13 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/main_addition_card"
             android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:background="@color/white"
-            android:elevation="5dp"
+            android:layout_height="150dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_profile"
+            android:background="@color/white"
+            android:elevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/main_info_card"
-            >
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_search_card"></androidx.cardview.widget.CardView>
 
         <TextView
             android:layout_width="0dp"
@@ -111,17 +120,15 @@
 
         <ImageView
             android:id="@+id/donar_add_img"
-            android:elevation="6dp"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:elevation="6dp"
             android:padding="5dp"
             android:src="@drawable/donar_add"
-            app:layout_constraintTop_toBottomOf="@id/straight_line"
-            app:layout_constraintStart_toStartOf="@+id/main_addition_card"
             app:layout_constraintBottom_toTopOf="@id/donar_add_text"
             app:layout_constraintEnd_toStartOf="@+id/organization_add_img"
-            >
-        </ImageView>
+            app:layout_constraintStart_toStartOf="@+id/main_addition_card"
+            app:layout_constraintTop_toBottomOf="@id/straight_line"></ImageView>
 
         <TextView
             android:elevation="6dp"
@@ -139,17 +146,15 @@
 
         <ImageView
             android:id="@+id/organization_add_img"
-            android:elevation="6dp"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:elevation="6dp"
             android:padding="5dp"
             android:src="@drawable/organization"
-            app:layout_constraintTop_toBottomOf="@id/straight_line"
-            app:layout_constraintStart_toEndOf="@+id/donar_add_img"
             app:layout_constraintBottom_toTopOf="@id/organization_add_text"
             app:layout_constraintEnd_toStartOf="@+id/hospital_add_img"
-            >
-        </ImageView>
+            app:layout_constraintStart_toEndOf="@+id/donar_add_img"
+            app:layout_constraintTop_toBottomOf="@id/straight_line"></ImageView>
 
         <TextView
             android:id="@+id/organization_add_text"
@@ -166,17 +171,15 @@
 
         <ImageView
             android:id="@+id/hospital_add_img"
-            android:elevation="6dp"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:elevation="6dp"
             android:padding="5dp"
             android:src="@drawable/hospital"
-            app:layout_constraintTop_toBottomOf="@id/straight_line"
-            app:layout_constraintStart_toEndOf="@+id/organization_add_img"
             app:layout_constraintBottom_toTopOf="@id/hospital_add_text"
             app:layout_constraintEnd_toStartOf="@+id/ambulance_add_img"
-            >
-        </ImageView>
+            app:layout_constraintStart_toEndOf="@+id/organization_add_img"
+            app:layout_constraintTop_toBottomOf="@id/straight_line"></ImageView>
 
         <TextView
             android:id="@+id/hospital_add_text"
@@ -193,18 +196,15 @@
 
         <ImageView
             android:id="@+id/ambulance_add_img"
-            android:elevation="6dp"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:elevation="6dp"
             android:padding="5dp"
             android:src="@drawable/ambulance"
-            app:layout_constraintTop_toBottomOf="@id/straight_line"
-            app:layout_constraintStart_toEndOf="@+id/hospital_add_img"
             app:layout_constraintBottom_toTopOf="@id/ambulance_add_text"
             app:layout_constraintEnd_toEndOf="@+id/main_addition_card"
-            app:layout_constraintVertical_bias=".8"
-            >
-        </ImageView>
+            app:layout_constraintStart_toEndOf="@+id/hospital_add_img"
+            app:layout_constraintTop_toBottomOf="@id/straight_line"></ImageView>
 
         <TextView
             android:id="@+id/ambulance_add_text"
@@ -230,14 +230,13 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/main_info_card"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:elevation="5dp"
+            android:elevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_addition_card">
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toBottomOf="@id/main_addition_card"></androidx.cardview.widget.CardView>
 
         <TextView
             android:layout_width="0dp"
@@ -381,19 +380,17 @@
         <!--Search bar Start-->
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/main_search_card"
             android:layout_width="0dp"
             android:layout_height="220dp"
-            android:id="@+id/main_search_card"
-            android:background="@color/white"
-            android:elevation="10dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/main_info_card"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:elevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_profile"
 
-            >
-        </androidx.cardview.widget.CardView>
+            ></androidx.cardview.widget.CardView>
 
         <TextView
             android:layout_width="0dp"
@@ -578,8 +575,7 @@
             android:id="@+id/blood_groups"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="group_o_pos,group_b_neg,group_a_pos,group_b_pos,group_o_neg,group_ab_pos,group_ab_neg,group_a_neg"
-            />
+            app:constraint_referenced_ids="group_o_pos,group_b_neg,group_a_pos,group_b_pos,group_o_neg,group_ab_pos,group_ab_neg,group_a_neg" />
     <!--Search bar End-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
