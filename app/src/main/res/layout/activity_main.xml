@@ -7,17 +7,6 @@
     android:background="#FFFFFF"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/main_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:minHeight="?attr/actionBarSize"
-        app:layout_constraintBottom_toTopOf="@id/main_display"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <FrameLayout
         android:id="@+id/main_display"
@@ -26,7 +15,7 @@
         app:layout_constraintBottom_toTopOf="@+id/main_bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 

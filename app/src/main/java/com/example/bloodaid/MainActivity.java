@@ -26,9 +26,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
-    Toolbar toolbar;
     public static BottomNavigationView mBottomNav;
-    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
-        mToolbar.setLogo(R.drawable.blood_aid_logo);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         mBottomNav.setOnNavigationItemSelectedListener(navListener);
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.main_display, new HomeFragment()).commit();
@@ -77,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         mBottomNav = findViewById(R.id.main_bottom_nav);
-        mToolbar = findViewById(R.id.main_toolbar);
     }
 
 
