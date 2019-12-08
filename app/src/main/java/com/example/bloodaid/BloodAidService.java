@@ -14,6 +14,7 @@ import com.example.bloodaid.models.ReportAmbulanceModelClass;
 import com.example.bloodaid.models.ReportDonorModelClass;
 import com.example.bloodaid.models.ReportHospitalModelClass;
 import com.example.bloodaid.models.ReportOrganizationModelClass;
+import com.example.bloodaid.models.UserModelClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +71,14 @@ public interface BloodAidService {
 
     @GET("api/getrequestfeed.php")
     Call<ArrayList<DonorRequestModelClass>> donorRequestsFeed();
+
+
+
+    @FormUrlEncoded
+    @GET("api/readSingleUser.php")
+    Call<UserModelClass> singleUserData(
+            @Field("userid") Integer userid
+    );
 
 
     //Frontend End

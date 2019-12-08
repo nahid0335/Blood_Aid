@@ -35,14 +35,12 @@
                 android:layout_marginStart="100dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
                 android:drawableLeft="@drawable/ic_person"
                 android:drawablePadding="25dp"
                 android:padding="5dp"
                 android:text="Not Donor"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/district_spinner2" />
@@ -77,7 +75,7 @@
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="@id/textView2"
                 app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+                app:layout_constraintTop_toBottomOf="@+id/circleImageView_userProfile_profileImage" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/district_spinner2"
@@ -222,33 +220,20 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
-                android:layout_width="155dp"
-                android:layout_height="155dp"
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageView_userProfile_profileImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="30dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="250dp"
-                app:layout_constraintEnd_toEndOf="@id/textView2"
+                android:src="@drawable/profile_default"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/textView2"
                 app:layout_constraintStart_toStartOf="@+id/textView2"
                 app:layout_constraintTop_toTopOf="@id/textView2">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center"
-                    app:cardCornerRadius="250dp">
-
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:contentDescription="TODO"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/profile_default" />
-
-                </androidx.cardview.widget.CardView>
-
-            </androidx.cardview.widget.CardView>
+            </de.hdodenhof.circleimageview.CircleImageView>
 
             <TextView
                 android:id="@+id/textView_userProfile_password"
@@ -283,6 +268,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_userProfile_password" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:padding="5dp"
+                android:text="@string/userProfile_updateText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_userProfile_donorStatus" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

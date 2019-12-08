@@ -35,6 +35,7 @@
     <string name="popupReport_deletetextView">Delete ID</string>
 
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <string name="userProfile_updateText">To UPDATE data please click the desire one !</string>
 
     <string-array name="blood_items">
         <item>Choose Blood Group</item>

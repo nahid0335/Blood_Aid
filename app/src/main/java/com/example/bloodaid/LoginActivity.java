@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bloodaid.models.UserModelClass;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
@@ -28,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView mForgotPass;
     String userphone, userpass;
     Integer user_id = -1;
+    Boolean isFinished = false;
 
 
 
@@ -46,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
             startActivity( new Intent(LoginActivity.this, MainActivity.class) );
         }
+
 
 
         mLogin.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                             .loginUser(userphone, userpass);
 
 
-                    new Thread(new Runnable() {
+                    Thread T = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             call.enqueue(new Callback<ResponseBody>() {
@@ -81,11 +85,12 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                     try {
                                         String s = response.body().string();
-
+                                        Log.d("TAG", s + " end;;;;");
                                         //Response parsing
                                         Boolean status;
                                         if(s.isEmpty()){
                                             status = false;
+                                            Log.d("TAG", "empty");
                                         }
                                         else{
                                             JSONObject object = new JSONObject(s);
@@ -131,14 +136,61 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                                     Toast.makeText(LoginActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
                                 }
+
                             });
                         }
-                    }).start();
+                    });
 
+//                    Thread t2 = new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            while(isFinished){
+//                                final Call<UserModelClass> call1 = RetrofitInstance.getRetrofitInstance()
+//                                        .create(BloodAidService.class)
+//                                        .singleUserData(user_id);
+//                                call1.enqueue(new Callback<UserModelClass>(){
+//                                    @Override
+//                                    public void onResponse(Call<UserModelClass> call, Response<UserModelClass> response) {
+//                                        Log.d("TAG", "inside second");
+//                                        if(!response.isSuccessful()){
+//                                            Toast.makeText(LoginActivity.this, "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
+//                                        }
+//                                        UserModelClass userDetails = response.body();
+//
+//                                        Log.d("TAG", userDetails.getDistrict());
+//
+//                                        //Response parsing
+//
+//
+//                                        /*if(true){
+//
+//                                        }
+//                                        else{
+//                                            AllToasts.errorToast(LoginActivity.this,"Phone or Password is not correct!" );
+//                                        }*/
+//
+//
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onFailure(Call<UserModelClass> call, Throwable t) {
+//                                        Toast.makeText(LoginActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+//                                    }
+//                                });
+//                            }
+//
+//                        }
+//                    });
+//                    t2.start();
+                    T.start();
 
+                    try {
+                        T.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-
-
             }
         });
 
