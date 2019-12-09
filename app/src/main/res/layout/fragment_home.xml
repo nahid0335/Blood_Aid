@@ -27,7 +27,7 @@
             app:srcCompat="@drawable/profile_default" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView_userHome_userName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

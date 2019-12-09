@@ -2,31 +2,44 @@ package com.example.bloodaid;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bloodaid.fragments.FeedFragment;
 import com.example.bloodaid.fragments.HomeFragment;
-import com.example.bloodaid.fragments.NotificationFragment;
 import com.example.bloodaid.fragments.RequestFragment;
 import com.example.bloodaid.fragments.SearchDialog;
 import com.example.bloodaid.fragments.SearchFragment;
+import com.example.bloodaid.models.UserModelClass;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.squareup.picasso.Picasso;
+import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
     public static BottomNavigationView mBottomNav;
+    public static TextView UserName;
+
+
+
+    public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
+    public static final String USER_ID = "user_id";
+    public static final String USER_DATA = "user_data";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +74,57 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
+        //get userid from share preference
+        final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+        final Integer user_id = sharedPreferences.getInt(USER_ID,-1);
+        final Gson gson = new Gson();
+        if(!sharedPreferences.contains(USER_DATA)){
+            Thread T = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    final Call<UserModelClass> call1 = RetrofitInstance.getRetrofitInstance()
+                            .create(BloodAidService.class)
+                            .singleUserData(user_id);
+                    call1.enqueue(new Callback<UserModelClass>(){
+                        @Override
+                        public void onResponse(Call<UserModelClass> call, Response<UserModelClass> response) {
+                            if(!response.isSuccessful()){
+                                Toast.makeText(MainActivity.this, "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
+                            }
+                            UserModelClass userDetails = response.body();
+
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            String json = gson.toJson(userDetails);
+                            editor.putString(USER_DATA,json);
+                            editor.apply();
+                        }
+
+                        @Override
+                        public void onFailure(Call<UserModelClass> call, Throwable t) {
+                            Toast.makeText(MainActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            });
+            T.start();
+            try {
+                T.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+
+        }
+
+
         mBottomNav.setOnNavigationItemSelectedListener(navListener);
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.main_display, new HomeFragment()).commit();
             mBottomNav.getMenu().getItem(2).setChecked(true);
         }
+
+
 
     }
 
@@ -81,31 +140,48 @@ public class MainActivity extends AppCompatActivity {
             switch (menuItem.getItemId()){
                 case R.id.nav_feed:
                     selectedFragment = new FeedFragment();
-                    break;
+                    loadFragment(selectedFragment);
+                    return true;
                 case R.id.nav_request:
                     selectedFragment = new RequestFragment();
-                    break;
+                    loadFragment(selectedFragment);
+                    return true;
                 case R.id.nav_home:
                     selectedFragment = new HomeFragment();
-                    break;
+                    loadFragment(selectedFragment);
+                    return true;
                 case R.id.nav_search:
                     /*SearchDialog searchDialog = new SearchDialog();
                     searchDialog.show(getSupportFragmentManager(), "Hello");
                     return true;*/
                     selectedFragment = new SearchFragment();
-                    break;
-                case R.id.nav_notifications:
-                    selectedFragment = new NotificationFragment();
-                    break;
+                    loadFragment(selectedFragment);
+                    return true;
+                case R.id.nav_logout:
+                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear();
+                    editor.apply();
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                    return true;
                 default:
                     AllToasts.errorToast(MainActivity.this,"Something Goes Wrong !");
                     break;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_display, selectedFragment).commit();
-            return true;
+            return false;
         }
     };
 
+
+
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_display, fragment).addToBackStack(null);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
 
 

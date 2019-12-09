@@ -75,7 +75,7 @@ public interface BloodAidService {
 
 
     @FormUrlEncoded
-    @GET("api/readSingleUser.php")
+    @POST("api/readSingleUser.php")
     Call<UserModelClass> singleUserData(
             @Field("userid") Integer userid
     );

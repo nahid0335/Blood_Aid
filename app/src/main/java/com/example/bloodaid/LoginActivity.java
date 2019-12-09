@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 else if(userpass.isEmpty()){
                     mPassword.setError("Password can't be empty !");
                 }
-                else{
+                else {
                     //do actual login check
                     mPassword.setError(null);
                     mPhone.setError(null);
@@ -88,22 +88,21 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.d("TAG", s + " end;;;;");
                                         //Response parsing
                                         Boolean status;
-                                        if(s.isEmpty()){
+                                        if (s.isEmpty()) {
                                             status = false;
                                             Log.d("TAG", "empty");
-                                        }
-                                        else{
+                                        } else {
                                             JSONObject object = new JSONObject(s);
                                             user_id = object.getInt("user_id"); // true or false will be returned as response
-                                           // AllToasts.successToast(LoginActivity.this, String.valueOf(user_id));
+                                            // AllToasts.successToast(LoginActivity.this, String.valueOf(user_id));
 
                                             status = true;
-                                            if(user_id==-1){
+                                            if (user_id == -1) {
                                                 status = false;
                                             }
                                         }
 
-                                        if(status){
+                                        if (status) {
 
                                             //Share preference save data
                                             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
@@ -114,82 +113,39 @@ public class LoginActivity extends AppCompatActivity {
                                             // end share preference
 
                                             finish();
-                                            startActivity( new Intent(LoginActivity.this, MainActivity.class) );
+                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                             AllToasts.successToast(LoginActivity.this, "Successfully Logged In");
-                                        }
-                                        else{
-                                            AllToasts.errorToast(LoginActivity.this,"Phone or Password is not correct!" );
+                                        } else {
+                                            AllToasts.errorToast(LoginActivity.this, "Phone or Password is not correct!");
                                         }
 
-                                    }catch (JSONException e) {
+                                    } catch (JSONException e) {
                                         e.printStackTrace();
-                                        Toast.makeText(LoginActivity.this, e.getMessage()+" - JSON", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, e.getMessage() + " - JSON", Toast.LENGTH_LONG).show();
 
-                                    }catch (IOException e) {
+                                    } catch (IOException e) {
                                         e.printStackTrace();
-                                        Toast.makeText(LoginActivity.this, e.getMessage()+" - IO", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, e.getMessage() + " - IO", Toast.LENGTH_LONG).show();
                                     }
 
                                 }
 
                                 @Override
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                    Toast.makeText(LoginActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this, t.getMessage() + " .", Toast.LENGTH_LONG).show();
                                 }
 
                             });
                         }
                     });
 
-//                    Thread t2 = new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            while(isFinished){
-//                                final Call<UserModelClass> call1 = RetrofitInstance.getRetrofitInstance()
-//                                        .create(BloodAidService.class)
-//                                        .singleUserData(user_id);
-//                                call1.enqueue(new Callback<UserModelClass>(){
-//                                    @Override
-//                                    public void onResponse(Call<UserModelClass> call, Response<UserModelClass> response) {
-//                                        Log.d("TAG", "inside second");
-//                                        if(!response.isSuccessful()){
-//                                            Toast.makeText(LoginActivity.this, "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
-//                                        }
-//                                        UserModelClass userDetails = response.body();
-//
-//                                        Log.d("TAG", userDetails.getDistrict());
-//
-//                                        //Response parsing
-//
-//
-//                                        /*if(true){
-//
-//                                        }
-//                                        else{
-//                                            AllToasts.errorToast(LoginActivity.this,"Phone or Password is not correct!" );
-//                                        }*/
-//
-//
-//
-//                                    }
-//
-//                                    @Override
-//                                    public void onFailure(Call<UserModelClass> call, Throwable t) {
-//                                        Toast.makeText(LoginActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
-//                                    }
-//                                });
-//                            }
-//
-//                        }
-//                    });
-//                    t2.start();
                     T.start();
-
                     try {
                         T.join();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
                 }
             }
         });
