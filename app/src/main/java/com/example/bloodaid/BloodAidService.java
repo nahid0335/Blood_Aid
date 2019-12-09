@@ -35,7 +35,7 @@ public interface BloodAidService {
 
     @FormUrlEncoded
     @POST("api/login.php")
-    Call<ResponseBody> loginUser(
+    Call<UserModelClass> loginUser(
             @Field("phone") String phone,
             @Field("password") String password
     );

@@ -1,18 +1,35 @@
 package com.example.bloodaid.models;
 
 public class UserModelClass {
+    private Integer UserId;
     private String Name;
     private String Mobile;
     private String Email;
     private String Password;
     private String BloodGroup;
     private String District;
+    private Integer DonorStatus;
     private Double Latitude;
     private Double Longitude;
     private Integer DonateCount;
     private String LastDonate;
     private Integer Status;
 
+    public Integer getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(Integer userId) {
+        UserId = userId;
+    }
+
+    public Integer getDonorStatus() {
+        return DonorStatus;
+    }
+
+    public void setDonorStatus(Integer donorStatus) {
+        DonorStatus = donorStatus;
+    }
 
     public String getName() {
         return Name;

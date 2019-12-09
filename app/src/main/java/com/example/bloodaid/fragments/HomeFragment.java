@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import static android.content.Context.MODE_PRIVATE;
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment {
     Group mBloodGroups;
@@ -37,7 +35,6 @@ public class HomeFragment extends Fragment {
 
 
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
-    public static final String USER_ID = "user_id";
     public static final String USER_DATA = "user_data";
 
     public HomeFragment() {

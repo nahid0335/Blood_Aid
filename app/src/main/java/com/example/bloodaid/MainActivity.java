@@ -31,6 +31,8 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
+import java.util.concurrent.CountDownLatch;
+
 public class MainActivity extends AppCompatActivity {
     public static BottomNavigationView mBottomNav;
     public static TextView UserName;
@@ -74,48 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
-        //get userid from share preference
-        final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
-        final Integer user_id = sharedPreferences.getInt(USER_ID,-1);
-        final Gson gson = new Gson();
-        if(!sharedPreferences.contains(USER_DATA)){
-            Thread T = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    final Call<UserModelClass> call1 = RetrofitInstance.getRetrofitInstance()
-                            .create(BloodAidService.class)
-                            .singleUserData(user_id);
-                    call1.enqueue(new Callback<UserModelClass>(){
-                        @Override
-                        public void onResponse(Call<UserModelClass> call, Response<UserModelClass> response) {
-                            if(!response.isSuccessful()){
-                                Toast.makeText(MainActivity.this, "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
-                            }
-                            UserModelClass userDetails = response.body();
 
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            String json = gson.toJson(userDetails);
-                            editor.putString(USER_DATA,json);
-                            editor.apply();
-                        }
-
-                        @Override
-                        public void onFailure(Call<UserModelClass> call, Throwable t) {
-                            Toast.makeText(MainActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            });
-            T.start();
-            try {
-                T.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
-
-        }
 
 
         mBottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -213,6 +174,13 @@ public class MainActivity extends AppCompatActivity {
         }else {
             searchDialog.show(getSupportFragmentManager(), "NULL");
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        System.exit(0);
     }
 
 }

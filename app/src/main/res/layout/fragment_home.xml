@@ -26,28 +26,6 @@
             app:layout_constraintTop_toTopOf="@id/main_profile"
             app:srcCompat="@drawable/profile_default" />
 
-        <TextView
-            android:id="@+id/textView_userHome_userName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="5dp"
-            android:elevation="5dp"
-            android:ellipsize="end"
-            android:paddingLeft="5dp"
-            android:paddingTop="2dp"
-            android:paddingRight="5dp"
-            android:paddingBottom="2dp"
-            android:singleLine="true"
-            android:text="TextView"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@id/main_profile" />
-
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="60dp"
@@ -61,6 +39,25 @@
             app:layout_constraintBottom_toBottomOf="@+id/main_profile"
             app:layout_constraintEnd_toEndOf="@+id/main_profile"
             app:layout_constraintTop_toTopOf="@+id/main_profile" />
+
+        <TextView
+            android:id="@+id/textView_userHome_userName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:elevation="5dp"
+            android:ellipsize="end"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imageView3"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@id/main_profile" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/main_profile"

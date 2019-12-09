@@ -1,5 +1,6 @@
 package com.example.bloodaid;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.bloodaid.models.UserModelClass;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_ID = "user_id";
+    public static final String USER_DATA = "user_data";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         init();
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
-        if(sharedPreferences.contains(USER_ID)){
+        if(sharedPreferences.contains(USER_DATA)){
             finish();
             startActivity( new Intent(LoginActivity.this, MainActivity.class) );
         }
@@ -72,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                     //do actual login check
                     mPassword.setError(null);
                     mPhone.setError(null);
-                    final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                    final Call<UserModelClass> call = RetrofitInstance.getRetrofitInstance()
                             .create(BloodAidService.class)
                             .loginUser(userphone, userpass);
 
@@ -80,58 +84,48 @@ public class LoginActivity extends AppCompatActivity {
                     Thread T = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            call.enqueue(new Callback<ResponseBody>() {
+                            call.enqueue(new Callback<UserModelClass>() {
                                 @Override
-                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                    try {
-                                        String s = response.body().string();
-                                        Log.d("TAG", s + " end;;;;");
-                                        //Response parsing
-                                        Boolean status;
-                                        if (s.isEmpty()) {
-                                            status = false;
-                                            Log.d("TAG", "empty");
-                                        } else {
-                                            JSONObject object = new JSONObject(s);
-                                            user_id = object.getInt("user_id"); // true or false will be returned as response
-                                            // AllToasts.successToast(LoginActivity.this, String.valueOf(user_id));
-
-                                            status = true;
-                                            if (user_id == -1) {
-                                                status = false;
-                                            }
-                                        }
-
-                                        if (status) {
-
-                                            //Share preference save data
-                                            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
-                                            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                                            editor.putInt(USER_ID, user_id);
-                                            editor.apply();
-                                            // end share preference
-
-                                            finish();
-                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                            AllToasts.successToast(LoginActivity.this, "Successfully Logged In");
-                                        } else {
-                                            AllToasts.errorToast(LoginActivity.this, "Phone or Password is not correct!");
-                                        }
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                        Toast.makeText(LoginActivity.this, e.getMessage() + " - JSON", Toast.LENGTH_LONG).show();
-
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                        Toast.makeText(LoginActivity.this, e.getMessage() + " - IO", Toast.LENGTH_LONG).show();
+                                public void onResponse(Call<UserModelClass> call, Response<UserModelClass> response) {
+                                    if (!response.isSuccessful()) {
+                                        Toast.makeText(LoginActivity.this, "Code : " + response.code() + " .", Toast.LENGTH_LONG).show();
+                                    }
+                                    UserModelClass userDetails = null;
+                                    if(response.body() != null){
+                                        userDetails = response.body();
+                                        Log.d("TAG",userDetails.getName());
                                     }
 
+                                    //Response parsing
+                                    Boolean status;
+                                    if (userDetails == null) {
+                                        status = false;
+                                    } else {
+                                        status = true;
+                                    }
+
+                                    if (status) {
+
+                                        //Share preference save data
+                                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        Gson gson = new Gson();
+                                        String json = gson.toJson(userDetails);
+                                        editor.putString(USER_DATA, json);
+                                        editor.apply();
+                                        // end share preference
+
+                                        finish();
+                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        AllToasts.successToast(LoginActivity.this, "Successfully Logged In");
+                                    } else {
+                                        AllToasts.errorToast(LoginActivity.this, "Phone or Password is not correct!");
+                                    }
                                 }
 
+
                                 @Override
-                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                public void onFailure(Call<UserModelClass> call, Throwable t) {
                                     Toast.makeText(LoginActivity.this, t.getMessage() + " .", Toast.LENGTH_LONG).show();
                                 }
 
@@ -168,6 +162,13 @@ public class LoginActivity extends AppCompatActivity {
         mLogin = findViewById(R.id.login_btn);
         mRegister = findViewById(R.id.sign_up_btn);
         mForgotPass = findViewById(R.id.forgot_text);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        System.exit(0);
     }
 
 }
