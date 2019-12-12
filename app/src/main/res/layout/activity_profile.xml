@@ -71,6 +71,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#E6FF0000"
                 android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:padding="5dp"
                 android:text="Tamzid hasan nahid"
                 android:textAlignment="center"

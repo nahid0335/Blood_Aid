@@ -36,6 +36,9 @@
 
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="userProfile_updateText">To UPDATE data please click the desire one !</string>
+    <string name="popupUpdateTextview_UpdateWarning">Update !</string>
+    <string name="popupUpdateTextview_oldData">Old Data :</string>
+    <string name="popup_cancelText">Cancel</string>
 
     <string-array name="blood_items">
         <item>Choose Blood Group</item>
