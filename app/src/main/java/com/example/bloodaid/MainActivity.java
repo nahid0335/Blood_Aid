@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(selectedFragment);
                     return true;
                 case R.id.nav_home:
-                    selectedFragment = new HomeFragment();
+                    selectedFragment = new HomeFragment(MainActivity.this);
                     loadFragment(selectedFragment);
                     return true;
                 case R.id.nav_search:

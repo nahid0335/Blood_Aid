@@ -28,7 +28,6 @@ public class SearchFragment extends Fragment {
     Spinner mDistrictSpinner, mBloodSpinner;
     String districtStr, bloodGroupStr, searchFor = "donor";
 
-
     public SearchFragment() {
         // Required empty public constructor
     }

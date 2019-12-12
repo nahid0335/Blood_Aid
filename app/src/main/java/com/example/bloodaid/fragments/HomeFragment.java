@@ -1,6 +1,7 @@
 package com.example.bloodaid.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -11,12 +12,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.ProfileActivity;
 import com.example.bloodaid.R;
 import com.example.bloodaid.models.UserModelClass;
@@ -32,13 +35,20 @@ public class HomeFragment extends Fragment {
     ImageView mProfilePic;
     CardView userProfile;
     TextView UserName;
+    ImageView mDonorImg, mOrgImg, mHospitalImg, mAmbulanceImg;
+    TextView mDonorTxt, mOrgTxt, mHospitalTxt, mAmbulanceTxt;
+
+    Context context = getActivity();
 
 
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_DATA = "user_data";
 
-    public HomeFragment() {
+    public HomeFragment() {}
+
+    public HomeFragment(Context context) {
         // Required empty public constructor
+        this.context = context;
     }
 
 
@@ -90,7 +100,63 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+        additionActions(v);
+
         return v;
+    }
+
+    private void additionActions(View v) {
+        mDonorImg = v.findViewById(R.id.donar_add_img);
+        mOrgImg = v.findViewById(R.id.organization_add_img);
+        mHospitalImg = v.findViewById(R.id.hospital_add_img);
+        mAmbulanceImg = v.findViewById(R.id.ambulance_add_img);
+        mDonorTxt = v.findViewById(R.id.donar_add_text);
+        mOrgTxt = v.findViewById(R.id.organization_add_text);
+        mHospitalTxt = v.findViewById(R.id.hospital_add_text);
+        mAmbulanceTxt = v.findViewById(R.id.ambulance_add_text);
+
+
+        mDonorImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment donorAddFragment = new DonorAddFragment();
+                loadFragment(donorAddFragment);
+            }
+        });
+
+        mHospitalImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment hospitalAddFragment = new HospitalAddFragment();
+                loadFragment(hospitalAddFragment);
+            }
+        });
+
+        mOrgImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment organizationAddFragment = new OrganizationAddFragment();
+                loadFragment(organizationAddFragment);
+            }
+        });
+
+        mAmbulanceImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment ambulanceAddFragment = new AmbulanceAddFragment();
+                loadFragment(ambulanceAddFragment);
+            }
+        });
+
+    }
+
+    private void loadFragment(Fragment fragment) {
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_display, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void init(View v) {
@@ -98,6 +164,16 @@ public class HomeFragment extends Fragment {
         mBloodSearchIcon = v.findViewById(R.id.search_btn);
         userProfile = v.findViewById(R.id.main_profile);
         UserName = v.findViewById(R.id.textView_userHome_userName);
+
+        //addition
+        mDonorImg = v.findViewById(R.id.donar_add_img);
+        mOrgImg = v.findViewById(R.id.organization_add_img);
+        mHospitalImg = v.findViewById(R.id.hospital_add_img);
+        mAmbulanceImg = v.findViewById(R.id.ambulance_add_img);
+        mDonorTxt = v.findViewById(R.id.donar_add_text);
+        mOrgTxt = v.findViewById(R.id.organization_add_text);
+        mHospitalTxt = v.findViewById(R.id.hospital_add_text);
+        mAmbulanceTxt = v.findViewById(R.id.ambulance_add_text);
     }
 
     private void profileWork() {
@@ -107,6 +183,5 @@ public class HomeFragment extends Fragment {
     public void bloodGroupSearchClicked(View v){
 
     }
-
 
 }

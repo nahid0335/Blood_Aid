@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".fragments.RequestFragment"
+    android:background="@drawable/registrationbackground"
+    >
+
+    <TextView
+        android:id="@+id/txtViewRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:elevation="10dp"
+        android:transitionName="tvLogin"
+        android:text="New Organization"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:fontFamily="@font/roboto_regular"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtViewRequest"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:scrollbars="none"
+        >
+
+        <RelativeLayout
+            android:id="@+id/rlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewRId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="15dp"
+                android:background="@drawable/border_button_bg"
+                app:cardElevation="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:orientation="vertical"
+                    android:background="#F0EDED"
+                    android:paddingBottom="50dp"
+                    >
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/name_input"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fitsSystemWindows="true"
+                        app:errorEnabled="true"
+                        app:boxBackgroundColor="@color/white"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:hint="Organization Name"
+                            android:windowSoftInputMode="adjustPan"
+                            android:inputType="textPersonName"
+                            android:textAllCaps="true"
+                            android:drawableLeft="@drawable/ic_person"
+                            android:drawablePadding="15dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/blood_unit_input"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_blood_unit"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:hint="Email Address"
+                            android:inputType="textEmailAddress"
+                            android:windowSoftInputMode="adjustPan"
+                            android:drawableLeft="@drawable/blooddrop"
+                            android:drawablePadding="15dp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/hospital_input"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_hospital"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:inputType="number"
+                            android:windowSoftInputMode="adjustPan"
+                            android:drawableStart="@drawable/ic_home"
+                            android:drawablePadding="15dp"
+                            android:hint="Phone Number"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <EditText
+                        android:id="@+id/et_reason"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:drawableStart="@drawable/ic_facts"
+                        android:drawablePadding="15dp"
+                        android:padding="15dp"
+                        android:windowSoftInputMode="adjustPan"
+                        android:hint="Organization Details"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:background="@color/white"
+                        android:layout_marginBottom="15dp"
+                        />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/district_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/border_button_bg"
+                            android:entries="@array/district_items"
+                            android:paddingLeft="15dp"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:id="@+id/request_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardViewRId"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:elevation="25dp">
+
+                <Button
+                    android:id="@+id/register_button"
+                    android:layout_width="180dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/button_register_ui"
+                    android:text="Add Organization"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+
+    </ScrollView>
+
+</RelativeLayout>
