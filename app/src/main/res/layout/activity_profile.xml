@@ -156,6 +156,7 @@
                 android:elevation="5dp"
                 android:padding="5dp"
                 android:text="23-10-2019"
+                android:clickable="true"
                 android:textColor="#00AD0D"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/cardView3"
