@@ -1,4 +1,4 @@
-package com.example.bloodaid;
+package com.example.bloodaid.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

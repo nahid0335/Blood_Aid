@@ -1,4 +1,4 @@
-package com.example.bloodaid.fragments;
+package com.example.bloodaid.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

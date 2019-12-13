@@ -5,6 +5,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
+import com.example.bloodaid.adapters.ResultPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class SearchResultActivity extends AppCompatActivity {

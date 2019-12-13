@@ -14,6 +14,7 @@ import com.example.bloodaid.models.ReportAmbulanceModelClass;
 import com.example.bloodaid.models.ReportDonorModelClass;
 import com.example.bloodaid.models.ReportHospitalModelClass;
 import com.example.bloodaid.models.ReportOrganizationModelClass;
+import com.example.bloodaid.models.TopDonorModelClass;
 import com.example.bloodaid.models.UserModelClass;
 
 import java.util.ArrayList;
@@ -109,6 +110,10 @@ public interface BloodAidService {
             @Field("details") String details,
             @Field("area_id") long area_id
     );
+
+
+    @GET("api/topdonor.php")
+    Call<ArrayList<TopDonorModelClass>> topDonor();
 
 
 
