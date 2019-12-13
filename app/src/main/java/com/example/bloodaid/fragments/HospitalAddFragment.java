@@ -85,7 +85,7 @@ public class HospitalAddFragment extends Fragment {
     private void addHospitalDataSendToDatabase(String name, String phone, String email, String bloodDetails, long areaId) {
         final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidService.class)
-                .addHospital(name , phone, email, bloodDetails, areaId);
+                .addHospital(name , email, phone, bloodDetails, areaId);
 
         new Thread(new Runnable() {
             @Override

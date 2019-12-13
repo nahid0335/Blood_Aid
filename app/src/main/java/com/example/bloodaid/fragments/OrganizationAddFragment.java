@@ -136,7 +136,7 @@ public class OrganizationAddFragment extends Fragment {
     private void addOrgDataSendToDatabase(String name, String phone, String email, String bloodDetails, long areaId) {
         final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidService.class)
-                .addOrganization(name , phone, email, bloodDetails, areaId);
+                .addOrganization(name , email, phone, bloodDetails, areaId);
 
         new Thread(new Runnable() {
             @Override
