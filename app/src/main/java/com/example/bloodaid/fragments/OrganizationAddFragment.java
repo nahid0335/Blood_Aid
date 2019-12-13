@@ -35,9 +35,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class OrganizationAddFragment extends Fragment {
 
     TextInputLayout mOrgName, mPhoneNo, mEmail;
@@ -56,8 +53,6 @@ public class OrganizationAddFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
 
         View v = inflater.inflate(R.layout.fragment_organization_add, container, false);
         init(v);
