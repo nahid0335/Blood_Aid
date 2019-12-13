@@ -1,6 +1,5 @@
 package com.example.bloodaid.fragments;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,9 +36,7 @@ public class HomeFragment extends Fragment {
     TextView UserName;
     ImageView mDonorImg, mOrgImg, mHospitalImg, mAmbulanceImg;
     TextView mDonorTxt, mOrgTxt, mHospitalTxt, mAmbulanceTxt;
-
     Context context = getActivity();
-
 
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_DATA = "user_data";
@@ -155,7 +152,6 @@ public class HomeFragment extends Fragment {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_display, fragment)
-                .addToBackStack(null)
                 .commit();
     }
 

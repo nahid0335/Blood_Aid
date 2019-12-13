@@ -80,6 +80,39 @@ public interface BloodAidService {
             @Field("userid") Integer userid
     );
 
+    @FormUrlEncoded
+    @POST("api/addhospital.php")
+    Call<ResponseBody> addHospital(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("phone") String phone,
+            @Field("details") String details,
+            @Field("area_id") long area_id
+    );
+
+    @FormUrlEncoded
+    @POST("api/addambulance.php")
+    Call<ResponseBody> addAmbulance(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("phone") String phone,
+            @Field("details") String details,
+            @Field("area_id") long area_id
+    );
+
+    @FormUrlEncoded
+    @POST("api/addorg.php")
+    Call<ResponseBody> addOrganization(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("phone") String phone,
+            @Field("details") String details,
+            @Field("area_id") long area_id
+    );
+
+
+
+
 
     //Frontend End
 

@@ -80,7 +80,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/blood_unit_input"
+                        android:id="@+id/email_input"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/hospital_input"
+                        android:id="@+id/phone_input"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <EditText
-                        android:id="@+id/et_reason"
+                        android:id="@+id/blood_unit_detail"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:drawableStart="@drawable/ic_facts"
@@ -161,12 +161,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardViewRId"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="-15dp"
                 android:layout_marginBottom="15dp"
                 android:elevation="25dp">
 
                 <Button
-                    android:id="@+id/register_button"
+                    android:id="@+id/add_hospital_button"
                     android:layout_width="160dp"
                     android:layout_height="45dp"
                     android:background="@drawable/button_register_ui"

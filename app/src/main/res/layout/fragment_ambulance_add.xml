@@ -80,7 +80,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/blood_unit_input"
+                        android:id="@+id/email_input"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -89,7 +89,6 @@
                         app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_blood_unit"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:hint="Email Address"
@@ -100,7 +99,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/hospital_input"
+                        android:id="@+id/phone_input"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -109,7 +108,6 @@
                         app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_hospital"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:inputType="number"
@@ -121,7 +119,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <EditText
-                        android:id="@+id/et_reason"
+                        android:id="@+id/ambulance_details"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:drawableStart="@drawable/ic_facts"
@@ -166,11 +164,11 @@
                 android:elevation="25dp">
 
                 <Button
-                    android:id="@+id/register_button"
+                    android:id="@+id/add_ambulance_button"
                     android:layout_width="180dp"
                     android:layout_height="45dp"
                     android:background="@drawable/button_register_ui"
-                    android:text="Add Organization"
+                    android:text="Add Ambulance"
                     android:textSize="20sp"
                     android:gravity="center"
                     android:textAllCaps="false"
