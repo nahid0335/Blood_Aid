@@ -1,6 +1,7 @@
 package com.example.bloodaid.fragments;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,11 +16,10 @@ import android.widget.Toast;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
+import com.example.bloodaid.adapters.FeedListAdapter;
 import com.example.bloodaid.models.DonorRequestModelClass;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +27,6 @@ import retrofit2.Response;
 
 public class FeedFragment extends Fragment {
     ListView mFeedList;
-    FeedListAdapter feedListAdapter;
     ArrayList<DonorRequestModelClass> arrayList = new ArrayList<>();
 
     public FeedFragment() {
@@ -41,6 +40,14 @@ public class FeedFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_feed, container, false);
 
         mFeedList = view.findViewById(R.id.list_feed);
+
+        ///
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
 
         //dataReady();
         final Call<ArrayList<DonorRequestModelClass>> call = RetrofitInstance.getRetrofitInstance()
@@ -65,6 +72,7 @@ public class FeedFragment extends Fragment {
                 arrayList = responseList;
                 FeedListAdapter feedListAdapter = new FeedListAdapter(getContext(), arrayList);
                 mFeedList.setAdapter(feedListAdapter);
+                progressDialog.dismiss();
             }
 
             @Override

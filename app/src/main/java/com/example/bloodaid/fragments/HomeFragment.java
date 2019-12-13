@@ -25,6 +25,7 @@ import com.example.bloodaid.models.UserModelClass;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
@@ -34,7 +35,7 @@ public class HomeFragment extends Fragment {
     ImageView mProfilePic;
     CardView userProfile;
     TextView UserName;
-    ImageView mDonorImg, mOrgImg, mHospitalImg, mAmbulanceImg;
+    ImageView mDonorImg, mOrgImg, mHospitalImg, mAmbulanceImg, mTopDonor, mFacts, mAppInfo, mHistory;
     TextView mDonorTxt, mOrgTxt, mHospitalTxt, mAmbulanceTxt;
     Context context = getActivity();
 
@@ -99,8 +100,49 @@ public class HomeFragment extends Fragment {
 
 
         additionActions(v);
+        informationsActions(v);
 
         return v;
+    }
+
+    private void informationsActions(View v) {
+        //informations
+        mTopDonor = v.findViewById(R.id.top_donar_img);
+        mHistory = v.findViewById(R.id.history_img);
+        mAppInfo = v.findViewById(R.id.app_info_img);
+        mFacts = v.findViewById(R.id.facts_img);
+
+        mTopDonor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment topDonor = new TopDonorFragment();
+                loadFragment(topDonor);
+            }
+        });
+
+        mHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment topDonor = new HistoryFragment();
+                loadFragment(topDonor);
+            }
+        });
+
+        mAppInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment topDonor = new AppInfoFragment();
+                loadFragment(topDonor);
+            }
+        });
+
+        mFacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment topDonor = new FactsFragment();
+                loadFragment(topDonor);
+            }
+        });
     }
 
     private void additionActions(View v) {
@@ -174,10 +216,6 @@ public class HomeFragment extends Fragment {
 
     private void profileWork() {
         Picasso.get().load("file:///android_asset/images/profile_pic.jpg").into(mProfilePic);
-    }
-
-    public void bloodGroupSearchClicked(View v){
-
     }
 
 }

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#FFF"
+    android:layout_marginBottom="2dp">
+
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/serial_circle_bg"
+            android:id="@+id/serial_count"
+            android:text="01"
+            android:layout_gravity="center_vertical"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Md. Rezwan Al Kaoser"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:id="@+id/textView_serial_name"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="District: Rangpur"
+                android:drawableLeft="@drawable/ic_location_on"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:id="@+id/textView_serial_district"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Blood group: O+"
+                android:drawableLeft="@drawable/blooddrop"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:id="@+id/textView_serial_bloodgroup"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Donation: 20/04/2019"
+                android:textColor="#000"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/ic_history"
+                android:textSize="20dp"
+                android:id="@+id/textView_serial_lastdonation"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/redish"/>
+</LinearLayout>
