@@ -488,7 +488,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/button_register_ui"
-            android:text="A-"
+            android:text="O-"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/main_search_text"
             app:layout_constraintEnd_toEndOf="@id/main_search_card"
