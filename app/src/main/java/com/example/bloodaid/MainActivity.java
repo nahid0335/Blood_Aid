@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bloodaid.fragments.DonorAddFragment;
 import com.example.bloodaid.fragments.FeedFragment;
 import com.example.bloodaid.fragments.HomeFragment;
 import com.example.bloodaid.fragments.RequestFragment;
@@ -83,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.main_display, new HomeFragment()).commit();
             mBottomNav.getMenu().getItem(2).setChecked(true);
+        }
+
+        if(getIntent().getIntExtra("TransferActivity",0)==1)
+        {
+            Fragment donorAddFragment = new DonorAddFragment();
+            loadFragment(donorAddFragment);
         }
 
 
