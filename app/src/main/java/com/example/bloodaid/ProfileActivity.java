@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.content.ContextCompat;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,12 +16,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bloodaid.models.UserModelClass;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
+
+import java.util.Calendar;
 
 public class ProfileActivity extends AppCompatActivity {
     TextView userName,userPhone,userEmail,userPassword,userBloodGroup,userDistrict,userDonorStatus,userlastDonate,userDonateCount;
@@ -29,6 +36,8 @@ public class ProfileActivity extends AppCompatActivity {
     Button saveBloodState;
 
     private Dialog dialog;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
+
 
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_DATA = "user_data";
@@ -58,6 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString(USER_DATA,null);
@@ -68,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         userPassword.setText("********");
         userBloodGroup.setText(userDetails.getBloodGroup());
         userDistrict.setText(userDetails.getDistrict());
-        int donorStatus = userDetails.getDonorStatus();
+        final int donorStatus = userDetails.getDonorStatus();
         if(donorStatus == 1){
             userDonorStatus.setText("Donor");
             userlastDonate.setText(userDetails.getLastDonate());
@@ -323,6 +333,124 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
+        userDonateStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new Dialog(ProfileActivity.this);
+                dialog.setContentView(R.layout.popup_updateprofile_donatestatus);
+                TextView updatetxt = dialog.findViewById(R.id.textView_popupUpdateStatus_updateButton);
+                TextView canceltxt = dialog.findViewById(R.id.textView_popupUpdateStatus_cancelButton);
+                final RadioButton radioavail = dialog.findViewById(R.id.radioButton_popupUpdateStatus_available);
+                final RadioButton radiounavail = dialog.findViewById(R.id.radioButton_popupUpdateStatus_unavailable);
+                final RadioGroup radiogroup = dialog.findViewById(R.id.radioGroup_popupUpdate_donateStatus);
+                dialog.setCancelable(true);
+                dialog.setCanceledOnTouchOutside(false);
+
+                int donatestatus = userDetails.getStatus();
+                if(donatestatus == 1){
+                    radioavail.setChecked(true);
+                }else{
+                    radiounavail.setChecked(true);
+                }
+
+
+                updatetxt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int donorstatus = userDetails.getDonorStatus();
+                        if(donorstatus==1){
+                            int radioId = radiogroup.getCheckedRadioButtonId();
+
+                            if(radioavail.getId()==radioId){
+                                AllToasts.successToast(ProfileActivity.this,radioavail.getText().toString());
+                            }
+                            else{
+                                AllToasts.successToast(ProfileActivity.this,radiounavail.getText().toString());
+                            }
+
+                        }else{
+                            AllToasts.errorToast(ProfileActivity.this, "You are not a Donor !!");
+                        }
+
+                    }
+                });
+
+                canceltxt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                dialog.show();
+            }
+        });
+
+        userlastDonate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new Dialog(ProfileActivity.this);
+                dialog.setContentView(R.layout.popup_updateprofile_lastdonate);
+                TextView updatetxt = dialog.findViewById(R.id.textView_popupUpdateTime_updateButton);
+                TextView canceltxt = dialog.findViewById(R.id.textView_popupUpdateTime_cancelButton);
+                TextView olddata = dialog.findViewById(R.id.textView_popupUpdateTime_oldDate);
+                final TextView updatedata = dialog.findViewById(R.id.textView_popupUpdateTime_updateData);
+                dialog.setCancelable(true);
+                dialog.setCanceledOnTouchOutside(false);
+
+                olddata.setText(userDetails.getLastDonate());
+                updatedata.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Calendar calendar = Calendar.getInstance();
+                        int year = calendar.get(calendar.YEAR);
+                        int month = calendar.get(calendar.MONTH);
+                        int day = calendar.get(calendar.DAY_OF_MONTH);
+
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                                ProfileActivity.this,
+                                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                                dateSetListener,
+                                year,month,day
+                        );
+
+                        datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        datePickerDialog.show();
+                    }
+                });
+
+                dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        month++;
+                        String date = day+"-"+month+"-"+year;
+                        updatedata.setText(date);
+                    }
+                };
+
+
+                updatetxt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    }
+                });
+
+                canceltxt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                dialog.show();
+            }
+        });
+
+
 
     }
 
@@ -371,4 +499,5 @@ public class ProfileActivity extends AppCompatActivity {
             saveBloodState = view.findViewById(R.id.button_popupUpdateBlood_abNeg);
         }
     }
+
 }
