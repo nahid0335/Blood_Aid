@@ -19,15 +19,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bloodaid.models.UserModelClass;
+import com.example.bloodaid.utils.AreaData;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
@@ -35,7 +39,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
     TextView userName,userPhone,userEmail,userPassword,userBloodGroup,userDistrict,userDonorStatus,userlastDonate,userDonateCount;
@@ -52,6 +61,11 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     Integer userId , donatestatusSave=0;
+
+
+    String districtName = null;
+    int areaId = 1;
+    AreaData areaData = new AreaData();
 
 
 
@@ -878,6 +892,140 @@ public class ProfileActivity extends AppCompatActivity {
                         }else{
                             AllToasts.errorToast(ProfileActivity.this, "You are not a Donor !!");
                         }
+                    }
+                });
+
+                canceltxt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                dialog.show();
+            }
+        });
+
+
+
+        userDistrict.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new Dialog(ProfileActivity.this);
+                dialog.setContentView(R.layout.popup_updateprofile_district);
+                TextView updatetxt = dialog.findViewById(R.id.textView_popupUpdateDistrict_updateButton);
+                TextView canceltxt = dialog.findViewById(R.id.textView_popupUpdateDistrict_cancelButton);
+                TextView olddatatxt = dialog.findViewById(R.id.textView_popupUpdateDistrict_oldData);
+                Spinner districtspinner = dialog.findViewById(R.id.spinner_popupUpdateDistrict_updateData);
+                dialog.setCancelable(true);
+                dialog.setCanceledOnTouchOutside(false);
+
+                olddatatxt.setText(userDetails.getDistrict());
+
+
+                HashMap<String, Integer> areaDataHashMap = areaData.getAreaData();
+                ArrayList<String> districtArrayList = new ArrayList<>();
+
+                for(Map.Entry mapdata : areaDataHashMap.entrySet()){
+                    districtArrayList.add(mapdata.getKey().toString());
+                }
+
+                Collections.sort(districtArrayList, new Comparator<String>() {
+                    @Override
+                    public int compare(String s1, String s2) {
+                        return s1.compareToIgnoreCase(s2);
+                    }
+                });
+                districtArrayList.add(0,"Choose District");
+
+                ArrayAdapter districtAdapter = new ArrayAdapter<String>(
+                        ProfileActivity.this,
+                        R.layout.color_spinner_layout,
+                        districtArrayList);
+
+                districtAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+                districtspinner.setAdapter(districtAdapter);
+
+                districtspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                        districtName = adapterView.getItemAtPosition(position).toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
+
+                updatetxt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        areaId = (int) areaData.getAreaId(districtName);
+
+
+                        final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                                .create(BloodAidService.class)
+                                .updateUserDistrict(userId, areaId);
+
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                call.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        try {
+                                            String s = response.body().string();
+
+                                            //Response parsing
+                                            Boolean status;
+                                            if(s.isEmpty()){
+                                                status = false;
+                                            }
+                                            else{
+                                                JSONObject object = new JSONObject(s);
+                                                status = object.getBoolean("validity"); // true or false will be returned as response
+                                            }
+
+                                            if(status){
+                                                userDistrict.setText(districtName);
+                                                userDetails.setDistrict(districtName);
+
+                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                Gson gson = new Gson();
+                                                String json = gson.toJson(userDetails);
+                                                editor.putString(USER_DATA, json);
+                                                editor.apply();
+                                                AllToasts.successToast(ProfileActivity.this, "Successfully UserDistrict Updated !!");
+                                            }
+                                            else{
+                                                AllToasts.errorToast(ProfileActivity.this,"UserDistrict can't be Updated !!" );
+                                            }
+
+                                        }catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(ProfileActivity.this, e.getMessage()+" - JSON", Toast.LENGTH_LONG).show();
+
+                                        }catch (IOException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(ProfileActivity.this, e.getMessage()+" - IO", Toast.LENGTH_LONG).show();
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        Toast.makeText(ProfileActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+                        }).start();
+
+                        dialog.dismiss();
                     }
                 });
 

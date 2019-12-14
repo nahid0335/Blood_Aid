@@ -6,7 +6,6 @@ public class AreaData {
     HashMap<String, Integer> district = new HashMap<>();
 
     public AreaData(){
-        district.put("Choose District", 0);
         district.put("Bagerhat", 31);
         district.put("Bandarban", 7);
         district.put("Barguna", 1);
