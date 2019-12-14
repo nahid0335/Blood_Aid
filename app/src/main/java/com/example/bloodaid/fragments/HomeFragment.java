@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,13 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.ProfileActivity;
 import com.example.bloodaid.R;
+import com.example.bloodaid.adapters.InformationsAdapter;
 import com.example.bloodaid.models.UserModelClass;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -28,7 +32,7 @@ import com.squareup.picasso.Picasso;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements InformationsAdapter.FragmentLoaderInterface {
     Group mBloodGroups;
     Button mBloodSearchIcon;
     Boolean bloodGroupShowState = true;
@@ -37,7 +41,18 @@ public class HomeFragment extends Fragment {
     TextView UserName;
     ImageView mDonorImg, mOrgImg, mHospitalImg, mAmbulanceImg, mTopDonor, mFacts, mAppInfo, mHistory;
     TextView mDonorTxt, mOrgTxt, mHospitalTxt, mAmbulanceTxt;
-    Context context = getActivity();
+    Context context ;
+    //informations
+    RecyclerView mInfoRecycler;
+    InformationsAdapter mInfoAdapter;
+    Fragment[] infoFragmentList = {new TopDonorFragment(),
+            new FactsFragment(),
+            new HistoryFragment(),
+            new AppInfoFragment(),
+            new TopDonorFragment(),
+            new FactsFragment(),
+            new HistoryFragment(),
+            new AppInfoFragment()};
 
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_DATA = "user_data";
@@ -102,17 +117,28 @@ public class HomeFragment extends Fragment {
         additionActions(v);
         informationsActions(v);
 
+
+
         return v;
     }
 
     private void informationsActions(View v) {
+        mInfoAdapter = new InformationsAdapter(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context,
+                LinearLayoutManager.HORIZONTAL,
+                false);
+        mInfoRecycler.setAdapter(mInfoAdapter);
+        mInfoRecycler.setLayoutManager(layoutManager);
+
+
+
         //informations
-        mTopDonor = v.findViewById(R.id.top_donar_img);
+/*        mTopDonor = v.findViewById(R.id.top_donar_img);
         mHistory = v.findViewById(R.id.history_img);
         mAppInfo = v.findViewById(R.id.app_info_img);
-        mFacts = v.findViewById(R.id.facts_img);
+        mFacts = v.findViewById(R.id.facts_img);*/
 
-        mTopDonor.setOnClickListener(new View.OnClickListener() {
+        /*mTopDonor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Fragment topDonor = new TopDonorFragment();
@@ -142,7 +168,7 @@ public class HomeFragment extends Fragment {
                 Fragment topDonor = new FactsFragment();
                 loadFragment(topDonor);
             }
-        });
+        });*/
     }
 
     private void additionActions(View v) {
@@ -212,10 +238,22 @@ public class HomeFragment extends Fragment {
         mOrgTxt = v.findViewById(R.id.organization_add_text);
         mHospitalTxt = v.findViewById(R.id.hospital_add_text);
         mAmbulanceTxt = v.findViewById(R.id.ambulance_add_text);
+
+
+        //informations
+        mInfoRecycler = v.findViewById(R.id.recyclerView_fragmentHome_informations);
     }
 
     private void profileWork() {
         Picasso.get().load("file:///android_asset/images/profile_pic.jpg").into(mProfilePic);
+    }
+
+    @Override
+    public void loadFragmentFromInterface(int position) {
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_display, infoFragmentList[position] )
+                .commit();
     }
 
 }

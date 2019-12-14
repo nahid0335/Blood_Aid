@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginBottom="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView_informations_img"
+        android:elevation="6dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_top_donar"
+        >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/textView_information_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:textSize="15sp"
+        android:layout_gravity="center"
+        android:text="@string/top_donar_text"
+        android:textAlignment="center"
+        android:textColor="@color/blackish"
+        />
+
+
+
+</LinearLayout>

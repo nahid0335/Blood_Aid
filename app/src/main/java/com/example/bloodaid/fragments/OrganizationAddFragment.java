@@ -67,8 +67,6 @@ public class OrganizationAddFragment extends Fragment {
                     String email = mEmail.getEditText().getText().toString();
                     String bloodDetails = mDetails.getText().toString();
 
-                    HashMap<String, Integer> districts = data.getAreaData();
-
                     areaId = (long) data.getAreaId(districtStr);
 
                     addOrgDataSendToDatabase(name, phone, email, bloodDetails, areaId);

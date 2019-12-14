@@ -1,9 +1,10 @@
 package com.example.bloodaid.utils;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class AreaData {
-    HashMap<String, Integer> district = new HashMap<>();
+    LinkedHashMap<String, Integer> district = new LinkedHashMap<>();
 
     public AreaData(){
         district.put("Choose District", 0);
@@ -73,7 +74,7 @@ public class AreaData {
         district.put("Thakurgaon", 60);
     }
 
-    public HashMap<String, Integer> getAreaData(){
+    public LinkedHashMap<String, Integer> getAreaData(){
         return district;
     }
 

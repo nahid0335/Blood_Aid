@@ -14,7 +14,7 @@
     <string name="org_add_text">Organization</string>
     <string name="hospital_add_text">Hospital</string>
     <string name="ambulance_add_text">Ambulance</string>
-    <string name="top_donar_text">Top Donar</string>
+    <string name="top_donar_text">Top Donor</string>
     <string name="facts_text">Facts</string>
     <string name="history_text">History</string>
     <string name="app_info_text">App Info</string>
@@ -84,4 +84,6 @@
         <item>Rungpur</item>
         <item>Sylhet</item>
     </string-array>
+
+
 </resources>

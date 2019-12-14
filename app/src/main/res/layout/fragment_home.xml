@@ -227,12 +227,13 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/main_info_card"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:elevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/main_addition_card"></androidx.cardview.widget.CardView>
 
         <TextView
@@ -258,12 +259,23 @@
             app:layout_constraintTop_toBottomOf="@id/info_text"
             app:layout_constraintStart_toStartOf="@+id/main_info_card"
             app:layout_constraintEnd_toEndOf="@id/main_info_card"
-            app:layout_constraintBottom_toTopOf="@id/top_donar_img"
+            app:layout_constraintBottom_toTopOf="@id/recyclerView_fragmentHome_informations"
             android:orientation="horizontal">
 
         </LinearLayout>
 
-        <ImageView
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:elevation="3dp"
+            android:id="@+id/recyclerView_fragmentHome_informations"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/straight_line2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <!--<ImageView
             android:id="@+id/top_donar_img"
             android:elevation="6dp"
             android:layout_width="0dp"
@@ -370,9 +382,7 @@
             app:layout_constraintEnd_toEndOf="@id/main_info_card"
             app:layout_constraintStart_toEndOf="@+id/history_text"
             app:layout_constraintTop_toBottomOf="@id/app_info_img" />
-        <!--Info section End-->
-
-
+        &lt;!&ndash;Info section End&ndash;&gt;-->
 
         <!--Search bar Start-->
 

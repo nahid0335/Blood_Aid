@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
                 android:padding="0dp"
-                android:textStyle="bold|italic"
+                android:textStyle="bold"
                 android:text="Forgot password? "
                 android:textColor="@color/blackish"
                 android:textSize="16sp">
@@ -138,8 +138,9 @@
                 android:layout_height="25dp"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/sign_up_text"
-                android:background="@drawable/border_button_bg"
+                android:background="#DADADA"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="Sign Up"
                 android:textColor="@color/redish"
                 android:textSize="14sp" />

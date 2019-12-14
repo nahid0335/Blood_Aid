@@ -17,12 +17,17 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bloodaid.adapters.InformationsAdapter;
+import com.example.bloodaid.fragments.AppInfoFragment;
 import com.example.bloodaid.fragments.DonorAddFragment;
+import com.example.bloodaid.fragments.FactsFragment;
 import com.example.bloodaid.fragments.FeedFragment;
+import com.example.bloodaid.fragments.HistoryFragment;
 import com.example.bloodaid.fragments.HomeFragment;
 import com.example.bloodaid.fragments.RequestFragment;
 import com.example.bloodaid.fragments.SearchDialog;
 import com.example.bloodaid.fragments.SearchFragment;
+import com.example.bloodaid.fragments.TopDonorFragment;
 import com.example.bloodaid.models.UserModelClass;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,7 +39,7 @@ import com.google.gson.Gson;
 
 import java.util.concurrent.CountDownLatch;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     public static BottomNavigationView mBottomNav;
     public static TextView UserName;
 
@@ -43,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_ID = "user_id";
     public static final String USER_DATA = "user_data";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,5 +195,6 @@ public class MainActivity extends AppCompatActivity {
         finish();
         System.exit(0);
     }
+
 
 }

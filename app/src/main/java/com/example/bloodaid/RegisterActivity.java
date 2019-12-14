@@ -12,12 +12,16 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.bloodaid.utils.AreaData;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -34,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout mNameLayout, mPhoneLayout, mEmailLayout, mPasswordLayout,
                             mConfirmPasswordLayout;
     private Button mRegister, mLogin;
+    private AreaData data = new AreaData();
 
 
     @Override
@@ -78,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
         //Suppose
         latitude = 66.3429;
         longitude = 77.43945;
-        area_id = 3;
+        area_id = data.getAreaId(district);
     }
 
     private void dataSendToServer() {
@@ -190,12 +195,19 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void districtAndBloodGroupSpinnerWork() {
+
+        HashMap<String, Integer> ddd = data.getAreaData();
+        ArrayList<String> districtItems = new ArrayList<>();
+
+        for(Map.Entry mp : ddd.entrySet()){
+            districtItems.add(mp.getKey().toString());
+        }
         //style and populate the spiner
-        ArrayAdapter districtAdapter = ArrayAdapter.createFromResource(
+        ArrayAdapter districtAdapter = new ArrayAdapter<String>(
                 RegisterActivity.this,
-                R.array.district_items,
-                R.layout.color_spinner_layout
-        );
+                R.layout.color_spinner_layout,
+                districtItems);
+
         ArrayAdapter bloodAdapter = ArrayAdapter.createFromResource(
                 RegisterActivity.this,
                 R.array.blood_items,
