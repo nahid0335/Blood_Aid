@@ -117,6 +117,20 @@ public interface BloodAidService {
 
 
 
+    //update userName Start
+
+    @FormUrlEncoded
+    @POST("api/updateUserName.php")
+    Call<ResponseBody> updateUserName(
+            @Field("userid") Integer userid,
+            @Field("username") String username
+    );
+
+    //update userName End
+
+
+
+
 
 
     //Frontend End

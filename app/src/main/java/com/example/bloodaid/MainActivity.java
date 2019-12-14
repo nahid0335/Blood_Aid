@@ -90,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
         {
             Fragment donorAddFragment = new DonorAddFragment();
             loadFragment(donorAddFragment);
+        }else if(getIntent().getIntExtra("BackPressActivity",0)==2){
+            Fragment homeFragment = new HomeFragment();
+            loadFragment(homeFragment);
         }
 
 

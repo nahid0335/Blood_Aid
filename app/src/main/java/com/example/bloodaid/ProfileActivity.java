@@ -4,6 +4,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.content.ContextCompat;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -27,6 +31,10 @@ import com.example.bloodaid.models.UserModelClass;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Calendar;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -68,7 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString(USER_DATA,null);
         final UserModelClass userDetails = gson.fromJson(json,UserModelClass.class);
@@ -117,7 +125,69 @@ public class ProfileActivity extends AppCompatActivity {
                 updatetxt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String userName = txtboxusername.getText().toString();
+                        final String updateUserName = txtboxusername.getText().toString();
+                        Integer userId = userDetails.getUserId();
+
+                        final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                                .create(BloodAidService.class)
+                                .updateUserName(userId, updateUserName);
+
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                call.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        try {
+                                            String s = response.body().string();
+
+                                            //Response parsing
+                                            Boolean status;
+                                            if(s.isEmpty()){
+                                                status = false;
+                                            }
+                                            else{
+                                                JSONObject object = new JSONObject(s);
+                                                status = object.getBoolean("validity"); // true or false will be returned as response
+                                            }
+
+                                            if(status){
+                                                userName.setText(updateUserName);
+                                                userDetails.setName(updateUserName);
+
+                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                Gson gson = new Gson();
+                                                String json = gson.toJson(userDetails);
+                                                editor.putString(USER_DATA, json);
+                                                editor.apply();
+                                                AllToasts.successToast(ProfileActivity.this, "Successfully UserName Updated !!");
+                                            }
+                                            else{
+                                                AllToasts.errorToast(ProfileActivity.this,"UserName can't be Updated !!" );
+                                            }
+
+                                        }catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(ProfileActivity.this, e.getMessage()+" - JSON", Toast.LENGTH_LONG).show();
+
+                                        }catch (IOException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(ProfileActivity.this, e.getMessage()+" - IO", Toast.LENGTH_LONG).show();
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        Toast.makeText(ProfileActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+                        }).start();
+
+                        dialog.dismiss();
+
                     }
                 });
 
@@ -499,5 +569,19 @@ public class ProfileActivity extends AppCompatActivity {
             saveBloodState = view.findViewById(R.id.button_popupUpdateBlood_abNeg);
         }
     }
+
+
+
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ProfileActivity.this,MainActivity.class);
+        intent.putExtra("BackPressActivity",2);
+        startActivity(intent);
+        finish();
+    }
+
+
 
 }
