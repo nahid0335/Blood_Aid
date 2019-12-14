@@ -3,6 +3,7 @@ package com.example.bloodaid;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,9 +84,6 @@ public class MainActivity extends AppCompatActivity{
 
         init();
 
-
-
-
         mBottomNav.setOnNavigationItemSelectedListener(navListener);
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.main_display, new HomeFragment()).commit();
@@ -96,6 +94,10 @@ public class MainActivity extends AppCompatActivity{
         {
             Fragment donorAddFragment = new DonorAddFragment();
             loadFragment(donorAddFragment);
+        }else if(getIntent().getIntExtra("BackPressActivity",0)==2){
+
+            Fragment homeFragment = new HomeFragment();
+            replaceFragments(homeFragment);
         }
 
 
@@ -187,6 +189,14 @@ public class MainActivity extends AppCompatActivity{
         }else {
             searchDialog.show(getSupportFragmentManager(), "NULL");
         }
+    }
+
+
+    public void replaceFragments(Fragment fragment) {
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.main_display, fragment)
+                .commit();
     }
 
 

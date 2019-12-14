@@ -117,6 +117,112 @@ public interface BloodAidService {
 
 
 
+    //update userName Start
+
+    @FormUrlEncoded
+    @POST("api/updateUserName.php")
+    Call<ResponseBody> updateUserName(
+            @Field("userid") Integer userid,
+            @Field("username") String username
+    );
+
+    //update userName End
+
+
+
+    //update userEmail Start
+
+    @FormUrlEncoded
+    @POST("api/updateUserEmail.php")
+    Call<ResponseBody> updateUserEmail(
+            @Field("userid") Integer userid,
+            @Field("useremail") String useremail
+    );
+
+    //update userEmail End
+
+
+
+    //update userPhone Start
+
+    @FormUrlEncoded
+    @POST("api/updateUserPhone.php")
+    Call<ResponseBody> updateUserPhone(
+            @Field("userid") Integer userid,
+            @Field("userphone") String userphone
+    );
+
+    //update userPhone End
+
+
+
+    //update userPassword Start
+
+    @FormUrlEncoded
+    @POST("api/updateUserPassword.php")
+    Call<ResponseBody> updateUserPassword(
+            @Field("userid") Integer userid,
+            @Field("useroldpass") String useroldpass,
+            @Field("usernewpass") String usernewpass
+    );
+
+    //update userPassword End
+
+
+
+
+    //update userBloodGroup Start
+
+    @FormUrlEncoded
+    @POST("api/updateUserBloodGroup.php")
+    Call<ResponseBody> updateUserBloodGroup(
+            @Field("userid") Integer userid,
+            @Field("userbloodgroup") String userbloodgroup
+    );
+
+    //update userBloodGroup End
+
+
+
+    //update userDistrict Start
+
+    @FormUrlEncoded
+    @POST("api/updateUserDistrict.php")
+    Call<ResponseBody> updateUserDistrict(
+            @Field("userid") Integer userid,
+            @Field("userareaid") Integer userareaid
+    );
+
+    //update userDistrict End
+
+
+
+    //update userDonateStatus Start
+
+    @FormUrlEncoded
+    @POST("api/updateUserDonateStatus.php")
+    Call<ResponseBody> updateUserDonateStatus(
+            @Field("userid") Integer userid,
+            @Field("userdonatestatus") Integer userdonatestatus
+    );
+
+    //update userDonateStatus End
+
+
+
+    //update userLastDonate Start
+
+    @FormUrlEncoded
+    @POST("api/updateUserLastDonate.php")
+    Call<ResponseBody> updateUserLastDonate(
+            @Field("userid") Integer userid,
+            @Field("userlastdonate") String userlastdonate
+    );
+
+    //update userLastDonate End
+
+
+
 
 
     //Frontend End

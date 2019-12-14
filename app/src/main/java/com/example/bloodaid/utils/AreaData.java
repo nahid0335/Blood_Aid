@@ -7,7 +7,6 @@ public class AreaData {
     LinkedHashMap<String, Integer> district = new LinkedHashMap<>();
 
     public AreaData(){
-        district.put("Choose District", 0);
         district.put("Bagerhat", 31);
         district.put("Bandarban", 7);
         district.put("Barguna", 1);
