@@ -50,7 +50,8 @@ public class ProfileActivity extends AppCompatActivity {
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_DATA = "user_data";
 
-    Boolean button_popupUpdateBlood_searchstate = false;
+
+    Integer userId , donatestatusSave=0;
 
 
 
@@ -92,13 +93,16 @@ public class ProfileActivity extends AppCompatActivity {
             userlastDonate.setText(userDetails.getLastDonate());
             userDonateCount.setText(userDetails.getDonateCount().toString());
             if(userDetails.getStatus() == 1){
+                donatestatusSave = 1;
                 userDonateStatus.setBackgroundResource(R.drawable.ic_check_circle_black_24dp);
             }
             else{
+                donatestatusSave = 0;
                 userDonateStatus.setBackgroundResource(R.drawable.ic_cancel);
             }
         }
         else{
+            donatestatusSave = 0;
             userDonorStatus.setText("Not a Donor");
             userlastDonate.setText("0-0-0000");
             userlastDonate.setTextColor(ContextCompat.getColor(ProfileActivity.this,R.color.red));
@@ -106,6 +110,8 @@ public class ProfileActivity extends AppCompatActivity {
             userDonateCount.setTextColor(ContextCompat.getColor(ProfileActivity.this,R.color.red));
             userDonateStatus.setBackgroundResource(R.drawable.ic_cancel);
         }
+
+        userId = userDetails.getUserId();
 
 
         userName.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +132,6 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         final String updateUserName = txtboxusername.getText().toString();
-                        Integer userId = userDetails.getUserId();
 
                         final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
                                 .create(BloodAidService.class)
@@ -222,7 +227,69 @@ public class ProfileActivity extends AppCompatActivity {
                 updatetxt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String userName = txtboxusername.getText().toString();
+                        final String updateUserPhone = txtboxusername.getText().toString();
+                        if(updateUserPhone.length()>= 11){
+                            final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                                    .create(BloodAidService.class)
+                                    .updateUserPhone(userId, updateUserPhone);
+
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    call.enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                            try {
+                                                String s = response.body().string();
+
+                                                //Response parsing
+                                                Boolean status;
+                                                if(s.isEmpty()){
+                                                    status = false;
+                                                }
+                                                else{
+                                                    JSONObject object = new JSONObject(s);
+                                                    status = object.getBoolean("validity"); // true or false will be returned as response
+                                                }
+
+                                                if(status){
+                                                    userPhone.setText(updateUserPhone);
+                                                    userDetails.setMobile(updateUserPhone);
+
+                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                    Gson gson = new Gson();
+                                                    String json = gson.toJson(userDetails);
+                                                    editor.putString(USER_DATA, json);
+                                                    editor.apply();
+                                                    AllToasts.successToast(ProfileActivity.this, "Successfully UserMobile Updated !!");
+                                                }
+                                                else{
+                                                    AllToasts.errorToast(ProfileActivity.this,"UserMobile can't be Updated !!" );
+                                                }
+
+                                            }catch (JSONException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(ProfileActivity.this, e.getMessage()+" - JSON", Toast.LENGTH_LONG).show();
+
+                                            }catch (IOException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(ProfileActivity.this, e.getMessage()+" - IO", Toast.LENGTH_LONG).show();
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                            Toast.makeText(ProfileActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            }).start();
+                            dialog.dismiss();
+                        }else{
+                            AllToasts.errorToast(ProfileActivity.this,"Input is less than 11 digit !!");
+                        }
                     }
                 });
 
@@ -257,7 +324,68 @@ public class ProfileActivity extends AppCompatActivity {
                 updatetxt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String userName = txtboxusername.getText().toString();
+                        final String updateUserEmail = txtboxusername.getText().toString();
+
+
+                        final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                                .create(BloodAidService.class)
+                                .updateUserName(userId, updateUserEmail);
+
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                call.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        try {
+                                            String s = response.body().string();
+
+                                            //Response parsing
+                                            Boolean status;
+                                            if(s.isEmpty()){
+                                                status = false;
+                                            }
+                                            else{
+                                                JSONObject object = new JSONObject(s);
+                                                status = object.getBoolean("validity"); // true or false will be returned as response
+                                            }
+
+                                            if(status){
+                                                userEmail.setText(updateUserEmail);
+                                                userDetails.setEmail(updateUserEmail);
+
+                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                Gson gson = new Gson();
+                                                String json = gson.toJson(userDetails);
+                                                editor.putString(USER_DATA, json);
+                                                editor.apply();
+                                                AllToasts.successToast(ProfileActivity.this, "Successfully UserEmail Updated !!");
+                                            }
+                                            else{
+                                                AllToasts.errorToast(ProfileActivity.this,"UserEmail can't be Updated !!" );
+                                            }
+
+                                        }catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(ProfileActivity.this, e.getMessage()+" - JSON", Toast.LENGTH_LONG).show();
+
+                                        }catch (IOException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(ProfileActivity.this, e.getMessage()+" - IO", Toast.LENGTH_LONG).show();
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        Toast.makeText(ProfileActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+                        }).start();
+
+                        dialog.dismiss();
                     }
                 });
 
@@ -303,6 +431,64 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         String oldpassword = txtboxoldpassword.getText().toString();
                         String updatepassword = txtboxupdatepassword.getText().toString();
+
+                        if(updatepassword.length()>= 6){
+                            final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                                    .create(BloodAidService.class)
+                                    .updateUserPassword(userId, oldpassword,updatepassword);
+
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    call.enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                            try {
+                                                String s = response.body().string();
+
+                                                //Response parsing
+                                                Boolean status;
+                                                if(s.isEmpty()){
+                                                    status = false;
+                                                }
+                                                else{
+                                                    JSONObject object = new JSONObject(s);
+                                                    status = object.getBoolean("validity"); // true or false will be returned as response
+                                                }
+
+                                                if(status){
+                                                    AllToasts.successToast(ProfileActivity.this, "Successfully UserPassword Updated !!");
+                                                }
+                                                else{
+                                                    AllToasts.errorToast(ProfileActivity.this,"UserPassword can't be Updated !!" );
+                                                }
+
+                                            }catch (JSONException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(ProfileActivity.this, e.getMessage()+" - JSON", Toast.LENGTH_LONG).show();
+
+                                            }catch (IOException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(ProfileActivity.this, e.getMessage()+" - IO", Toast.LENGTH_LONG).show();
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                            Toast.makeText(ProfileActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            }).start();
+
+                            dialog.dismiss();
+                        }else{
+                            AllToasts.errorToast(ProfileActivity.this,"Update Password is less than 6 Letter !!");
+                        }
+
+
                     }
                 });
 
@@ -339,36 +525,36 @@ public class ProfileActivity extends AppCompatActivity {
                 dialog.setCanceledOnTouchOutside(false);
 
 
-                final String userBloodgroup = userDetails.getBloodGroup();
-                if(btnapos.getText().equals(userBloodgroup)){
+                final String userPreviousBloodgroup = userDetails.getBloodGroup();
+                if(btnapos.getText().equals(userPreviousBloodgroup)){
                     btnapos.setBackground(getDrawable(R.drawable.button_register_ui));
                     btnapos.setTextColor(Color.WHITE);
                     saveBloodState = dialog.findViewById(R.id.button_popupUpdateBlood_aPos);
-                }else if(btnaneg.getText().equals(userBloodgroup)){
+                }else if(btnaneg.getText().equals(userPreviousBloodgroup)){
                     btnaneg.setBackground(getDrawable(R.drawable.button_register_ui));
                     btnaneg.setTextColor(Color.WHITE);
                     saveBloodState = dialog.findViewById(R.id.button_popupUpdateBlood_aNeg);
-                }else if(btnbpos.getText().equals(userBloodgroup)){
+                }else if(btnbpos.getText().equals(userPreviousBloodgroup)){
                     btnbneg.setBackground(getDrawable(R.drawable.button_register_ui));
                     btnbneg.setTextColor(Color.WHITE);
                     saveBloodState = dialog.findViewById(R.id.button_popupUpdateBlood_bPos);
-                }else if(btnbneg.getText().equals(userBloodgroup)){
+                }else if(btnbneg.getText().equals(userPreviousBloodgroup)){
                     btnbneg.setBackground(getDrawable(R.drawable.button_register_ui));
                     btnbneg.setTextColor(Color.WHITE);
                     saveBloodState = dialog.findViewById(R.id.button_popupUpdateBlood_bNeg);
-                }else if(btnopos.getText().equals(userBloodgroup)){
+                }else if(btnopos.getText().equals(userPreviousBloodgroup)){
                     btnopos.setBackground(getDrawable(R.drawable.button_register_ui));
                     btnopos.setTextColor(Color.WHITE);
                     saveBloodState = dialog.findViewById(R.id.button_popupUpdateBlood_oPos);
-                }else if(btnoneg.getText().equals(userBloodgroup)){
+                }else if(btnoneg.getText().equals(userPreviousBloodgroup)){
                     btnoneg.setBackground(getDrawable(R.drawable.button_register_ui));
                     btnoneg.setTextColor(Color.WHITE);
                     saveBloodState = dialog.findViewById(R.id.button_popupUpdateBlood_oNeg);
-                }else if(btnabpos.getText().equals(userBloodgroup)){
+                }else if(btnabpos.getText().equals(userPreviousBloodgroup)){
                     btnabpos.setBackground(getDrawable(R.drawable.button_register_ui));
                     btnabpos.setTextColor(Color.WHITE);
                     saveBloodState = dialog.findViewById(R.id.button_popupUpdateBlood_abPos);
-                }else if(btnabneg.getText().equals(userBloodgroup)){
+                }else if(btnabneg.getText().equals(userPreviousBloodgroup)){
                     btnabneg.setBackground(getDrawable(R.drawable.button_register_ui));
                     btnabneg.setTextColor(Color.WHITE);
                     saveBloodState = dialog.findViewById(R.id.button_popupUpdateBlood_abNeg);
@@ -381,9 +567,65 @@ public class ProfileActivity extends AppCompatActivity {
                 updatetxt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String updateBloodGroup = saveBloodState.getText().toString();
-                        if(!updateBloodGroup.equals(userBloodgroup)){
+                        final String updateBloodGroup = saveBloodState.getText().toString();
+                        if(!updateBloodGroup.equals(userPreviousBloodgroup)){
+                            final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                                    .create(BloodAidService.class)
+                                    .updateUserBloodGroup(userId, updateBloodGroup);
 
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    call.enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                            try {
+                                                String s = response.body().string();
+
+                                                //Response parsing
+                                                Boolean status;
+                                                if(s.isEmpty()){
+                                                    status = false;
+                                                }
+                                                else{
+                                                    JSONObject object = new JSONObject(s);
+                                                    status = object.getBoolean("validity"); // true or false will be returned as response
+                                                }
+
+                                                if(status){
+                                                    userBloodGroup.setText(updateBloodGroup);
+                                                    userDetails.setBloodGroup(updateBloodGroup);
+
+                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                    Gson gson = new Gson();
+                                                    String json = gson.toJson(userDetails);
+                                                    editor.putString(USER_DATA, json);
+                                                    editor.apply();
+                                                    AllToasts.successToast(ProfileActivity.this, "Successfully UserBloodGroup Updated !!");
+                                                }
+                                                else{
+                                                    AllToasts.errorToast(ProfileActivity.this,"UserBloodGroup can't be Updated !!" );
+                                                }
+
+                                            }catch (JSONException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(ProfileActivity.this, e.getMessage()+" - JSON", Toast.LENGTH_LONG).show();
+
+                                            }catch (IOException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(ProfileActivity.this, e.getMessage()+" - IO", Toast.LENGTH_LONG).show();
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                            Toast.makeText(ProfileActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            }).start();
                         }
                         dialog.dismiss();
                     }
@@ -416,8 +658,8 @@ public class ProfileActivity extends AppCompatActivity {
                 dialog.setCancelable(true);
                 dialog.setCanceledOnTouchOutside(false);
 
-                int donatestatus = userDetails.getStatus();
-                if(donatestatus == 1){
+
+                if(donatestatusSave == 1){
                     radioavail.setChecked(true);
                 }else{
                     radiounavail.setChecked(true);
@@ -427,16 +669,83 @@ public class ProfileActivity extends AppCompatActivity {
                 updatetxt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        int donorstatus = userDetails.getDonorStatus();
-                        if(donorstatus==1){
+                        final int updatedonatestatus ;
+                        if(donorStatus==1){
                             int radioId = radiogroup.getCheckedRadioButtonId();
 
                             if(radioavail.getId()==radioId){
-                                AllToasts.successToast(ProfileActivity.this,radioavail.getText().toString());
+                                updatedonatestatus = 1;
                             }
                             else{
-                                AllToasts.successToast(ProfileActivity.this,radiounavail.getText().toString());
+                                updatedonatestatus = 0;
                             }
+
+                            final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                                    .create(BloodAidService.class)
+                                    .updateUserDonateStatus(userId, updatedonatestatus);
+
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    call.enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                            try {
+                                                String s = response.body().string();
+
+                                                //Response parsing
+                                                Boolean status;
+                                                if(s.isEmpty()){
+                                                    status = false;
+                                                }
+                                                else{
+                                                    JSONObject object = new JSONObject(s);
+                                                    status = object.getBoolean("validity"); // true or false will be returned as response
+                                                }
+
+                                                if(status){
+
+                                                    if(updatedonatestatus == 1){
+                                                        userDonateStatus.setBackgroundResource(R.drawable.ic_check_circle_black_24dp);
+                                                    }
+                                                    else{
+                                                        userDonateStatus.setBackgroundResource(R.drawable.ic_cancel);
+                                                    }
+
+                                                    userDetails.setStatus(updatedonatestatus);
+
+                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                    Gson gson = new Gson();
+                                                    String json = gson.toJson(userDetails);
+                                                    editor.putString(USER_DATA, json);
+                                                    editor.apply();
+                                                    AllToasts.successToast(ProfileActivity.this, "Successfully UserDonateStatus Updated !!");
+                                                }
+                                                else{
+                                                    AllToasts.errorToast(ProfileActivity.this,"UserDonateStatus can't be Updated !!" );
+                                                }
+
+                                            }catch (JSONException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(ProfileActivity.this, e.getMessage()+" - JSON", Toast.LENGTH_LONG).show();
+
+                                            }catch (IOException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(ProfileActivity.this, e.getMessage()+" - IO", Toast.LENGTH_LONG).show();
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                            Toast.makeText(ProfileActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            }).start();
+
+                            dialog.dismiss();
 
                         }else{
                             AllToasts.errorToast(ProfileActivity.this, "You are not a Donor !!");
@@ -504,6 +813,71 @@ public class ProfileActivity extends AppCompatActivity {
                 updatetxt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if(donorStatus == 1){
+                            final String updatelastdonate = updatedata.getText().toString();
+
+                            final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                                    .create(BloodAidService.class)
+                                    .updateUserLastDonate(userId, updatelastdonate);
+
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    call.enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                            try {
+                                                String s = response.body().string();
+
+                                                //Response parsing
+                                                Boolean status;
+                                                if(s.isEmpty()){
+                                                    status = false;
+                                                }
+                                                else{
+                                                    JSONObject object = new JSONObject(s);
+                                                    status = object.getBoolean("validity"); // true or false will be returned as response
+                                                }
+
+                                                if(status){
+                                                    userlastDonate.setText(updatelastdonate);
+                                                    userDetails.setLastDonate(updatelastdonate);
+
+                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                    Gson gson = new Gson();
+                                                    String json = gson.toJson(userDetails);
+                                                    editor.putString(USER_DATA, json);
+                                                    editor.apply();
+                                                    AllToasts.successToast(ProfileActivity.this, "Successfully UserLastDonate Updated !!");
+                                                }
+                                                else{
+                                                    AllToasts.errorToast(ProfileActivity.this,"UserLastDonate can't be Updated !!" );
+                                                }
+
+                                            }catch (JSONException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(ProfileActivity.this, e.getMessage()+" - JSON", Toast.LENGTH_LONG).show();
+
+                                            }catch (IOException e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(ProfileActivity.this, e.getMessage()+" - IO", Toast.LENGTH_LONG).show();
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                            Toast.makeText(ProfileActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            }).start();
+
+                            dialog.dismiss();
+                        }else{
+                            AllToasts.errorToast(ProfileActivity.this, "You are not a Donor !!");
+                        }
                     }
                 });
 
