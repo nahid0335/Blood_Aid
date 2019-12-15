@@ -275,6 +275,27 @@
             app:layout_constraintBottom_toBottomOf="parent"
             />
 
+        <ImageView
+            android:id="@+id/imageView_homeFragment_rightArrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:elevation="3dp"
+            app:layout_constraintTop_toTopOf="@id/recyclerView_fragmentHome_informations"
+            app:layout_constraintEnd_toEndOf="@id/recyclerView_fragmentHome_informations"
+            app:layout_constraintBottom_toBottomOf="@id/recyclerView_fragmentHome_informations"
+            android:src="@drawable/ic_arrow_forward"/>
+
+
+        <ImageView
+            android:id="@+id/imageView_homeFragment_leftArrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:elevation="3dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/recyclerView_fragmentHome_informations"
+            app:layout_constraintStart_toStartOf="@id/recyclerView_fragmentHome_informations"
+            app:layout_constraintBottom_toBottomOf="@id/recyclerView_fragmentHome_informations"
+            android:src="@drawable/ic_arrow_back"/>
         <!--<ImageView
             android:id="@+id/top_donar_img"
             android:elevation="6dp"

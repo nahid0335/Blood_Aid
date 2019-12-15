@@ -31,10 +31,7 @@ public class InformationsAdapter extends RecyclerView.Adapter<InformationsAdapte
             R.drawable.ic_facts,
             R.drawable.ic_history,
             R.drawable.ic_info,
-            R.drawable.ic_top_donar,
-            R.drawable.ic_facts,
-            R.drawable.ic_history,
-            R.drawable.ic_info};
+            R.drawable.ic_person};
 
 
     public InformationsAdapter(FragmentLoaderInterface fragmentLoaderInterface){
@@ -42,10 +39,7 @@ public class InformationsAdapter extends RecyclerView.Adapter<InformationsAdapte
         infoTextList.add("Facts");
         infoTextList.add("History");
         infoTextList.add("App Info");
-        infoTextList.add("Top Donor");
-        infoTextList.add("Facts");
-        infoTextList.add("History");
-        infoTextList.add("App Info");
+        infoTextList.add("Admin");
         this.loaderInterface = fragmentLoaderInterface;
     }
 

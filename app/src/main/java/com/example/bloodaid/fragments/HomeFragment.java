@@ -25,6 +25,7 @@ import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.ProfileActivity;
 import com.example.bloodaid.R;
 import com.example.bloodaid.adapters.InformationsAdapter;
+import com.example.bloodaid.backend.AdminLoginActivity;
 import com.example.bloodaid.models.UserModelClass;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -36,7 +37,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
     Group mBloodGroups;
     Button mBloodSearchIcon;
     Boolean bloodGroupShowState = true;
-    ImageView mProfilePic;
+    ImageView mProfilePic, mRightArrow, mLeftArrow;
     CardView userProfile;
     TextView UserName;
     ImageView mDonorImg, mOrgImg, mHospitalImg, mAmbulanceImg, mTopDonor, mFacts, mAppInfo, mHistory;
@@ -46,10 +47,6 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
     RecyclerView mInfoRecycler;
     InformationsAdapter mInfoAdapter;
     Fragment[] infoFragmentList = {new TopDonorFragment(),
-            new FactsFragment(),
-            new HistoryFragment(),
-            new AppInfoFragment(),
-            new TopDonorFragment(),
             new FactsFragment(),
             new HistoryFragment(),
             new AppInfoFragment()};
@@ -242,6 +239,25 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
 
         //informations
         mInfoRecycler = v.findViewById(R.id.recyclerView_fragmentHome_informations);
+        mRightArrow = v.findViewById(R.id.imageView_homeFragment_rightArrow);
+        mLeftArrow = v.findViewById(R.id.imageView_homeFragment_leftArrow);
+        mRightArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mInfoRecycler.smoothScrollToPosition(mInfoRecycler.getAdapter().getItemCount()-1);
+                mRightArrow.setVisibility(View.GONE);
+                mLeftArrow.setVisibility(View.VISIBLE);
+            }
+        });
+
+        mLeftArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mInfoRecycler.smoothScrollToPosition(0);
+                mRightArrow.setVisibility(View.VISIBLE);
+                mLeftArrow.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void profileWork() {
@@ -250,10 +266,15 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
 
     @Override
     public void loadFragmentFromInterface(int position) {
+        if(position==4){
+            startActivity(new Intent(getContext(), AdminLoginActivity.class));
+            return;
+        }
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_display, infoFragmentList[position] )
                 .commit();
     }
+
 
 }
