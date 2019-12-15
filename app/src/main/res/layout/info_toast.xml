@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:backgroundTint="#FFF"
+    android:layout_marginHorizontal="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="horizontal"
+        android:padding="3dp"
+        android:background="@drawable/red_border"
+        android:id="@+id/toast_view"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <ImageView
+            android:background="@color/white"
+            android:id="@+id/toast_icon"
+            android:layout_gravity="center"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_info_yellow"
+            />
+
+        <TextView
+            android:id="@+id/error_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FF9800"
+            android:textStyle="bold"
+            android:text="@string/password_error_text"
+            android:padding="16dp"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

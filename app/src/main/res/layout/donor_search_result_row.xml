@@ -4,18 +4,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:background="@drawable/red_border"
-    android:padding="10dp"
+    android:padding="5dp"
+    android:layout_marginBottom="5dp"
     android:layout_height="wrap_content">
-
 
     <TextView
         android:id="@+id/blood_group_text"
-        android:layout_width="100dp"
-        android:layout_height="120dp"
-        android:background="@color/redish"
-        android:text="O+"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/serial_circle_bg"
+        android:text="AB+"
         android:textColor="@color/white"
-        android:textSize="60dp"
+        android:textSize="20dp"
         android:gravity="center"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,67 +23,91 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:padding="10dp"></TextView>
 
+    <LinearLayout
+        android:id="@+id/linearLayout_donor_info"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@+id/blood_group_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/call_btn">
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/name_text"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:gravity="start"
-        android:text="Name: Rk Prnato"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="18sp"
+        android:drawableLeft="@drawable/ic_person"
+        android:drawablePadding="5dp"
+        android:gravity="start"
+        android:text="Rk Prnato"
         android:textColor="@color/blackish"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
-        app:layout_constraintStart_toEndOf="@+id/blood_group_text"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout_donor_info"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout_donor_info" />
 
     <TextView
         android:id="@+id/district_text"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:gravity="start"
-        android:text="District: Gaibandha"
+        android:drawablePadding="5dp"
+        android:drawableLeft="@drawable/ic_location_on"
+        android:text="Gaibandha"
         android:textColor="@color/blackish"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.112"
-        app:layout_constraintStart_toEndOf="@+id/blood_group_text"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout_donor_info"
         app:layout_constraintTop_toBottomOf="@id/name_text" />
 
     <TextView
-        android:id="@+id/reason_text"
+        android:id="@+id/last_donate_text"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:gravity="start"
-        android:text="Reason: Dengue or something"
+        android:paddingStart="15dp"
+        android:text="Last Donated: 03/04/2019"
         android:textColor="@color/blackish"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toEndOf="@+id/blood_group_text"
-        app:layout_constraintTop_toBottomOf="@id/district_text" />
+        app:layout_constraintStart_toStartOf="@+id/linearLayout_donor_info"
+        app:layout_constraintTop_toBottomOf="@id/phone_number_text" />
 
     <TextView
-        android:id="@+id/hospital_text"
+        android:id="@+id/phone_number_text"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:gravity="start"
-        android:text="Hospital: RMC"
+        android:text="013893444"
+        android:drawableLeft="@drawable/ic_phone"
+        android:drawablePadding="5dp"
+        android:textColor="@color/blackish"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout_donor_info"
+        app:layout_constraintTop_toBottomOf="@id/district_text" />
+
+
+    <TextView
+        android:id="@+id/total_donate_text"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="start"
+        android:paddingStart="15dp"
+        android:text="Total Donate: 3 times"
         android:textSize="18sp"
         android:textColor="@color/blackish"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
-        app:layout_constraintStart_toEndOf="@+id/blood_group_text"
-        app:layout_constraintTop_toBottomOf="@id/reason_text" />
+        app:layout_constraintStart_toStartOf="@+id/linearLayout_donor_info"
+        app:layout_constraintTop_toBottomOf="@id/last_donate_text" />
 
 
     <Button
         android:id="@+id/call_btn"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/red_border"
         android:drawableLeft="@drawable/ic_phone"
         android:gravity="center"
         android:padding="7dp"
@@ -95,13 +119,12 @@
         app:layout_constraintEnd_toStartOf="@id/message_btn"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/blood_group_text"
-        app:layout_constraintTop_toBottomOf="@id/hospital_text" />
+        app:layout_constraintTop_toBottomOf="@id/total_donate_text" />
 
     <Button
         android:id="@+id/message_btn"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:background="@drawable/red_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_email"
         android:gravity="center"
         android:padding="7dp"
@@ -114,7 +137,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.802"
         app:layout_constraintStart_toEndOf="@+id/call_btn"
-        app:layout_constraintTop_toBottomOf="@id/hospital_text"
+        app:layout_constraintTop_toBottomOf="@id/total_donate_text"
         app:layout_constraintVertical_bias="0.0" />
 
 

@@ -26,7 +26,12 @@ public class SearchResultActivity extends AppCompatActivity {
         mSearchTab.addTab(mSearchTab.newTab().setText(searchfor+" List"));
         mSearchTab.addTab(mSearchTab.newTab().setText(searchfor+" Map"));
 
-        ResultPagerAdapter adapter = new ResultPagerAdapter(getSupportFragmentManager(), mSearchTab.getTabCount());
+        Bundle bundle = new Bundle();
+        bundle.putString("searchfor", getIntent().getStringExtra("searchfor"));
+        bundle.putString("district", getIntent().getStringExtra("district"));
+        bundle.putString("bloodgroup", getIntent().getStringExtra("bloodgroup"));
+
+        ResultPagerAdapter adapter = new ResultPagerAdapter(getSupportFragmentManager(), mSearchTab.getTabCount(), bundle);
         mSearchPager.setAdapter(adapter);
 
         mSearchTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

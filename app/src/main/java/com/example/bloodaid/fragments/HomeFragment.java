@@ -60,7 +60,6 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
     public HomeFragment() {}
 
     public HomeFragment(Context context) {
-        // Required empty public constructor
         this.context = context;
     }
 

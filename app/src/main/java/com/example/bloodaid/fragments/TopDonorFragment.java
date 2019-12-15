@@ -88,6 +88,7 @@ public class TopDonorFragment extends Fragment {
             @Override
             public void onFailure(Call<ArrayList<TopDonorModelClass>> call, Throwable t) {
                 Toast.makeText(getContext(), "OPPSS!! Failded to fetch database.", Toast.LENGTH_LONG).show();
+                progressDialog.dismiss();
             }
         });
     }

@@ -137,9 +137,9 @@ public class HospitalAddFragment extends Fragment {
             districtItems.add(mp.getKey().toString());
         }
 
-        for(int i=0;i<districtItems.size();i++){
+        /*for(int i=0;i<districtItems.size();i++){
             Log.d("DISTRICT", districtItems.get(i));
-        }
+        }*/
 
         ArrayAdapter districtAdapter = new ArrayAdapter<String>(
                 getContext(),

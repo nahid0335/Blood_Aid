@@ -6,6 +6,7 @@ import com.example.bloodaid.models.AmbulanceModelClass;
 import com.example.bloodaid.models.AmbulanceRequestModelClass;
 import com.example.bloodaid.models.DonorModelClass;
 import com.example.bloodaid.models.DonorRequestModelClass;
+import com.example.bloodaid.models.DonorSearchResultModelClass;
 import com.example.bloodaid.models.HospitalModelClass;
 import com.example.bloodaid.models.HospitalRequestModelClass;
 import com.example.bloodaid.models.OrganizationModelClass;
@@ -28,6 +29,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface BloodAidService {
 
@@ -114,6 +116,25 @@ public interface BloodAidService {
 
     @GET("api/topdonor.php")
     Call<ArrayList<TopDonorModelClass>> topDonor();
+
+    @GET("api/donorsearchresult.php")
+    Call<ArrayList<DonorModelClass>> donorSearchResult(
+            @Query("bloodgroup")String bloodgroup,
+            @Query("district") String district);
+
+    @GET("api/hospitalsearchresult.php")
+    Call<ArrayList<HospitalModelClass>> hospitalrSearchResult(
+            @Query("district") String district);
+
+    @GET("api/ambulancesearchresult.php")
+    Call<ArrayList<AmbulanceModelClass>> ambulanceSearchResult(
+            @Query("district") String district);
+
+    @GET("api/orgsearchresult.php")
+    Call<ArrayList<OrganizationModelClass>> orgSearchResult(
+            @Query("district") String district);
+
+
 
 
 

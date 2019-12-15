@@ -1,6 +1,8 @@
 package com.example.bloodaid.models;
 
 
+import java.util.ArrayList;
+
 public class DonorModelClass {
     private Integer DonorId;
    private String Name;
@@ -10,6 +12,17 @@ public class DonorModelClass {
    private Integer DonateCount;
    private String LastDonate;
    private Integer Status;
+
+    public DonorModelClass(Integer donorId, String name, String mobile, String district, String bloodGroup, Integer donateCount, String lastDonate, Integer status) {
+        DonorId = donorId;
+        Name = name;
+        Mobile = mobile;
+        District = district;
+        BloodGroup = bloodGroup;
+        DonateCount = donateCount;
+        LastDonate = lastDonate;
+        Status = status;
+    }
 
     public Integer getDonorId() {
         return DonorId;
@@ -75,3 +88,5 @@ public class DonorModelClass {
         Status = status;
     }
 }
+
+

@@ -36,4 +36,16 @@ public class AllToasts {
         toast.show();
     }
 
+    public static void infoToast(Context context, String info_text){
+        Toast toast = new Toast(context);
+        toast.setDuration(Toast.LENGTH_LONG);
+        View v = LayoutInflater.from(context)
+                .inflate(R.layout.info_toast, null);
+        TextView t = v.findViewById(R.id.error_text);
+        ImageView i = v.findViewById(R.id.toast_icon);
+        t.setText(info_text);
+        toast.setView(v);
+        toast.show();
+    }
+
 }

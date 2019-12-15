@@ -16,17 +16,27 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.MainActivity;
 import com.example.bloodaid.R;
 import com.example.bloodaid.SearchResultActivity;
+import com.example.bloodaid.utils.AreaData;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SearchFragment extends Fragment {
 
     View v ;
     Button mDonarOption, mAmbulanceOption, mOrgOption, mHospitalOption, mSearchBtn;
     Spinner mDistrictSpinner, mBloodSpinner;
-    String districtStr, bloodGroupStr, searchFor = "donor";
+    String districtStr="Choose District", bloodGroupStr="Choose Blood Group", searchFor = "donor";
+    AreaData data = new AreaData();
 
     public SearchFragment() {
         // Required empty public constructor
@@ -40,16 +50,26 @@ public class SearchFragment extends Fragment {
         v =  inflater.inflate(R.layout.fragment_search, container, false);
         init(v);
         searchOptionHandle(v);
+        districtAndBloodGroupSpinnerWork();
 
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 districtAndBloodGroupSpinnerWork();
-                Intent i = new Intent(getContext(), SearchResultActivity.class);
-                i.putExtra("searchfor", searchFor);
-                i.putExtra("district", districtStr);
-                i.putExtra("bloodgroup", bloodGroupStr);
-                startActivity(i);
+                if(districtStr.equals("Choose District")){
+                    AllToasts.infoToast(getContext(), "Please Select District !");
+                }
+                else if(bloodGroupStr.equals("Choose Blood Group") && searchFor.equals("donor")){
+                    AllToasts.infoToast(getContext(), "Please Select Blood Group !");
+                }
+                else{
+                    Intent i = new Intent(getContext(), SearchResultActivity.class);
+                    i.putExtra("searchfor", searchFor);
+                    i.putExtra("district", districtStr);
+                    i.putExtra("bloodgroup", bloodGroupStr);
+                    Toast.makeText(getContext(), districtStr, Toast.LENGTH_LONG).show();
+                    startActivity(i);
+                }
 
             }
         });
@@ -164,21 +184,32 @@ public class SearchFragment extends Fragment {
 
     private void districtAndBloodGroupSpinnerWork() {
         //style and populate the spiner
-        ArrayAdapter districtAdapter = ArrayAdapter.createFromResource(
+        LinkedHashMap<String, Integer> list = data.getAreaData();
+
+        ArrayList<String> districtItems = new ArrayList<>();
+        ArrayList<String> bloodGroupsItems = new ArrayList<String>(
+                Arrays.asList(getResources().getStringArray(R.array.blood_items)));
+
+        for(Map.Entry mp : list.entrySet()){
+            districtItems.add(mp.getKey().toString());
+        }
+        ArrayAdapter districtAdapter = new ArrayAdapter<String>(
                 getContext(),
-                R.array.district_items,
-                R.layout.color_spinner_layout
-        );
-        ArrayAdapter bloodAdapter = ArrayAdapter.createFromResource(
+                R.layout.color_spinner_layout,
+                districtItems);
+
+        ArrayAdapter bloodAdapter = new ArrayAdapter<String>(
                 getContext(),
-                R.array.blood_items,
-                R.layout.color_spinner_layout
-        );
+                R.layout.color_spinner_layout,
+                bloodGroupsItems);
+
         //dropdown style design
         districtAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
         bloodAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
         mDistrictSpinner.setAdapter(districtAdapter);
         mBloodSpinner.setAdapter(bloodAdapter);
+        mDistrictSpinner.setSelection(districtItems.indexOf(districtStr));
+        mBloodSpinner.setSelection(bloodGroupsItems.indexOf(bloodGroupStr));
         mDistrictSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -203,7 +234,5 @@ public class SearchFragment extends Fragment {
             }
         });
     }
-
-
 
 }
