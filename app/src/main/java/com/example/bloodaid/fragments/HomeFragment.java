@@ -1,10 +1,17 @@
 package com.example.bloodaid.fragments;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,21 +21,46 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.Group;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bloodaid.AllToasts;
+import com.example.bloodaid.BloodAidService;
+import com.example.bloodaid.MainActivity;
 import com.example.bloodaid.ProfileActivity;
 import com.example.bloodaid.R;
+import com.example.bloodaid.RegisterActivity;
+import com.example.bloodaid.RetrofitInstance;
 import com.example.bloodaid.adapters.InformationsAdapter;
 import com.example.bloodaid.backend.AdminLoginActivity;
 import com.example.bloodaid.models.UserModelClass;
+import com.example.bloodaid.utils.AreaData;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
@@ -54,6 +86,14 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_DATA = "user_data";
 
+
+    //Location
+    FusedLocationProviderClient mFusedLocationClient;
+    private static final int PERMISSION_ID = 101;
+    private Double latitude, longitude;
+    UserModelClass userDetails = new UserModelClass();
+    AreaData data = new AreaData();
+
     public HomeFragment() {}
 
     public HomeFragment(Context context) {
@@ -67,16 +107,21 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         init(v);
 
+        //Location
+
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
         Gson gson = new Gson();
         String name = "bal";
         if(sharedPreferences.contains(USER_DATA)){
             String json = sharedPreferences.getString(USER_DATA,null);
-            UserModelClass userDetails = gson.fromJson(json,UserModelClass.class);
+            userDetails = gson.fromJson(json,UserModelClass.class);
             name = userDetails.getName();
 
             UserName.setText(name);
         }
+
+        ///LOCATION//////
+        getLastLocation();
 
 
 //        profileWork();
@@ -128,44 +173,6 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
         mInfoRecycler.setLayoutManager(layoutManager);
 
 
-
-        //informations
-/*        mTopDonor = v.findViewById(R.id.top_donar_img);
-        mHistory = v.findViewById(R.id.history_img);
-        mAppInfo = v.findViewById(R.id.app_info_img);
-        mFacts = v.findViewById(R.id.facts_img);*/
-
-        /*mTopDonor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment topDonor = new TopDonorFragment();
-                loadFragment(topDonor);
-            }
-        });
-
-        mHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment topDonor = new HistoryFragment();
-                loadFragment(topDonor);
-            }
-        });
-
-        mAppInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment topDonor = new AppInfoFragment();
-                loadFragment(topDonor);
-            }
-        });
-
-        mFacts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment topDonor = new FactsFragment();
-                loadFragment(topDonor);
-            }
-        });*/
     }
 
     private void additionActions(View v) {
@@ -276,5 +283,155 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
                 .commit();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (checkPermissions()) {
+            getLastLocation();
+        }
+    }
+
+
+///////////////////LOCATION FUNCTIONS///////////////////////
+    private boolean checkPermissions(){
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            return true;
+        }
+        return false;
+    }
+
+    private void requestPermissions(){
+        ActivityCompat.requestPermissions(
+                getActivity(),
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                PERMISSION_ID
+        );
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_ID) {
+            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                // Granted. Start getting the location information
+                getLastLocation();
+            }
+        }
+    }
+
+    private boolean isLocationEnabled() {
+        LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+                LocationManager.NETWORK_PROVIDER
+        );
+    }
+
+    @SuppressLint("MissingPermission")
+    private void getLastLocation(){
+        if (checkPermissions()) {
+            if (isLocationEnabled()) {
+                mFusedLocationClient.getLastLocation().addOnCompleteListener(
+                        new OnCompleteListener<Location>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Location> task) {
+                                Location location = task.getResult();
+                                if (location == null) {
+                                    //default value
+                                    requestNewLocationData();
+                                } else {
+                                    latitude = location.getLatitude();
+                                    longitude = location.getLongitude();
+                                }
+                                dataSendToServer();
+                                Log.d("TAGG", latitude+ " "+longitude);
+                            }
+                        }
+                );
+            } else {
+                Toast.makeText(getContext(), "Turn on location", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        } else {
+            requestPermissions();
+        }
+    }
+
+    private void dataSendToServer() {
+        final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                .create(BloodAidService.class)
+                .updateLocation(userDetails.getUserId(),
+                        latitude,
+                        longitude);
+        Log.d("TAGG", userDetails.getUserId()+" "+
+                latitude+ " "+
+                longitude);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            String s = response.body().string();
+
+                            //Response parsing
+                            Boolean status;
+                            if(s.isEmpty()){
+                                status = false;
+                            }
+                            else{
+                                JSONObject object = new JSONObject(s);
+                                status = object.getBoolean("validity"); // true or false will be returned as response
+                            }
+                            Log.d("TAGG", status.toString());
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+            }
+        }).start();
+
+    }
+
+    @SuppressLint("MissingPermission")
+    private void requestNewLocationData(){
+
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(10000000);
+        mLocationRequest.setFastestInterval(0);
+        mLocationRequest.setNumUpdates(1);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        mFusedLocationClient.requestLocationUpdates(
+                mLocationRequest, mLocationCallBack,
+                Looper.myLooper()
+        );
+
+    }
+
+    private LocationCallback mLocationCallBack = new LocationCallback(){
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            if(locationResult != null){
+                Location location = locationResult.getLastLocation();
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+        }
+    };
 
 }

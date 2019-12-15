@@ -87,10 +87,6 @@ public class ProfileActivity extends AppCompatActivity {
         userDonateStatus = findViewById(R.id.imageView_userProfile_donateStatus);
 
 
-
-
-
-
         final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString(USER_DATA,null);

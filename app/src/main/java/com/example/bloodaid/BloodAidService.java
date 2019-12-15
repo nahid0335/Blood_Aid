@@ -131,6 +131,14 @@ public interface BloodAidService {
     Call<ArrayList<OrganizationModelClass>> orgSearchResult(
             @Query("district") String district);
 
+    @FormUrlEncoded
+    @POST("api/updatelocation.php")
+    Call<ResponseBody> updateLocation(
+            @Field("userid") Integer userid,
+            @Field("latitude") Double latitude,
+            @Field("longitude") Double longitude
+    );
+
 
 
 
