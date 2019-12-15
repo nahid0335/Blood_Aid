@@ -6,7 +6,6 @@ import com.example.bloodaid.models.AmbulanceModelClass;
 import com.example.bloodaid.models.AmbulanceRequestModelClass;
 import com.example.bloodaid.models.DonorModelClass;
 import com.example.bloodaid.models.DonorRequestModelClass;
-import com.example.bloodaid.models.DonorSearchResultModelClass;
 import com.example.bloodaid.models.HospitalModelClass;
 import com.example.bloodaid.models.HospitalRequestModelClass;
 import com.example.bloodaid.models.OrganizationModelClass;
@@ -23,12 +22,10 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface BloodAidService {

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/red_border"
+    android:padding="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView_search_result_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/hospital"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="8dp"></ImageView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_donor_info"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@+id/imageView_search_result_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/call_btn">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:drawablePadding="5dp"
+        android:gravity="start"
+        android:drawableLeft="@drawable/ic_local_hospital"
+        android:text="Rk Prnato"
+        android:textColor="@color/blackish"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout_donor_info"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout_donor_info" />
+
+    <TextView
+        android:id="@+id/district_text"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="start"
+        android:drawablePadding="5dp"
+        android:drawableLeft="@drawable/ic_location_on"
+        android:text="Gaibandha"
+        android:textColor="@color/blackish"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout_donor_info"
+        app:layout_constraintTop_toBottomOf="@id/name_text" />
+
+
+    <TextView
+        android:id="@+id/phone_number_text"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="start"
+        android:text="013893444"
+        android:drawableLeft="@drawable/ic_phone"
+        android:drawablePadding="5dp"
+        android:textColor="@color/blackish"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout_donor_info"
+        app:layout_constraintTop_toBottomOf="@id/district_text" />
+
+
+    <TextView
+        android:id="@+id/hospital_details_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="Details: DFjkldfjkl"
+        android:textSize="18sp"
+        android:drawableLeft="@drawable/ic_info"
+        android:textColor="@color/blackish"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout_donor_info"
+        app:layout_constraintTop_toBottomOf="@id/phone_number_text" />
+
+
+    <Button
+        android:id="@+id/call_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:drawableLeft="@drawable/ic_phone"
+        android:gravity="center"
+        android:padding="7dp"
+        android:text="Call"
+        android:textColor="@color/redish"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/message_btn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView_search_result_icon"
+        app:layout_constraintTop_toBottomOf="@id/hospital_details_text" />
+
+    <Button
+        android:id="@+id/message_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_email"
+        android:gravity="center"
+        android:padding="7dp"
+        android:layout_margin="10dp"
+        android:text="Message"
+        android:textColor="@color/redish"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.802"
+        app:layout_constraintStart_toEndOf="@+id/call_btn"
+        app:layout_constraintTop_toBottomOf="@id/hospital_details_text"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
