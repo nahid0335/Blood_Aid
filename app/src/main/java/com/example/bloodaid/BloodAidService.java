@@ -263,6 +263,32 @@ public interface BloodAidService {
 
 
 
+
+    //Admin request insert Start
+
+    @FormUrlEncoded
+    @POST("api/adminRequest.php")
+    Call<ResponseBody> adminRequest(
+            @Field("userid") int userid
+    );
+
+    //Admin request insert End
+
+
+
+
+    //Admin Privilege delete Start
+
+    @FormUrlEncoded
+    @POST("api/deleteAdminListItem.php")
+    Call<ResponseBody> adminPrivilegeDelete(
+            @Field("userid") int userid
+    );
+
+    //Admin Privilege delete End
+
+
+
     //Donor List start
 
     @GET("api/readDonorList.php")

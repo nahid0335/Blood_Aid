@@ -38,6 +38,7 @@
         <activity android:name=".backend.DonorActivity" />
         <activity android:name=".backend.HospitalActivity" />
         <activity android:name=".backend.AdminManage" />
+        <activity android:name=".backend.ReportActivity" />
         <activity android:name=".backend.AmbulanceAdmin" />
         <activity
             android:name=".SplashScreen"

@@ -75,6 +75,7 @@ public class HospitalRequestFragment extends Fragment {
 
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
+                            progressDialog.dismiss();
                         }
 
 
@@ -110,6 +111,7 @@ public class HospitalRequestFragment extends Fragment {
                     @Override
                     public void onFailure(Call<List<HospitalRequestModelClass>> call, Throwable t) {
                         Toast.makeText(getContext(), t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                        progressDialog.dismiss();
                     }
                 });
 
@@ -120,6 +122,7 @@ public class HospitalRequestFragment extends Fragment {
             t.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            progressDialog.dismiss();
         }
         progressDialog.show();
 
