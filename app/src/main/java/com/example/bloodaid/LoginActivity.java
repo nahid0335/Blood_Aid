@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
-    public static final String USER_ID = "user_id";
     public static final String USER_DATA = "user_data";
 
 
@@ -48,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
         init();
 
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
         if(sharedPreferences.contains(USER_DATA)){
             finish();
             startActivity( new Intent(LoginActivity.this, MainActivity.class) );
@@ -107,7 +106,6 @@ public class LoginActivity extends AppCompatActivity {
                                     if (status) {
 
                                         //Share preference save data
-                                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         Gson gson = new Gson();
                                         String json = gson.toJson(userDetails);

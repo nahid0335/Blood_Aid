@@ -2,7 +2,6 @@ package com.example.bloodaid;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,16 +9,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,8 +30,6 @@ import com.example.bloodaid.fragments.SearchDialog;
 import com.example.bloodaid.fragments.SearchFragment;
 import com.example.bloodaid.fragments.TopDonorFragment;
 import com.example.bloodaid.models.UserModelClass;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -51,7 +41,6 @@ import com.google.gson.Gson;
 import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends AppCompatActivity{
-
     public static BottomNavigationView mBottomNav;
     public static TextView UserName;
 
@@ -216,11 +205,6 @@ public class MainActivity extends AppCompatActivity{
         finish();
         System.exit(0);
     }
-
-
-
-
-
 
 
 }

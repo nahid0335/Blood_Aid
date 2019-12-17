@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
         Gson gson = new Gson();
-        String name = "bal";
+        String name = "hy";
         if(sharedPreferences.contains(USER_DATA)){
             String json = sharedPreferences.getString(USER_DATA,null);
             userDetails = gson.fromJson(json,UserModelClass.class);

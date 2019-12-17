@@ -11,6 +11,7 @@ public class UserModelClass {
     private Integer DonorStatus;
     private Double Latitude;
     private Double Longitude;
+    private Integer AdminStatus;
     private Integer DonateCount;
     private String LastDonate;
     private Integer Status;
@@ -117,5 +118,13 @@ public class UserModelClass {
 
     public void setStatus(Integer status) {
         Status = status;
+    }
+
+    public Integer getAdminStatus() {
+        return AdminStatus;
+    }
+
+    public void setAdminStatus(Integer adminStatus) {
+        AdminStatus = adminStatus;
     }
 }

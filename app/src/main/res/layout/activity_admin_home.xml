@@ -14,7 +14,6 @@
         android:clickable="true"
         android:elevation="2dp"
         android:foreground="?android:selectableItemBackground"
-        android:onClick="profile_cardView"
         app:cardElevation="2dp"
         app:cardMaxElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,15 +44,16 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:elevation="5dp"
+        android:ellipsize="end"
         android:paddingLeft="5dp"
         android:paddingTop="2dp"
         android:paddingRight="5dp"
         android:paddingBottom="2dp"
+        android:singleLine="true"
         android:text="Tamzid hasan nahid"
+        android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:autoSizeMaxTextSize="25dp"
-        app:autoSizeMinTextSize="18dp"
         app:layout_constraintEnd_toStartOf="@+id/imageView_adminHome_notificationIcon"
         app:layout_constraintStart_toEndOf="@+id/imageView_adminHome_profilePicture"
         app:layout_constraintTop_toTopOf="@+id/cardView_admnHome_topBer" />
@@ -120,8 +120,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/cardView_adminHome_bottomBer"
         app:layout_constraintEnd_toStartOf="@id/imageView_adminHome_logOutIcon"
         app:layout_constraintStart_toEndOf="@id/imageView_adminHome_userModeIcon"
-
-
         app:layout_constraintTop_toTopOf="@id/cardView_adminHome_bottomBer"
         app:srcCompat="@drawable/ic_delete_black_24dp" />
 
