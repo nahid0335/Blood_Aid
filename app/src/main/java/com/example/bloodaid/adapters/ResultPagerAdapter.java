@@ -12,7 +12,7 @@ import com.example.bloodaid.fragments.MapSearchResultFragment;
 
 public class ResultPagerAdapter extends FragmentStatePagerAdapter {
     int tabCount;
-    Bundle bundle = new Bundle();
+    Bundle bundle ;
 
     public ResultPagerAdapter(FragmentManager fm , int tabCount, Bundle bundle){
         super(fm);

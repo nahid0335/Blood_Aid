@@ -108,6 +108,8 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
         init(v);
 
         //Location
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
         Gson gson = new Gson();
@@ -393,7 +395,6 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
 
                     @Override
@@ -415,8 +416,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
         mLocationRequest.setFastestInterval(0);
         mLocationRequest.setNumUpdates(1);
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-        mFusedLocationClient.requestLocationUpdates(
+                mFusedLocationClient.requestLocationUpdates(
                 mLocationRequest, mLocationCallBack,
                 Looper.myLooper()
         );

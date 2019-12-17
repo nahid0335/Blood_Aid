@@ -114,10 +114,11 @@ public interface BloodAidService {
     @GET("api/topdonor.php")
     Call<ArrayList<TopDonorModelClass>> topDonor();
 
-    @GET("api/donorsearchresult.php")
-    Call<ArrayList<DonorModelClass>> donorSearchResult(
-            @Query("bloodgroup")String bloodgroup,
-            @Query("district") String district);
+    @FormUrlEncoded
+    @POST("api/donorsearchresult.php")
+    Call<List<DonorModelClass>> donorSearchResult(
+            @Field("bloodgroup") String bloodgroup,
+            @Field("district") String district);
 
     @GET("api/hospitalsearchresult.php")
     Call<ArrayList<HospitalModelClass>> hospitalrSearchResult(

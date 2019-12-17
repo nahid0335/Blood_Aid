@@ -18,12 +18,13 @@ import com.example.bloodaid.models.DonorModelClass;
 import com.example.bloodaid.models.TopDonorModelClass;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DonorSearchResultAdapter extends RecyclerView.Adapter<DonorSearchResultAdapter.DonorSearchResultViewHolder> {
     private Context context;
-    private ArrayList<DonorModelClass> donorList =  new ArrayList<>();
+    private List<DonorModelClass> donorList ;
 
-    public DonorSearchResultAdapter(Context context, ArrayList<DonorModelClass> donorList) {
+    public DonorSearchResultAdapter(Context context, List<DonorModelClass> donorList) {
         this.context = context;
         this.donorList = donorList;
     }

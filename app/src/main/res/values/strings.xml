@@ -39,6 +39,7 @@
     <string name="popupUpdateTextview_UpdateWarning">Update !</string>
     <string name="popupUpdateTextview_oldData">Old Data :</string>
     <string name="popup_cancelText">Cancel</string>
+    <string name="google_maps_key">AIzaSyCusRpk1DQTRmwmeyaARda6MsXv8EVGzD0</string>
 
     <string-array name="blood_items">
         <item>Choose Blood Group</item>
@@ -84,6 +85,7 @@
         <item>Rungpur</item>
         <item>Sylhet</item>
     </string-array>
+    <string name="title_activity_google_map_list_fragment">Map</string>
 
 
 </resources>

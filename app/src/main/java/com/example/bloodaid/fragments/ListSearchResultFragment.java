@@ -31,6 +31,7 @@ import com.example.bloodaid.models.TopDonorModelClass;
 import com.example.bloodaid.utils.AreaData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +44,7 @@ public class ListSearchResultFragment extends Fragment {
     AreaData data = new AreaData();
 
     //donor
-    ArrayList<DonorModelClass> donorList = new ArrayList<>();
+    List<DonorModelClass> donorList ;
     DonorSearchResultAdapter donorSearchResultAdapter;
 
     //hospital
@@ -96,10 +97,6 @@ public class ListSearchResultFragment extends Fragment {
             AllToasts.errorToast(getContext(), "Something went wrong !!!");
         }
 
-
-        /*Log.d("TAGG0", getArguments().getString("searchfor"));
-        Log.d("TAGG1", getArguments().getString("district"));
-        Log.d("TAGG2", getArguments().getString("bloodgroup"));*/
         return view;
     }
 
@@ -126,15 +123,18 @@ public class ListSearchResultFragment extends Fragment {
 
                     ArrayList<OrganizationModelClass> responseList = response.body();
                     //Response parsing
-                    for (OrganizationModelClass value : responseList) {
-                        responseList.add(value);
+                    if(responseList.get(0).getOrganizationId() == -1){
+                        AllToasts.infoToast(getContext(),
+                                "No data found !");
                     }
-                    organizations = responseList;
-                    searchResultLayoutManager = new LinearLayoutManager(getContext());
-                    searchResultRecycler.setLayoutManager(searchResultLayoutManager);
-                    orgSearchResultAdapter = new OrgSearchResultAdapter(getContext(),
-                            organizations);
-                    searchResultRecycler.setAdapter(orgSearchResultAdapter);
+                    else{
+                        organizations = responseList;
+                        searchResultLayoutManager = new LinearLayoutManager(getContext());
+                        searchResultRecycler.setLayoutManager(searchResultLayoutManager);
+                        orgSearchResultAdapter = new OrgSearchResultAdapter(getContext(),
+                                organizations);
+                        searchResultRecycler.setAdapter(orgSearchResultAdapter);
+                    }
                     progressDialog.dismiss();
                 }
             }
@@ -169,16 +169,18 @@ public class ListSearchResultFragment extends Fragment {
                 else {
 
                     ArrayList<AmbulanceModelClass> responseList = response.body();
-                    //Response parsing
-                    /*for (HospitalModelClass value : responseList) {
-                        hospitalList.add(value);
-                    }*/
-                    ambulanceList = responseList;
-                    searchResultLayoutManager = new LinearLayoutManager(getContext());
-                    searchResultRecycler.setLayoutManager(searchResultLayoutManager);
-                    ambulanceSearchResultAdapter = new AmbulanceSearchResultAdapter(getContext(),
-                            ambulanceList);
-                    searchResultRecycler.setAdapter(ambulanceSearchResultAdapter);
+                    if(responseList.get(0).getAmbulanceId() == -1){
+                        AllToasts.infoToast(getContext(),
+                                "No data found !");
+                    }
+                    else{
+                        ambulanceList = responseList;
+                        searchResultLayoutManager = new LinearLayoutManager(getContext());
+                        searchResultRecycler.setLayoutManager(searchResultLayoutManager);
+                        ambulanceSearchResultAdapter = new AmbulanceSearchResultAdapter(getContext(),
+                                ambulanceList);
+                        searchResultRecycler.setAdapter(ambulanceSearchResultAdapter);
+                    }
                     progressDialog.dismiss();
                 }
             }
@@ -217,12 +219,21 @@ public class ListSearchResultFragment extends Fragment {
                     /*for (HospitalModelClass value : responseList) {
                         hospitalList.add(value);
                     }*/
-                    hospitalList = responseList;
-                    searchResultLayoutManager = new LinearLayoutManager(getContext());
-                    searchResultRecycler.setLayoutManager(searchResultLayoutManager);
-                    hospitalSearchResultAdapter = new HospitalSearchResultAdapter(getContext(),
-                            hospitalList);
-                    searchResultRecycler.setAdapter(hospitalSearchResultAdapter);
+                    if(responseList.get(0).getHospitalId() == -1){
+                        AllToasts.infoToast(getContext(),
+                                "No data found !");
+                    }
+                    else{
+                        hospitalList = responseList;
+                        searchResultLayoutManager = new LinearLayoutManager(getContext());
+                        searchResultRecycler.setLayoutManager(searchResultLayoutManager);
+                        hospitalSearchResultAdapter = new HospitalSearchResultAdapter(getContext(),
+                                hospitalList);
+                        searchResultRecycler.setAdapter(hospitalSearchResultAdapter);
+
+                    }
+
+
                     progressDialog.dismiss();
                 }
             }
@@ -271,8 +282,7 @@ public class ListSearchResultFragment extends Fragment {
 
     private  void fetchDonorSearchResultFromDatabase(){
 
-
-        final Call<ArrayList<DonorModelClass>> call = RetrofitInstance.getRetrofitInstance()
+        final Call<List<DonorModelClass>> call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidService.class)
                 .donorSearchResult(bloodGroup,district);
 
@@ -282,32 +292,39 @@ public class ListSearchResultFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
-        call.enqueue(new Callback<ArrayList<DonorModelClass>>() {
+        call.enqueue(new Callback<List<DonorModelClass>>() {
             @Override
-            public void onResponse(Call<ArrayList<DonorModelClass>> call, Response<ArrayList<DonorModelClass>> response) {
+            public void onResponse(Call<List<DonorModelClass>> call, Response<List<DonorModelClass>> response) {
 
                 if(!response.isSuccessful()){
                     Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                 }
                 else {
 
-                    ArrayList<DonorModelClass> responseList = response.body();
-                    //Response parsing
+                    List<DonorModelClass> responseList = response.body();
+                    if(responseList.get(0).getDonorId() == -1){
+                        AllToasts.infoToast(getContext(),
+                                "No data found !");
+                    }else {
+
+                        //Response parsing
                     /*for (DonorModelClass value : responseList) {
                         donorList.add(value);
                     }*/
-                    donorList = responseList;
-                    searchResultLayoutManager = new LinearLayoutManager(getContext());
-                    searchResultRecycler.setLayoutManager(searchResultLayoutManager);
-                    donorSearchResultAdapter = new DonorSearchResultAdapter(getContext(),
-                            donorList);
-                    searchResultRecycler.setAdapter(donorSearchResultAdapter);
+                        donorList = responseList;
+                        searchResultLayoutManager = new LinearLayoutManager(getContext());
+                        searchResultRecycler.setLayoutManager(searchResultLayoutManager);
+                        donorSearchResultAdapter = new DonorSearchResultAdapter(getContext(),
+                                donorList);
+                        searchResultRecycler.setAdapter(donorSearchResultAdapter);
+
+                    }
                     progressDialog.dismiss();
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<DonorModelClass>> call, Throwable t) {
+            public void onFailure(Call<List<DonorModelClass>> call, Throwable t) {
                 Toast.makeText(getContext(), "OPPSS!! Failded to fetch database: "+t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.d("TAGG", t.getMessage());
                 progressDialog.dismiss();
