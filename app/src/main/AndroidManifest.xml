@@ -57,6 +57,8 @@
         <activity android:name=".backend.HospitalActivity" />
         <activity android:name=".backend.AdminManage" />
         <activity android:name=".backend.AmbulanceAdmin" />
+        <activity android:name=".backend.ReportActivity" />
+        <activity android:name=".backend.OrganizationActivity" />
         <activity
             android:name=".SplashScreen"
             android:theme="@style/splashScreenTheme">

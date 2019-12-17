@@ -30,9 +30,21 @@ public class ReportActivity extends AppCompatActivity {
         ReportNavBer.setOnNavigationItemSelectedListener(navListener);
         ReportNavBer.setSelectedItemId(R.id.icon_adminReport_donor);
 
-        //I added this if statement to keep the selected fragment when rotating the device
-        if (savedInstanceState == null) {
+        if(getIntent().getIntExtra("ReportDonorActivity",0)==16)
+        {
             loadFragment(new ReportDonorFragment());
+            ReportNavBer.setSelectedItemId(R.id.icon_adminReport_donor);
+        }else if(getIntent().getIntExtra("ReportHospitalActivity",0)==17){
+            loadFragment(new ReportHospitalFragment());
+            ReportNavBer.setSelectedItemId(R.id.icon_adminReport_hospital);
+        }else if(getIntent().getIntExtra("ReportAmbulanceActivity",0)==18){
+            loadFragment(new ReportAmbulanceFragment());
+            ReportNavBer.setSelectedItemId(R.id.icon_adminReport_ambulance);
+        }else if(getIntent().getIntExtra("ReportOrganizationActivity",0)==18){
+            loadFragment(new ReportOrganizationFragment());
+            ReportNavBer.setSelectedItemId(R.id.icon_adminReport_organization);
+        }else if (savedInstanceState == null) {
+            loadFragment(new DonorListFragment());
         }
 
     }
@@ -80,4 +92,6 @@ public class ReportActivity extends AppCompatActivity {
         startActivity(new Intent(ReportActivity.this,AdminHome.class));
         finish();
     }
+    
+
 }

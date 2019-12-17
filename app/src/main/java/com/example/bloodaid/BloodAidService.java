@@ -298,6 +298,16 @@ public interface BloodAidService {
 
 
 
+    //Admin Notification start
+
+    @GET("api/rowCountNotification.php")
+    Call<ResponseBody> countNotification();
+
+    //Admin Notification end
+
+
+
+
     //Donor List start
 
     @GET("api/readDonorList.php")

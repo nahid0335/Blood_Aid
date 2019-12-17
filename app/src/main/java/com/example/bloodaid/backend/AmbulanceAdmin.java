@@ -25,8 +25,12 @@ public class AmbulanceAdmin extends AppCompatActivity {
         DonorNavBer.setOnNavigationItemSelectedListener(navListener);
         DonorNavBer.setSelectedItemId(R.id.icon_adminMenu_list);
 
-        //I added this if statement to keep the selected fragment when rotating the device
-        if (savedInstanceState == null) {
+
+        if(getIntent().getIntExtra("AmbulanceActivity",0)==13)
+        {
+            loadFragment(new AmbulanceRequestFragment());
+            DonorNavBer.setSelectedItemId(R.id.icon_adminMenu_request);
+        }else if (savedInstanceState == null) {
             loadFragment(new AmbulanceListFragment());
         }
 

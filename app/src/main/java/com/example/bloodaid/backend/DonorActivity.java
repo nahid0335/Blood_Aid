@@ -25,8 +25,12 @@ public class DonorActivity extends AppCompatActivity {
         DonorNavBer.setOnNavigationItemSelectedListener(navListener);
         DonorNavBer.setSelectedItemId(R.id.icon_adminMenu_list);
 
-        //I added this if statement to keep the selected fragment when rotating the device
-        if (savedInstanceState == null) {
+
+        if(getIntent().getIntExtra("DonorActivity",0)==11)
+        {
+            loadFragment(new DonorRequestFragment());
+            DonorNavBer.setSelectedItemId(R.id.icon_adminMenu_request);
+        }else if (savedInstanceState == null) {
             loadFragment(new DonorListFragment());
         }
 

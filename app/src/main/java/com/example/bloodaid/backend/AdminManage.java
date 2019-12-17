@@ -25,11 +25,13 @@ public class AdminManage extends AppCompatActivity {
         DonorNavBer.setOnNavigationItemSelectedListener(navListener);
         DonorNavBer.setSelectedItemId(R.id.icon_adminMenu_list);
 
-        //I added this if statement to keep the selected fragment when rotating the device
-        if (savedInstanceState == null) {
+        if(getIntent().getIntExtra("AdminActivity",0)==15)
+        {
+            loadFragment(new AdminRequestFragment());
+            DonorNavBer.setSelectedItemId(R.id.icon_adminMenu_request);
+        }else if (savedInstanceState == null) {
             loadFragment(new AdminListFragment());
         }
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

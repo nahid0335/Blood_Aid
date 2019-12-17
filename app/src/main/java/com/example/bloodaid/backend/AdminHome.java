@@ -33,7 +33,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class AdminHome extends AppCompatActivity {
-    TextView adminName;
+    TextView adminName,notificationCount;
 
     Dialog dialog;
 
@@ -50,6 +50,7 @@ public class AdminHome extends AppCompatActivity {
         setContentView(R.layout.activity_admin_home);
 
         adminName = findViewById(R.id.textView_adminHome_adminName);
+        notificationCount = findViewById(R.id.textView_adminHome_notificationNumber);
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
         Gson gson = new Gson();
@@ -58,10 +59,85 @@ public class AdminHome extends AppCompatActivity {
             UserModelClass userDetails = gson.fromJson(json,UserModelClass.class);
             adminName.setText(userDetails.getName());
         }
+
+        final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                .create(BloodAidService.class)
+                .countNotification();
+
+        Thread t =  new Thread(new Runnable() {
+            @Override
+            public void run() {
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        if(!response.isSuccessful()){
+                            AllToasts.errorToast(AdminHome.this,"Code : "+response.code()+" .");
+                        }
+                        else{
+                            int sum = 0;
+                            try {
+                                String s = response.body().string();
+
+                                JSONObject object = new JSONObject(s);
+                                int donorcount = object.getInt("DonorRequest");
+                                sum += donorcount;
+
+                                int hospitalcount = object.getInt("HospitalRequest");
+                                sum += hospitalcount;
+
+                                int ambulancecount = object.getInt("AmbulanceRequest");
+                                sum += ambulancecount;
+
+                                int organizationcount = object.getInt("OrganizationRequest");
+                                sum += organizationcount;
+
+                                int admincount = object.getInt("AdminRequest");
+                                sum += admincount;
+
+                                int donorreportcount = object.getInt("ReportDonor");
+                                sum += donorreportcount;
+
+                                int hospitalreportcount = object.getInt("ReportHospital");
+                                sum += hospitalreportcount;
+
+                                int ambulancereportcount = object.getInt("ReportAmbulance");
+                                sum += ambulancereportcount;
+
+                                int organizationreportcount = object.getInt("ReportOrganization");
+                                sum += organizationreportcount;
+
+                                notificationCount.setText(String.valueOf(sum));
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(AdminHome.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
     public void notification_imageView(View view) {
+        startActivity(new Intent(AdminHome.this,AdminNotificationActivity.class));
+        finish();
     }
 
     public void donor_cardView(View view) {

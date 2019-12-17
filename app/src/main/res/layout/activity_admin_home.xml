@@ -73,6 +73,19 @@
         tools:ignore="OnClick" />
 
     <TextView
+        android:id="@+id/textView_adminHome_notificationNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:padding="5dp"
+        android:text="99"
+        android:textColor="#F44336"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_adminHome_notificationIcon"
+        app:layout_constraintTop_toTopOf="@id/imageView_adminHome_notificationIcon" />
+
+    <TextView
         android:id="@+id/textView_adminHome_adminStatus"
         android:layout_width="0dp"
         android:layout_height="20dp"

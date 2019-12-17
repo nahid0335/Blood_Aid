@@ -85,10 +85,6 @@ public class MainActivity extends AppCompatActivity{
         init();
 
         mBottomNav.setOnNavigationItemSelectedListener(navListener);
-        if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_display, new HomeFragment()).commit();
-            mBottomNav.getMenu().getItem(2).setChecked(true);
-        }
 
         if(getIntent().getIntExtra("TransferActivity",0)==1)
         {
@@ -99,8 +95,10 @@ public class MainActivity extends AppCompatActivity{
             Fragment homeFragment = new HomeFragment();
             replaceFragments(homeFragment);
         }
-
-
+        else if(savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_display, new HomeFragment()).commit();
+            mBottomNav.getMenu().getItem(2).setChecked(true);
+        }
 
     }
 
