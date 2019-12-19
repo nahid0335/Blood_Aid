@@ -86,6 +86,10 @@
         <item>Sylhet</item>
     </string-array>
     <string name="title_activity_google_map_list_fragment">Map</string>
+    <string name="donorAddFragment_title">Become A Donor</string>
+    <string name="donorAddFragment_lastDonateTitle">Last Donate</string>
+    <string name="donorAddFragment_availableTitle">Available Status</string>
+    <string name="donorAddFragment_availableStatus">Become available for donating Blood</string>
 
 
 </resources>
