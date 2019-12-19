@@ -81,6 +81,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
     Fragment[] infoFragmentList = {new TopDonorFragment(),
             new FactsFragment(),
             new HistoryFragment(),
+            new AboutDevelopersFragment(),
             new AppInfoFragment()};
 
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
@@ -275,7 +276,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
 
     @Override
     public void loadFragmentFromInterface(int position) {
-        if(position==4){
+        if(position==5){
             startActivity(new Intent(getContext(), AdminLoginActivity.class));
             return;
         }

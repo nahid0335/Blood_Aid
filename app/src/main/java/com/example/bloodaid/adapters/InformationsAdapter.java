@@ -31,6 +31,7 @@ public class InformationsAdapter extends RecyclerView.Adapter<InformationsAdapte
             R.drawable.ic_facts,
             R.drawable.ic_history,
             R.drawable.ic_info,
+            R.drawable.ic_developer_board,
             R.drawable.ic_person};
 
 
@@ -39,6 +40,7 @@ public class InformationsAdapter extends RecyclerView.Adapter<InformationsAdapte
         infoTextList.add("Facts");
         infoTextList.add("History");
         infoTextList.add("App Info");
+        infoTextList.add("About Developers");
         infoTextList.add("Admin");
         this.loaderInterface = fragmentLoaderInterface;
     }

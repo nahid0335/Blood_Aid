@@ -283,7 +283,7 @@
             app:layout_constraintTop_toTopOf="@id/recyclerView_fragmentHome_informations"
             app:layout_constraintEnd_toEndOf="@id/recyclerView_fragmentHome_informations"
             app:layout_constraintBottom_toBottomOf="@id/recyclerView_fragmentHome_informations"
-            android:src="@drawable/ic_arrow_forward"/>
+            android:src="@drawable/right_arrow"/>
 
 
         <ImageView
@@ -295,7 +295,7 @@
             app:layout_constraintTop_toTopOf="@id/recyclerView_fragmentHome_informations"
             app:layout_constraintStart_toStartOf="@id/recyclerView_fragmentHome_informations"
             app:layout_constraintBottom_toBottomOf="@id/recyclerView_fragmentHome_informations"
-            android:src="@drawable/ic_arrow_back"/>
+            android:src="@drawable/left_arrow"/>
         <!--<ImageView
             android:id="@+id/top_donar_img"
             android:elevation="6dp"
