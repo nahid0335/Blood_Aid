@@ -23,13 +23,15 @@ public class SearchResultActivity extends AppCompatActivity {
         String district = getIntent().getStringExtra("district");
         String bloodGroup = getIntent().getStringExtra("bloodgroup");
 
+
+
         mSearchTab.addTab(mSearchTab.newTab().setText(searchfor+" List"));
         mSearchTab.addTab(mSearchTab.newTab().setText(searchfor+" Map"));
 
         Bundle bundle = new Bundle();
-        bundle.putString("searchfor", getIntent().getStringExtra("searchfor"));
-        bundle.putString("district", getIntent().getStringExtra("district"));
-        bundle.putString("bloodgroup", getIntent().getStringExtra("bloodgroup"));
+        bundle.putString("searchfor", searchfor);
+        bundle.putString("district", district);
+        bundle.putString("bloodgroup", bloodGroup);
 
         ResultPagerAdapter adapter = new ResultPagerAdapter(getSupportFragmentManager(), mSearchTab.getTabCount(), bundle);
         mSearchPager.setAdapter(adapter);

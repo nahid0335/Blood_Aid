@@ -165,26 +165,48 @@ public class MainActivity extends AppCompatActivity{
         SearchFragment searchFragment = new SearchFragment();
 
         if(R.id.group_a_pos == view.getId()){
+            bundle.putString("bloodgroup", "A+");
+            searchDialog.setArguments(bundle);
             searchDialog.show(getSupportFragmentManager(), "A+");
-            bundle.putString("group", "A+");
-            searchFragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_display,searchFragment).commit();
         }
         else if(R.id.group_a_neg == view.getId()){
+            bundle.putString("bloodgroup", "A-");
+            searchDialog.setArguments(bundle);
             searchDialog.show(getSupportFragmentManager(), "A-");
-        }else if(R.id.group_ab_pos == view.getId()){
+        }
+        else if(R.id.group_ab_pos == view.getId()){
+            bundle.putString("bloodgroup", "AB+");
+            searchDialog.setArguments(bundle);
             searchDialog.show(getSupportFragmentManager(), "AB+");
-        }else if(R.id.group_ab_neg == view.getId()){
+        }
+        else if(R.id.group_ab_neg == view.getId()){
+            bundle.putString("bloodgroup", "AB-");
+            searchDialog.setArguments(bundle);
             searchDialog.show(getSupportFragmentManager(), "AB-");
-        }else if(R.id.group_o_pos == view.getId()){
+        }
+        else if(R.id.group_o_pos == view.getId()){
+            bundle.putString("bloodgroup", "O+");
+            searchDialog.setArguments(bundle);
             searchDialog.show(getSupportFragmentManager(), "O+");
-        }else if(R.id.group_o_neg == view.getId()){
+        }
+        else if(R.id.group_o_neg == view.getId()){
+            bundle.putString("bloodgroup", "O-");
+            searchDialog.setArguments(bundle);
             searchDialog.show(getSupportFragmentManager(), "O-");
-        }else if(R.id.group_b_pos == view.getId()){
+        }
+        else if(R.id.group_b_pos == view.getId()){
+            bundle.putString("bloodgroup", "B+");
+            searchDialog.setArguments(bundle);
             searchDialog.show(getSupportFragmentManager(), "B+");
-        }else if(R.id.group_b_neg == view.getId()){
+        }
+        else if(R.id.group_b_neg == view.getId()){
+            bundle.putString("bloodgroup", "B-");
+            searchDialog.setArguments(bundle);
             searchDialog.show(getSupportFragmentManager(), "B-");
-        }else {
+        }
+        else {
+            bundle.putString("bloodgroup", "Choose Blood Group");
+            searchDialog.setArguments(bundle);
             searchDialog.show(getSupportFragmentManager(), "NULL");
         }
     }

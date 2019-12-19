@@ -67,7 +67,7 @@ public class SearchFragment extends Fragment {
                     i.putExtra("searchfor", searchFor);
                     i.putExtra("district", districtStr);
                     i.putExtra("bloodgroup", bloodGroupStr);
-                    Toast.makeText(getContext(), districtStr, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), districtStr, Toast.LENGTH_LONG).show();
                     startActivity(i);
                 }
 
