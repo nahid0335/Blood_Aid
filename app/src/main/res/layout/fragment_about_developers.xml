@@ -38,9 +38,10 @@
             android:textSize="20dp"
             android:text="Rezwan Al Kaoser"></TextView>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold|italic"
+            android:gravity="center_horizontal"
             android:textSize="18dp"
             android:text="Dept. of CSE, KUET"></TextView>
 
@@ -68,9 +69,10 @@
             android:textSize="20dp"
             android:text="Tamzid Hasan"></TextView>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold|italic"
+            android:gravity="center_horizontal"
             android:textSize="18dp"
             android:text="Dept. of CSE, KUET"></TextView>
 

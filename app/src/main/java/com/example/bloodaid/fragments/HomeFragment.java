@@ -81,8 +81,9 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
     Fragment[] infoFragmentList = {new TopDonorFragment(),
             new FactsFragment(),
             new HistoryFragment(),
-            new AboutDevelopersFragment(),
-            new AppInfoFragment()};
+            new AppInfoFragment(),
+            new AboutDevelopersFragment()
+            };
 
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_DATA = "user_data";
