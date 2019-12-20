@@ -80,6 +80,22 @@ public interface BloodAidService {
             @Field("userid") Integer userid
     );
 
+
+
+    //Insert Donor Start
+
+    @FormUrlEncoded
+    @POST("api/addDonorData.php")
+    Call<ResponseBody> insertDonor(
+            @Field("userid") int userid,
+            @Field("lastdonate") String lastdonate,
+            @Field("status") int status
+    );
+
+    //Insert Donor End
+
+
+
     @FormUrlEncoded
     @POST("api/addhospital.php")
     Call<ResponseBody> addHospital(
@@ -89,6 +105,9 @@ public interface BloodAidService {
             @Field("details") String details,
             @Field("area_id") long area_id
     );
+
+
+
 
     @FormUrlEncoded
     @POST("api/addambulance.php")

@@ -155,13 +155,12 @@
         android:clickable="true"
         android:elevation="3dp"
         android:padding="5dp"
-        android:thumbTint="#CC0F00"
         app:layout_constraintBottom_toBottomOf="@+id/cardView11"
         app:layout_constraintEnd_toEndOf="@+id/cardView11"
         app:layout_constraintTop_toBottomOf="@+id/textView43" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_donorAddFragment_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
