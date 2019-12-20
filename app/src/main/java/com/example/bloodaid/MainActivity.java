@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity{
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_ID = "user_id";
     public static final String USER_DATA = "user_data";
+    public static final String TOKEN_DATA = "token_data";
 
 
     @Override
@@ -56,28 +57,21 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /////////
-        FirebaseMessaging.getInstance().subscribeToTopic("bloodaid");
+        final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+        if(!sharedPreferences.contains(TOKEN_DATA) &&
+                sharedPreferences.getString(TOKEN_DATA,null).equals("token_saved")){
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            Log.d("TAG", "getInstanceId failed", task.getException());
-                            return;
-                        }
 
-                        // Get new Instance ID token
-                        String token = task.getResult().getToken();
 
-                        // Log and toast
-                        String msg = getString(R.string.msg_token_fmt, token);
-                        Log.d("TAG", msg);
 
-                    }
-                });
 
+
+            //store token
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(TOKEN_DATA, "token_saved");
+            editor.apply();
+
+        }
 
 
         //////
