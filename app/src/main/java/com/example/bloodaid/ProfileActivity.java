@@ -39,12 +39,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class ProfileActivity extends AppCompatActivity {
     TextView userName,userPhone,userEmail,userPassword,userBloodGroup,userDistrict,userDonorStatus,userlastDonate,userDonateCount;
@@ -658,122 +662,139 @@ public class ProfileActivity extends AppCompatActivity {
         userDonateStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = new Dialog(ProfileActivity.this);
-                dialog.setContentView(R.layout.popup_updateprofile_donatestatus);
-                TextView updatetxt = dialog.findViewById(R.id.textView_popupUpdateStatus_updateButton);
-                TextView canceltxt = dialog.findViewById(R.id.textView_popupUpdateStatus_cancelButton);
-                final RadioButton radioavail = dialog.findViewById(R.id.radioButton_popupUpdateStatus_available);
-                final RadioButton radiounavail = dialog.findViewById(R.id.radioButton_popupUpdateStatus_unavailable);
-                final RadioGroup radiogroup = dialog.findViewById(R.id.radioGroup_popupUpdate_donateStatus);
-                dialog.setCancelable(true);
-                dialog.setCanceledOnTouchOutside(false);
+                SimpleDateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+                String currentdate = dateformat.format(new Date());
+                try {
+                    Date Day1 = dateformat.parse(userlastDonate.getText().toString());
+                    Date Day2 = dateformat.parse(currentdate);
+                    long difference = Day2.getTime()-Day1.getTime();
+                    int daycount = (int) TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
 
 
-                if(donatestatusSave == 1){
-                    radioavail.setChecked(true);
-                }else{
-                    radiounavail.setChecked(true);
-                }
+                    if(daycount>=120){
+                        dialog = new Dialog(ProfileActivity.this);
+                        dialog.setContentView(R.layout.popup_updateprofile_donatestatus);
+                        TextView updatetxt = dialog.findViewById(R.id.textView_popupUpdateStatus_updateButton);
+                        TextView canceltxt = dialog.findViewById(R.id.textView_popupUpdateStatus_cancelButton);
+                        final RadioButton radioavail = dialog.findViewById(R.id.radioButton_popupUpdateStatus_available);
+                        final RadioButton radiounavail = dialog.findViewById(R.id.radioButton_popupUpdateStatus_unavailable);
+                        final RadioGroup radiogroup = dialog.findViewById(R.id.radioGroup_popupUpdate_donateStatus);
+                        dialog.setCancelable(true);
+                        dialog.setCanceledOnTouchOutside(false);
 
 
-                updatetxt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        final int updatedonatestatus ;
-                        if(donorStatus==1){
-                            int radioId = radiogroup.getCheckedRadioButtonId();
-
-                            if(radioavail.getId()==radioId){
-                                updatedonatestatus = 1;
-                            }
-                            else{
-                                updatedonatestatus = 0;
-                            }
-
-                            final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
-                                    .create(BloodAidService.class)
-                                    .updateUserDonateStatus(userId, updatedonatestatus);
-
-
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    call.enqueue(new Callback<ResponseBody>() {
-                                        @Override
-                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                            try {
-                                                String s = response.body().string();
-
-                                                //Response parsing
-                                                Boolean status;
-                                                if(s.isEmpty()){
-                                                    status = false;
-                                                }
-                                                else{
-                                                    JSONObject object = new JSONObject(s);
-                                                    status = object.getBoolean("validity"); // true or false will be returned as response
-                                                }
-
-                                                if(status){
-
-                                                    if(updatedonatestatus == 1){
-                                                        userDonateStatus.setBackgroundResource(R.drawable.ic_check_circle_black_24dp);
-                                                    }
-                                                    else{
-                                                        userDonateStatus.setBackgroundResource(R.drawable.ic_cancel);
-                                                    }
-
-                                                    userDetails.setStatus(updatedonatestatus);
-
-                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                    Gson gson = new Gson();
-                                                    String json = gson.toJson(userDetails);
-                                                    editor.putString(USER_DATA, json);
-                                                    editor.apply();
-                                                    AllToasts.successToast(ProfileActivity.this, "Successfully UserDonateStatus Updated !!");
-                                                }
-                                                else{
-                                                    AllToasts.errorToast(ProfileActivity.this,"UserDonateStatus can't be Updated !!" );
-                                                }
-
-                                            }catch (JSONException e) {
-                                                e.printStackTrace();
-                                                Toast.makeText(ProfileActivity.this, e.getMessage()+" - JSON", Toast.LENGTH_LONG).show();
-
-                                            }catch (IOException e) {
-                                                e.printStackTrace();
-                                                Toast.makeText(ProfileActivity.this, e.getMessage()+" - IO", Toast.LENGTH_LONG).show();
-                                            }
-
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                            Toast.makeText(ProfileActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-                                }
-                            }).start();
-
-                            dialog.dismiss();
-
+                        if(donatestatusSave == 1){
+                            radioavail.setChecked(true);
                         }else{
-                            AllToasts.errorToast(ProfileActivity.this, "You are not a Donor !!");
+                            radiounavail.setChecked(true);
                         }
 
+
+                        updatetxt.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                final int updatedonatestatus ;
+                                if(donorStatus==1){
+                                    int radioId = radiogroup.getCheckedRadioButtonId();
+
+                                    if(radioavail.getId()==radioId){
+                                        updatedonatestatus = 1;
+                                    }
+                                    else{
+                                        updatedonatestatus = 0;
+                                    }
+
+                                    final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                                            .create(BloodAidService.class)
+                                            .updateUserDonateStatus(userId, updatedonatestatus);
+
+
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            call.enqueue(new Callback<ResponseBody>() {
+                                                @Override
+                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                    try {
+                                                        String s = response.body().string();
+
+                                                        //Response parsing
+                                                        Boolean status;
+                                                        if(s.isEmpty()){
+                                                            status = false;
+                                                        }
+                                                        else{
+                                                            JSONObject object = new JSONObject(s);
+                                                            status = object.getBoolean("validity"); // true or false will be returned as response
+                                                        }
+
+                                                        if(status){
+
+                                                            if(updatedonatestatus == 1){
+                                                                userDonateStatus.setBackgroundResource(R.drawable.ic_check_circle_black_24dp);
+                                                            }
+                                                            else{
+                                                                userDonateStatus.setBackgroundResource(R.drawable.ic_cancel);
+                                                            }
+
+                                                            userDetails.setStatus(updatedonatestatus);
+
+                                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                            Gson gson = new Gson();
+                                                            String json = gson.toJson(userDetails);
+                                                            editor.putString(USER_DATA, json);
+                                                            editor.apply();
+                                                            AllToasts.successToast(ProfileActivity.this, "Successfully UserDonateStatus Updated !!");
+                                                        }
+                                                        else{
+                                                            AllToasts.errorToast(ProfileActivity.this,"UserDonateStatus can't be Updated !!" );
+                                                        }
+
+                                                    }catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                        Toast.makeText(ProfileActivity.this, e.getMessage()+" - JSON", Toast.LENGTH_LONG).show();
+
+                                                    }catch (IOException e) {
+                                                        e.printStackTrace();
+                                                        Toast.makeText(ProfileActivity.this, e.getMessage()+" - IO", Toast.LENGTH_LONG).show();
+                                                    }
+
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                    Toast.makeText(ProfileActivity.this, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+                                        }
+                                    }).start();
+
+                                    dialog.dismiss();
+
+                                }else{
+                                    AllToasts.errorToast(ProfileActivity.this, "You are not a Donor !!");
+                                }
+
+                            }
+                        });
+
+                        canceltxt.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                        dialog.show();
+                    }else{
+                        AllToasts.errorToast(ProfileActivity.this,"You are not eligible to be Available !");
                     }
-                });
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
-                canceltxt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                dialog.show();
             }
         });
 

@@ -1,233 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".fragments.RequestFragment"
-    android:background="@drawable/registrationbackground"
-    >
+    tools:context=".fragments.RequestFragment">
 
     <TextView
-        android:id="@+id/txtViewRequest"
+        android:id="@+id/textView30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:elevation="10dp"
-        android:transitionName="tvLogin"
-        android:text="New Donor"
-        android:textColor="@color/white"
-        android:textSize="30dp"
+        android:layout_marginTop="60dp"
+        android:padding="5dp"
+        android:text="@string/donorAddFragment_title"
+        android:textColor="#2C1414"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:padding="10dp"
-        android:fontFamily="@font/roboto_regular"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtViewRequest"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:scrollbars="none"
-        >
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="3dp"
+        android:padding="5dp"
+        android:text="@string/donorAddFragment_lastDonateTitle"
+        app:layout_constraintEnd_toEndOf="@+id/cardView10"
+        app:layout_constraintStart_toStartOf="@+id/cardView10"
+        app:layout_constraintTop_toTopOf="@+id/cardView10" />
 
-        <RelativeLayout
-            android:id="@+id/rlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="#000000"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/cardView10"
+        app:layout_constraintStart_toStartOf="@+id/cardView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewRId"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="15dp"
-                android:background="@drawable/border_button_bg"
-                app:cardElevation="20dp">
+    <TextView
+        android:id="@+id/textView43"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="#000000"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/cardView11"
+        app:layout_constraintStart_toStartOf="@+id/cardView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView41" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:orientation="vertical"
-                    android:background="#F0EDED"
-                    android:paddingBottom="50dp"
-                    >
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:elevation="3dp"
+        android:padding="5dp"
+        android:text="Select Date"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView10"
+        app:layout_constraintStart_toStartOf="@+id/cardView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/name_input"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:fitsSystemWindows="true"
-                        app:errorEnabled="true"
-                        app:boxBackgroundColor="@color/white"
-                        >
+    <TextView
+        android:id="@+id/textView_donorAddFragment_lastDonate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:clickable="true"
+        android:elevation="3dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="5dp"
+        android:text="DD-MM-YYYY"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView10"
+        app:layout_constraintEnd_toEndOf="@+id/cardView10"
+        app:layout_constraintStart_toEndOf="@+id/textView37"
+        app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:hint="Name"
-                            android:windowSoftInputMode="adjustPan"
-                            android:inputType="textPersonName"
-                            android:textAllCaps="true"
-                            android:drawableLeft="@drawable/ic_person"
-                            android:drawablePadding="15dp"/>
+    <TextView
+        android:id="@+id/textView41"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="3dp"
+        android:padding="5dp"
+        android:text="@string/donorAddFragment_availableTitle"
+        app:layout_constraintEnd_toEndOf="@+id/cardView11"
+        app:layout_constraintStart_toStartOf="@+id/cardView11"
+        app:layout_constraintTop_toTopOf="@+id/cardView11" />
 
-                    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:elevation="3dp"
+        android:padding="5dp"
+        android:text="@string/donorAddFragment_availableStatus"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView11"
+        app:layout_constraintEnd_toStartOf="@+id/switch1"
+        app:layout_constraintStart_toStartOf="@+id/cardView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView43" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/phone_input"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        app:boxBackgroundColor="@color/white"
-                        app:errorEnabled="true">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView11"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView10" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etPhone"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:hint="Phone"
-                            android:inputType="phone"
-                            android:windowSoftInputMode="adjustPan"
-                            android:textAllCaps="true"
-                            android:drawableLeft="@drawable/ic_phone"
-                            android:drawablePadding="15dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView10"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/blood_unit_input"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        app:boxBackgroundColor="@color/white"
-                        app:errorEnabled="true">
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:checked="false"
+        android:clickable="true"
+        android:elevation="3dp"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView11"
+        app:layout_constraintEnd_toEndOf="@+id/cardView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView43" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_blood_unit"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:hint="Blood Unit"
-                            android:inputType="number"
-                            android:windowSoftInputMode="adjustPan"
-                            android:drawableLeft="@drawable/blooddrop"
-                            android:drawablePadding="15dp"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/hospital_input"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        app:boxBackgroundColor="@color/white"
-                        app:errorEnabled="true">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_hospital"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:windowSoftInputMode="adjustPan"
-                            android:drawableStart="@drawable/ic_home"
-                            android:drawablePadding="15dp"
-                            android:hint="Hospital"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="When Need Blood ?"
-                        android:background="@color/red"
-                        android:textColor="@color/white"
-                        android:id="@+id/need_date_btn"
-                        android:layout_marginBottom="20dp"
-                        android:textSize="16dp"
-                        android:textAllCaps="false"
-                        />
-
-                    <EditText
-                        android:id="@+id/et_reason"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:drawableStart="@drawable/ic_facts"
-                        android:drawablePadding="15dp"
-                        android:windowSoftInputMode="adjustPan"
-                        android:hint="@string/reason_text"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:background="@color/white"
-                        android:layout_marginBottom="15dp"
-                        />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-
-                        <androidx.appcompat.widget.AppCompatSpinner
-                            android:id="@+id/district_spinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginBottom="15dp"
-                            android:background="@drawable/border_button_bg"
-                            android:entries="@array/district_items"
-                            android:paddingLeft="15dp"
-                            android:textAlignment="center" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <androidx.appcompat.widget.AppCompatSpinner
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:paddingLeft="15dp"
-                            android:background="@drawable/border_button_bg"
-                            android:textAlignment="center"
-                            android:layout_marginBottom="25dp"
-                            android:id="@+id/blood_spinner"
-                            android:entries="@array/blood_items"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <RelativeLayout
-                android:id="@+id/request_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cardViewRId"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="-25dp"
-                android:layout_marginBottom="15dp"
-                android:elevation="25dp">
-
-                <Button
-                    android:id="@+id/register_button"
-                    android:layout_width="150dp"
-                    android:layout_height="45dp"
-                    android:background="@drawable/button_register_ui"
-                    android:text="Request"
-                    android:textSize="20sp"
-                    android:gravity="center"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-
-
-    </ScrollView>
-
-</RelativeLayout>
+    <Button
+        android:id="@+id/button_donorAddFragment_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/border_button_bg"
+        android:elevation="3dp"
+        android:text="Done"
+        android:textColor="#FF0202"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView11" />
+</androidx.constraintlayout.widget.ConstraintLayout>

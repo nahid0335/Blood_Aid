@@ -42,7 +42,7 @@ public class AdminDonorListAdapter extends RecyclerView.Adapter<AdminDonorListHo
         holder.counttxt.setText(hashMap.get("donatecount"));
         holder.lastdonatetxt.setText(hashMap.get("lastdonate"));
 
-        if(hashMap.get("status").equals("0")){
+        if(hashMap.get("status").equals("1")){
             String status = "Available";
             holder.statustxt.setText(status);
             holder.statustxt.setTextColor(ContextCompat.getColor(context, R.color.green));

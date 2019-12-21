@@ -86,6 +86,11 @@
         <item>Sylhet</item>
     </string-array>
     <string name="title_activity_google_map_list_fragment">Map</string>
+    <string name="donorAddFragment_title">Become A Donor</string>
+    <string name="donorAddFragment_lastDonateTitle">Last Donate</string>
+    <string name="donorAddFragment_availableTitle">Available Status</string>
+    <string name="donorAddFragment_availableStatus">Available for donating Blood</string>
+    <string name="appInfo_details">\n \t\t\t The \'Blood Aid\' Blood Donor App puts the power to save lives in the palm of your hand. \n\n \t\t\tDonating blood, platelets and AB Plasma is easier than ever. \n\n \t\t\tFollow your blood’s journey from donation through delivery  (when possible), and create or join a lifesaving team and track its impact on a national leaderboard.\n\n</string>
 
 
 </resources>

@@ -149,6 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
         mPasswordLayout.setError(null);
         mConfirmPasswordLayout.setError(null);
 
+        String mobile = phone.substring(0,2);
 
         if(name.isEmpty()){
             mNameLayout.setError("Name can't be empty");
@@ -158,6 +159,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else if(phone.length()<11){
             mPhoneLayout.setError("Phone number can't be less than 11 digits");
+        }
+        else if(!mobile.equals("01")){
+            mPhoneLayout.setError("Please enter a valid Phone number !");
         }
         else if(password.isEmpty()){
             mPasswordLayout.setError("Password Field can't be empty");
