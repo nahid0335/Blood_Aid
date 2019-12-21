@@ -31,7 +31,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bloodaid.AllToasts;
+import com.example.bloodaid.BloodAidNotificationInterface;
 import com.example.bloodaid.BloodAidService;
+import com.example.bloodaid.LoginActivity;
 import com.example.bloodaid.MainActivity;
 import com.example.bloodaid.ProfileActivity;
 import com.example.bloodaid.R;
@@ -47,7 +49,10 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
@@ -87,7 +92,11 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
 
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_DATA = "user_data";
+    public static final String TOKEN_DATA = "token_data";
+    public static final String TOKEN_CHECKOUT = "token_checkout";
 
+    long useridStr;
+    String tokenStr;
 
     //Location
     FusedLocationProviderClient mFusedLocationClient;
@@ -115,13 +124,24 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
         Gson gson = new Gson();
-        String name = "hy";
+        String name = "Name Area";
         if(sharedPreferences.contains(USER_DATA)){
             String json = sharedPreferences.getString(USER_DATA,null);
             userDetails = gson.fromJson(json,UserModelClass.class);
             name = userDetails.getName();
-
+            useridStr = (long)userDetails.getUserId();
             UserName.setText(name);
+        }
+
+        if(sharedPreferences.contains(TOKEN_DATA) &&
+            !sharedPreferences.contains(TOKEN_CHECKOUT)){
+            tokenStr = sharedPreferences.getString(TOKEN_DATA, null);
+            //store token to database
+            storeTokenToDatabase();
+            Log.d("TAG", "TOKEN INSIDE");
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(TOKEN_CHECKOUT,"checkedout");
+            editor.commit();
         }
 
         ///LOCATION//////
@@ -155,6 +175,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), ProfileActivity.class));
+                getActivity().finish();
 
             }
         });
@@ -166,6 +187,50 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
 
 
         return v;
+    }
+
+    private void storeTokenToDatabase() {
+
+        Log.d("TAG", "TOKEN FUNC: "+ tokenStr+" \nUSER: "+useridStr);
+
+        final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                .create(BloodAidNotificationInterface.class)
+                .addToken(useridStr, tokenStr);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (!response.isSuccessful()) {
+                            Toast.makeText(getContext(), "Code : " + response.code() + " .", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            try {
+                                String s = response.body().string();
+                                JSONObject jsonObject = new JSONObject(s);
+                                Boolean status = jsonObject.getBoolean("taken");
+                                if (!status) {
+                                    AllToasts.infoToast(getContext(), "Sorry! Device token error !");
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getContext(), t.getMessage() + " .", Toast.LENGTH_LONG).show();
+                    }
+
+                });
+            }
+        }).start();
     }
 
     private void informationsActions(View v) {

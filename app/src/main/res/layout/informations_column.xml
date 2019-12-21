@@ -11,6 +11,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:padding="5dp"
+        android:layout_gravity="center_horizontal"
         android:src="@drawable/ic_top_donar"
         >
     </ImageView>

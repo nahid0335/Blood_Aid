@@ -1,44 +1,28 @@
 package com.example.bloodaid;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.bloodaid.adapters.InformationsAdapter;
-import com.example.bloodaid.fragments.AppInfoFragment;
 import com.example.bloodaid.fragments.DonorAddFragment;
-import com.example.bloodaid.fragments.FactsFragment;
 import com.example.bloodaid.fragments.FeedFragment;
-import com.example.bloodaid.fragments.HistoryFragment;
 import com.example.bloodaid.fragments.HomeFragment;
 import com.example.bloodaid.fragments.RequestFragment;
 import com.example.bloodaid.fragments.SearchDialog;
 import com.example.bloodaid.fragments.SearchFragment;
-import com.example.bloodaid.fragments.TopDonorFragment;
-import com.example.bloodaid.models.UserModelClass;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.gson.Gson;
-
-import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends AppCompatActivity{
     public static BottomNavigationView mBottomNav;
@@ -49,32 +33,12 @@ public class MainActivity extends AppCompatActivity{
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_ID = "user_id";
     public static final String USER_DATA = "user_data";
-    public static final String TOKEN_DATA = "token_data";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
-        if(!sharedPreferences.contains(TOKEN_DATA) &&
-                sharedPreferences.getString(TOKEN_DATA,null).equals("token_saved")){
-
-
-
-
-
-
-            //store token
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(TOKEN_DATA, "token_saved");
-            editor.apply();
-
-        }
-
-
-        //////
 
         init();
 
@@ -95,6 +59,8 @@ public class MainActivity extends AppCompatActivity{
         }
 
     }
+
+
 
     private void init() {
         mBottomNav = findViewById(R.id.main_bottom_nav);

@@ -4,7 +4,7 @@ package com.example.bloodaid.models;
 import java.util.ArrayList;
 
 public class DonorModelClass {
-    private Integer DonorId;
+   private Integer DonorId;
    private String Name;
    private String Mobile;
    private String District;

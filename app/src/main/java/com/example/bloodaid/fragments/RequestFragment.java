@@ -27,6 +27,7 @@ import com.example.bloodaid.MainActivity;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RegisterActivity;
 import com.example.bloodaid.RetrofitInstance;
+import com.example.bloodaid.utils.AreaData;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
@@ -34,8 +35,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -52,6 +56,7 @@ public class RequestFragment extends Fragment {
     int  areaId;
     int bloodUnit = 0;
     Calendar myCalendar;
+    AreaData data = new AreaData();
 
 
     public RequestFragment() {
@@ -85,7 +90,7 @@ public class RequestFragment extends Fragment {
 
     private void convertDistrictStrToAreaId() {
         //here district will be convert into area_id
-        areaId = 3;
+        areaId = data.getAreaId(districtStr);
     }
 
     private void setNeedBloodDate() {
@@ -134,11 +139,18 @@ public class RequestFragment extends Fragment {
 
     private void districtAndBloodGroupSpinnerWork() {
         //style and populate the spiner
-        ArrayAdapter districtAdapter = ArrayAdapter.createFromResource(
+        LinkedHashMap<String, Integer> districts = data.getAreaData();
+        ArrayList<String> districtItems = new ArrayList<>();
+
+        for(Map.Entry mp : districts.entrySet()){
+            districtItems.add(mp.getKey().toString());
+        }
+        //style and populate the spiner
+        ArrayAdapter districtAdapter = new ArrayAdapter<String>(
                 getContext(),
-                R.array.district_items,
-                R.layout.color_spinner_layout
-        );
+                R.layout.color_spinner_layout,
+                districtItems);
+
         ArrayAdapter bloodAdapter = ArrayAdapter.createFromResource(
                 getContext(),
                 R.array.blood_items,

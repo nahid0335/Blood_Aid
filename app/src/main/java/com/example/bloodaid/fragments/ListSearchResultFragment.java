@@ -327,6 +327,7 @@ public class ListSearchResultFragment extends Fragment {
             public void onFailure(Call<List<DonorModelClass>> call, Throwable t) {
                 Toast.makeText(getContext(), "OPPSS!! Failded to fetch database: "+t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.d("TAGG", t.getMessage());
+                MapSearchResultFragment mapSearchResultFragment = new MapSearchResultFragment();
                 progressDialog.dismiss();
             }
         });
