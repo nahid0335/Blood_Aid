@@ -26,7 +26,9 @@ public class SearchResultActivity extends AppCompatActivity {
 
 
         mSearchTab.addTab(mSearchTab.newTab().setText(searchfor+" List"));
-        mSearchTab.addTab(mSearchTab.newTab().setText(searchfor+" Map"));
+        if(searchfor.equals("donor")){
+            mSearchTab.addTab(mSearchTab.newTab().setText(searchfor+" Map"));
+        }
 
         Bundle bundle = new Bundle();
         bundle.putString("searchfor", searchfor);

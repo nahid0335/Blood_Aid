@@ -1,6 +1,8 @@
 package com.example.bloodaid.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.R;
+import com.example.bloodaid.models.BloodRequestModelClass;
 import com.example.bloodaid.models.DonorRequestModelClass;
 
 import java.util.ArrayList;
@@ -16,10 +20,10 @@ import java.util.ArrayList;
 public class FeedListAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<DonorRequestModelClass> arrayList = new ArrayList<>();
+    ArrayList<BloodRequestModelClass> arrayList = new ArrayList<>();
     LayoutInflater mInflater;
 
-    public FeedListAdapter(Context context, ArrayList<DonorRequestModelClass> arrayList) {
+    public FeedListAdapter(Context context, ArrayList<BloodRequestModelClass> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
         mInflater = LayoutInflater.from(context);
@@ -49,33 +53,39 @@ public class FeedListAdapter extends BaseAdapter {
         TextView mBloodGroup = view.findViewById(R.id.blood_group_text);
         TextView mName = view.findViewById(R.id.name_text);
         TextView mDistrict = view.findViewById(R.id.district_text);
-        TextView mLastDonated = view.findViewById(R.id.last_donated_text);
-        TextView mDonateCount = view.findViewById(R.id.donate_count_text);
+        TextView mHospital = view.findViewById(R.id.hospital_text);
+        TextView mReason = view.findViewById(R.id.reason_text);
         Button mCall = view.findViewById(R.id.call_btn);
         Button mMessage = view.findViewById(R.id.message_btn);
 
 
-        mBloodGroup.setText(arrayList.get(i).getBloodGroup());
+        mBloodGroup.setText(arrayList.get(i).getBlood_group());
         mName.setText("Name: "+arrayList.get(i).getName());
         mDistrict.setText("District: "+arrayList.get(i).getDistrict());
-        mLastDonated.setText("Last donate: "+arrayList.get(i).getLastDonate());
-        mDonateCount.setText("Donated: "+
-                String.valueOf(arrayList.get(i).getDonateCount())
-        +" times");
+        mHospital.setText("Hospital: "+arrayList.get(i).getHospital());
+        mReason.setText("Reason: " + arrayList.get(i).getReason());
 
-        String number = arrayList.get(i).getMobile();
+        final String number = arrayList.get(i).getPhone();
 
 
         mCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //call to numebr
+                Uri uri = Uri.parse("tel:"+number);
+                Intent i = new Intent(Intent.ACTION_DIAL, uri);
+                context.startActivity(i);
             }
         });
         mMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //sms number
+                Uri uri = Uri.parse("smsto:"+number);
+                Intent i = new Intent(Intent.ACTION_SENDTO, uri);
+                if(i.resolveActivity(context.getPackageManager()) != null){
+                    context.startActivity(i);
+                }
             }
         });
         return view;

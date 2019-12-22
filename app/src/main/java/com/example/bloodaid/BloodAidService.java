@@ -4,6 +4,7 @@ import com.example.bloodaid.models.AdminModelClass;
 import com.example.bloodaid.models.AdminRequestModelClass;
 import com.example.bloodaid.models.AmbulanceModelClass;
 import com.example.bloodaid.models.AmbulanceRequestModelClass;
+import com.example.bloodaid.models.BloodRequestModelClass;
 import com.example.bloodaid.models.DonorModelClass;
 import com.example.bloodaid.models.DonorRequestModelClass;
 import com.example.bloodaid.models.HospitalModelClass;
@@ -70,7 +71,7 @@ public interface BloodAidService {
 
 
     @GET("api/getrequestfeed.php")
-    Call<ArrayList<DonorRequestModelClass>> donorRequestsFeed();
+    Call<ArrayList<BloodRequestModelClass>> donorRequestsFeed();
 
 
 

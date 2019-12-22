@@ -17,6 +17,7 @@ import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
 import com.example.bloodaid.adapters.FeedListAdapter;
+import com.example.bloodaid.models.BloodRequestModelClass;
 import com.example.bloodaid.models.DonorRequestModelClass;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import retrofit2.Response;
 
 public class FeedFragment extends Fragment {
     ListView mFeedList;
-    ArrayList<DonorRequestModelClass> arrayList = new ArrayList<>();
+    ArrayList<BloodRequestModelClass> arrayList = new ArrayList<>();
 
     public FeedFragment() {
 
@@ -50,22 +51,22 @@ public class FeedFragment extends Fragment {
         progressDialog.show();
 
         //dataReady();
-        final Call<ArrayList<DonorRequestModelClass>> call = RetrofitInstance.getRetrofitInstance()
+        final Call<ArrayList<BloodRequestModelClass>> call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidService.class)
                 .donorRequestsFeed();
-        call.enqueue(new Callback<ArrayList<DonorRequestModelClass>>() {
+        call.enqueue(new Callback<ArrayList<BloodRequestModelClass>>() {
             @Override
-            public void onResponse(Call<ArrayList<DonorRequestModelClass>> call, Response<ArrayList<DonorRequestModelClass>> response) {
+            public void onResponse(Call<ArrayList<BloodRequestModelClass>> call, Response<ArrayList<BloodRequestModelClass>> response) {
 
                 if(!response.isSuccessful()){
                     Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                 }
 
 
-                ArrayList<DonorRequestModelClass> responseList = response.body();
+                ArrayList<BloodRequestModelClass> responseList = response.body();
 
                 //Response parsing
-                for(DonorRequestModelClass value : responseList){
+                for(BloodRequestModelClass value : responseList){
                     arrayList.add(value);
                 }
                 Log.d("TAG", responseList.toString());
@@ -76,54 +77,13 @@ public class FeedFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<DonorRequestModelClass>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<BloodRequestModelClass>> call, Throwable t) {
                 Toast.makeText(getContext(), "FAilded .", Toast.LENGTH_LONG).show();
             }
         });
 
 
         return view;
-    }
-
-    private void dataReady() {
-        final Call<ArrayList<DonorRequestModelClass>> call = RetrofitInstance.getRetrofitInstance()
-                .create(BloodAidService.class)
-                .donorRequestsFeed();
-
-        Thread t =  new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                call.enqueue(new Callback<ArrayList<DonorRequestModelClass>>() {
-                    @Override
-                    public void onResponse(Call<ArrayList<DonorRequestModelClass>> call, Response<ArrayList<DonorRequestModelClass>> response) {
-
-                        if(!response.isSuccessful()){
-                            Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
-                        }
-
-
-                        ArrayList<DonorRequestModelClass> responseList = response.body();
-
-                        //Response parsing
-                        for(DonorRequestModelClass value : responseList){
-                            responseList.add(value);
-                        }
-                        Log.d("TAG", responseList.toString());
-                        arrayList = responseList;
-                        FeedListAdapter feedListAdapter = new FeedListAdapter(getContext(), arrayList);
-                        mFeedList.setAdapter(feedListAdapter);
-                    }
-
-                    @Override
-                    public void onFailure(Call<ArrayList<DonorRequestModelClass>> call, Throwable t) {
-                        Toast.makeText(getContext(), "FAilded .", Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            }
-        });
-        t.start();
     }
 
 }

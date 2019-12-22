@@ -77,8 +77,8 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
     ImageView mProfilePic, mRightArrow, mLeftArrow;
     CardView userProfile;
     TextView UserName;
-    ImageView mDonorImg, mOrgImg, mHospitalImg, mAmbulanceImg, mTopDonor, mFacts, mAppInfo, mHistory;
-    TextView mDonorTxt, mOrgTxt, mHospitalTxt, mAmbulanceTxt;
+    ImageView mDonorImg, mOrgImg, mHospitalImg, mAmbulanceImg, mNotificationBell;
+    TextView mDonorTxt, mOrgTxt, mHospitalTxt, mAmbulanceTxt, mNewNotification;
     Context context ;
     //informations
     RecyclerView mInfoRecycler;
@@ -180,13 +180,63 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
             }
         });
 
-
         additionActions(v);
         informationsActions(v);
 
 
+        mNotificationBell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NotificationFragment notificationFragment = new NotificationFragment();
+                loadFragment(notificationFragment);
+            }
+        });
+        newNotificationActions(v);
+
+
+
 
         return v;
+    }
+
+    private void newNotificationActions(View v) {
+        final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                .create(BloodAidNotificationInterface.class)
+                .getNewNotificationCount();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (!response.isSuccessful()) {
+                            Toast.makeText(getContext(), "Error Code : " + response.code() + " .", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            try {
+                                String s = response.body().string();
+                                JSONObject jsonObject = new JSONObject(s);
+                                int num = jsonObject.getInt("count");
+                                if (num>0) {
+                                    mNewNotification.setText(String.valueOf(num));
+                                    mNewNotification.setVisibility(View.VISIBLE);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getContext(), t.getMessage() + " .", Toast.LENGTH_LONG).show();
+                    }
+
+                });
+            }
+        }).start();
+
     }
 
     private void storeTokenToDatabase() {
@@ -301,6 +351,8 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
         mBloodSearchIcon = v.findViewById(R.id.search_btn);
         userProfile = v.findViewById(R.id.main_profile);
         UserName = v.findViewById(R.id.textView_userHome_userName);
+        mNotificationBell = v.findViewById(R.id.imageView_homefragment_notification_bell);
+        mNewNotification = v.findViewById(R.id.textView_homefragment_new_notification);
 
         //addition
         mDonorImg = v.findViewById(R.id.donar_add_img);
