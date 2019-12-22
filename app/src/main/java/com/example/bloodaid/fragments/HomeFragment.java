@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -203,48 +205,54 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
     }
 
     private void newNotificationActions(View v) {
-        final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
-                .create(BloodAidNotificationInterface.class)
-                .getNewNotificationCount();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (!response.isSuccessful()) {
-                            Toast.makeText(getContext(), "Error Code : " + response.code() + " .", Toast.LENGTH_LONG).show();
-                        }
-                        else {
-                            try {
-                                String s = response.body().string();
-                                JSONObject jsonObject = new JSONObject(s);
-                                int num = jsonObject.getInt("count");
-                                if (num>0) {
-                                    mNewNotification.setText(String.valueOf(num));
-                                    mNewNotification.setVisibility(View.VISIBLE);
+        if(checkInternetConnectivity()){
+
+            final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                    .create(BloodAidNotificationInterface.class)
+                    .getNewNotificationCount();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (!response.isSuccessful()) {
+                                Toast.makeText(getContext(), "Error Code : " + response.code() + " .", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                try {
+                                    String s = response.body().string();
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    int num = jsonObject.getInt("count");
+                                    if (num>0) {
+                                        mNewNotification.setText(String.valueOf(num));
+                                        mNewNotification.setVisibility(View.VISIBLE);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
                             }
                         }
-                    }
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(getContext(), t.getMessage() + " .", Toast.LENGTH_LONG).show();
-                    }
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(getContext(), t.getMessage() + " .", Toast.LENGTH_LONG).show();
+                        }
 
-                });
-            }
-        }).start();
+                    });
+                }
+            }).start();
+        }
+        else{
+            AllToasts.errorToast(getContext(), "Please Check Internet Connection and try again !");
+        }
 
     }
 
     private void storeTokenToDatabase() {
 
-        Log.d("TAG", "TOKEN FUNC: "+ tokenStr+" \nUSER: "+useridStr);
+        //Log.d("TAG", "TOKEN FUNC: "+ tokenStr+" \nUSER: "+useridStr);
 
         final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidNotificationInterface.class)
@@ -555,5 +563,20 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
             }
         }
     };
+
+
+    public boolean checkInternetConnectivity(){
+        boolean connected ;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        }
+        else
+            connected = false;
+        return connected;
+    }
 
 }

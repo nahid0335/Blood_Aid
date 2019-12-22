@@ -1,5 +1,8 @@
 package com.example.bloodaid.fragments;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidNotificationInterface;
+import com.example.bloodaid.LoginActivity;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
 import com.example.bloodaid.adapters.NotificationAdapter;
@@ -50,49 +55,14 @@ public class NotificationFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_notification, container, false);
         mNotificationExpandable = v.findViewById(R.id.explandable_notification);
 
-        /*messages.add(new NotificationParentModelClass(1,
-                "Roni needs A+ blood on your area. Requested you to donate blood.",
-                "2019-09-22", "2019-02-11 22:01:11"));
+        if(checkInternetConnectivity()){
+            fetchNotificationDataFromDatabase();
+        }
+        else{
+            AllToasts.errorToast(getContext(), "Please Check Internet Connection and try again !");
 
-        messages.add(new NotificationParentModelClass(1,
-                "Roni needs B+ blood on your area. Requested you to donate blood.",
-                "2019-09-22", "2019-02-11 22:01:11"));
+        }
 
-        messages.add(new NotificationParentModelClass(1,
-                "Roni needs C+ blood on your area. Requested you to donate blood.",
-                "2019-09-22", "2019-02-11 22:01:11"));
-        messages.add(new NotificationParentModelClass(1,
-                "Roni needs D+ blood on your area. Requested you to donate blood.",
-                "2019-09-22", "2019-02-11 22:01:11"));
-        messages.add(new NotificationParentModelClass(1,
-                "Roni needs E+ blood on your area. Requested you to donate blood.",
-                "2019-09-22", "2019-02-11 22:01:11"));
-        messages.add(new NotificationParentModelClass(1,
-                "Roni needs F+ blood on your area. Requested you to donate blood.",
-                "2019-09-22", "2019-02-11 22:01:11"));
-
-        messages.add(new NotificationParentModelClass(1,
-                "Roni needs G+ blood on your area. Requested you to donate blood.",
-                "2019-09-22", "2019-02-11 22:01:11"));
-
-
-
-        request_details.put("Roni needs A+ blood on your area. Requested you to donate blood.",
-                new BloodRequestModelClass("Pranto", "02387438", "Dhaka", "KMC", "Fasdfkj", "O+"));
-        request_details.put("Roni needs B+ blood on your area. Requested you to donate blood.",
-                new BloodRequestModelClass("Pranto", "02387438", "Dhaka", "KMC", "Fasdfkj", "O+"));
-        request_details.put("Roni needs C+ blood on your area. Requested you to donate blood.",
-                new BloodRequestModelClass("Pranto", "02387438", "Dhaka", "KMC", "Fasdfkj", "O+"));
-        request_details.put("Roni needs D+ blood on your area. Requested you to donate blood.",
-                new BloodRequestModelClass("Pranto", "02387438", "Dhaka", "KMC", "Fasdfkj", "O+"));
-        request_details.put("Roni needs E+ blood on your area. Requested you to donate blood.",
-                new BloodRequestModelClass("Pranto", "02387438", "Dhaka", "KMC", "Fasdfkj", "O+"));
-        request_details.put("Roni needs F+ blood on your area. Requested you to donate blood.",
-                new BloodRequestModelClass("Pranto", "02387438", "Dhaka", "KMC", "Fasdfkj", "O+"));
-        request_details.put("Roni needs G+ blood on your area. Requested you to donate blood.",
-                new BloodRequestModelClass("Pranto", "02387438", "Dhaka", "KMC", "Fasdfkj", "O+"));
-*/
-        fetchNotificationDataFromDatabase();
 
 
         mNotificationExpandable.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
@@ -179,6 +149,22 @@ public class NotificationFragment extends Fragment {
                 });
             }
         }).start();
+    }
+
+
+
+    public boolean checkInternetConnectivity(){
+        boolean connected ;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        }
+        else
+            connected = false;
+        return connected;
     }
 
 }
