@@ -2,6 +2,7 @@ package com.example.bloodaid.fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,10 +26,13 @@ import com.example.bloodaid.adapters.OrgSearchResultAdapter;
 import com.example.bloodaid.adapters.TopDonorAdapter;
 import com.example.bloodaid.models.AmbulanceModelClass;
 import com.example.bloodaid.models.DonorModelClass;
+import com.example.bloodaid.models.DonorPositionModelClass;
 import com.example.bloodaid.models.HospitalModelClass;
 import com.example.bloodaid.models.OrganizationModelClass;
 import com.example.bloodaid.models.TopDonorModelClass;
 import com.example.bloodaid.utils.AreaData;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +41,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class ListSearchResultFragment extends Fragment {
 
     String searchfor, district, bloodGroup;
     long area_id;
     AreaData data = new AreaData();
+
+    public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
+    public static final String DONOR_LOCATION = "donor_location";
+
+
+
+    private ArrayList<LatLng> pinpoint = new ArrayList<>();
 
     //donor
     List<DonorModelClass> donorList ;
@@ -298,6 +311,7 @@ public class ListSearchResultFragment extends Fragment {
 
                 if(!response.isSuccessful()){
                     Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
                 }
                 else {
 
@@ -327,8 +341,59 @@ public class ListSearchResultFragment extends Fragment {
             public void onFailure(Call<List<DonorModelClass>> call, Throwable t) {
                 Toast.makeText(getContext(), "OPPSS!! Failded to fetch database: "+t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.d("TAGG", t.getMessage());
-                MapSearchResultFragment mapSearchResultFragment = new MapSearchResultFragment();
                 progressDialog.dismiss();
+            }
+        });
+
+        fetchDonorPositionFromDatabase();
+
+    }
+
+
+
+    private  void fetchDonorPositionFromDatabase(){
+
+        final Call<List<DonorPositionModelClass>> call = RetrofitInstance.getRetrofitInstance()
+                .create(BloodAidService.class)
+                .donorPosition(bloodGroup,district);
+        call.enqueue(new Callback<List<DonorPositionModelClass>>() {
+            @Override
+            public void onResponse(Call<List<DonorPositionModelClass>> call, Response<List<DonorPositionModelClass>> response) {
+
+                if(!response.isSuccessful()){
+                    Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
+                }
+                else {
+
+                    List<DonorPositionModelClass> responseList = response.body();
+                    if(responseList.get(0).getDonorId() == -1){
+                        AllToasts.infoToast(getContext(),
+                                "No data found !");
+                    }else {
+                        for(DonorPositionModelClass position : responseList){
+                            Double latitude = position.getLatitude();
+                            Double longitude = position.getLongitude();
+                            pinpoint.add(new LatLng(latitude,longitude));
+
+                        }
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        if(sharedPreferences.contains(DONOR_LOCATION)){
+                            editor.remove(DONOR_LOCATION);
+                            editor.apply();
+                        }
+                        Gson gson = new Gson();
+                        String json = gson.toJson(pinpoint);
+                        editor.putString(DONOR_LOCATION, json);
+                        editor.apply();
+                        AllToasts.successToast(getContext(),"save");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DonorPositionModelClass>> call, Throwable t) {
+                Toast.makeText(getContext(), "OPPSS!! Failded to fetch database: "+t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

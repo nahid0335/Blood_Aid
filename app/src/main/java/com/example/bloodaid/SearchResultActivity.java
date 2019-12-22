@@ -3,6 +3,7 @@ package com.example.bloodaid;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.bloodaid.adapters.ResultPagerAdapter;
@@ -54,4 +55,10 @@ public class SearchResultActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }

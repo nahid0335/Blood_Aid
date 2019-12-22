@@ -5,6 +5,7 @@ import com.example.bloodaid.models.AdminRequestModelClass;
 import com.example.bloodaid.models.AmbulanceModelClass;
 import com.example.bloodaid.models.AmbulanceRequestModelClass;
 import com.example.bloodaid.models.DonorModelClass;
+import com.example.bloodaid.models.DonorPositionModelClass;
 import com.example.bloodaid.models.DonorRequestModelClass;
 import com.example.bloodaid.models.HospitalModelClass;
 import com.example.bloodaid.models.HospitalRequestModelClass;
@@ -138,6 +139,18 @@ public interface BloodAidService {
     Call<List<DonorModelClass>> donorSearchResult(
             @Field("bloodgroup") String bloodgroup,
             @Field("district") String district);
+
+
+    //donor Position in Map Start
+
+    @FormUrlEncoded
+    @POST("api/donorPosition.php")
+    Call<List<DonorPositionModelClass>> donorPosition(
+            @Field("bloodgroup") String bloodgroup,
+            @Field("district") String district);
+
+    //donor Position in Map End
+
 
     @GET("api/hospitalsearchresult.php")
     Call<ArrayList<HospitalModelClass>> hospitalrSearchResult(
