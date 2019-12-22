@@ -2,7 +2,10 @@ package com.example.bloodaid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -63,7 +66,11 @@ public class RegisterActivity extends AppCompatActivity {
                 takeEditTextInputValues();
                 if(validateEditTextInputValues() && validateSpinnersValue()){
                     takeDataFromMap();
-                    dataSendToServer();
+                    if(checkInternetConnectivity())
+                        dataSendToServer();
+                    else{
+                        AllToasts.errorToast(RegisterActivity.this, "Please Check Internet Connection and try again !");
+                    }
                 }
 
             }
@@ -260,6 +267,22 @@ public class RegisterActivity extends AppCompatActivity {
 
         mRegister = findViewById(R.id.register_button);
         mLogin = findViewById(R.id.login_btn);
+    }
+
+
+
+    public boolean checkInternetConnectivity(){
+        boolean connected ;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        }
+        else
+            connected = false;
+        return connected;
     }
 
 }

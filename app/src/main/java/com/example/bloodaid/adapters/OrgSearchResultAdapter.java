@@ -9,16 +9,28 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bloodaid.AllToasts;
+import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
+import com.example.bloodaid.RetrofitInstance;
 import com.example.bloodaid.models.HospitalModelClass;
 import com.example.bloodaid.models.OrganizationModelClass;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrgSearchResultAdapter extends RecyclerView.Adapter<OrgSearchResultAdapter.OrgSearchResultViewHolder> {
     private Context context;
@@ -67,6 +79,15 @@ public class OrgSearchResultAdapter extends RecyclerView.Adapter<OrgSearchResult
                 AllToasts.infoToast(view.getContext(), "CALL to: "+organization.getMobile());
             }
         });
+
+        holder.reportBtn.setVisibility(View.VISIBLE);
+        holder.reportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendReportToDatabase(organization.getOrganizationId());
+                holder.reportBtn.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -78,7 +99,7 @@ public class OrgSearchResultAdapter extends RecyclerView.Adapter<OrgSearchResult
         TextView nametxt,districttxt, detailsTxt,
                 phoneNumberTxt;
 
-        Button callBtn, msgBtn;
+        Button callBtn, msgBtn, reportBtn;
         ImageView mIcon;
 
         public OrgSearchResultViewHolder(@NonNull View itemView) {
@@ -91,8 +112,52 @@ public class OrgSearchResultAdapter extends RecyclerView.Adapter<OrgSearchResult
 
             callBtn = itemView.findViewById(R.id.call_btn);
             msgBtn = itemView.findViewById(R.id.message_btn);
+            reportBtn = itemView.findViewById(R.id.report_btn);
         }
     }
+
+
+    private void sendReportToDatabase(Integer orgId) {
+
+        final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                .create(BloodAidService.class)
+                .sendOrgReport(orgId);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            String s = response.body().string();
+                            JSONObject jsonObject = new JSONObject(s);
+                            Boolean status = jsonObject.getBoolean("reported");
+                            if(status){
+                                AllToasts.successToast(context, "Your have reported .");
+                            }
+                            else{
+                                AllToasts.errorToast(context, "Sorry ! Something wrong when you were reporting !"+response.errorBody());
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(context, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }).start();
+
+
+    }
+
 
 
 

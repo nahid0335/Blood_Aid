@@ -3,8 +3,11 @@ package com.example.bloodaid;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_DATA = "user_data";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,12 +50,11 @@ public class LoginActivity extends AppCompatActivity {
         init();
 
         final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+
         if(sharedPreferences.contains(USER_DATA)){
             finish();
             startActivity( new Intent(LoginActivity.this, MainActivity.class) );
         }
-
-
 
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,67 +76,76 @@ public class LoginActivity extends AppCompatActivity {
                     //do actual login check
                     mPassword.setError(null);
                     mPhone.setError(null);
-                    final Call<UserModelClass> call = RetrofitInstance.getRetrofitInstance()
-                            .create(BloodAidService.class)
-                            .loginUser(userphone, userpass);
+
+                    if(checkInternetConnectivity()){
+                        //authenticateFromDatabase()
+
+                        final Call<UserModelClass> call = RetrofitInstance.getRetrofitInstance()
+                                .create(BloodAidService.class)
+                                .loginUser(userphone, userpass);
 
 
-                    Thread T = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            call.enqueue(new Callback<UserModelClass>() {
-                                @Override
-                                public void onResponse(Call<UserModelClass> call, Response<UserModelClass> response) {
-                                    if (!response.isSuccessful()) {
-                                        Toast.makeText(LoginActivity.this, "Code : " + response.code() + " .", Toast.LENGTH_LONG).show();
+                        Thread T = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                call.enqueue(new Callback<UserModelClass>() {
+                                    @Override
+                                    public void onResponse(Call<UserModelClass> call, Response<UserModelClass> response) {
+                                        if (!response.isSuccessful()) {
+                                            Toast.makeText(LoginActivity.this, "Code : " + response.code() + " .", Toast.LENGTH_LONG).show();
+                                        }
+                                        UserModelClass userDetails = null;
+                                        if(response.body() != null){
+                                            userDetails = response.body();
+                                            Log.d("TAG",userDetails.getName());
+                                        }
+
+                                        //Response parsing
+                                        Boolean status;
+                                        if (userDetails == null) {
+                                            status = false;
+                                        } else {
+                                            status = true;
+                                        }
+
+                                        if (status) {
+
+                                            //Share preference save data
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            Gson gson = new Gson();
+                                            String json = gson.toJson(userDetails);
+                                            editor.putString(USER_DATA, json);
+                                            editor.apply();
+                                            // end share preference
+
+                                            finish();
+                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                            AllToasts.successToast(LoginActivity.this, "Successfully Logged In");
+                                        } else {
+                                            AllToasts.errorToast(LoginActivity.this, "Phone or Password is not correct!");
+                                        }
                                     }
-                                    UserModelClass userDetails = null;
-                                    if(response.body() != null){
-                                        userDetails = response.body();
-                                        Log.d("TAG",userDetails.getName());
+
+
+                                    @Override
+                                    public void onFailure(Call<UserModelClass> call, Throwable t) {
+                                        Toast.makeText(LoginActivity.this, t.getMessage() + " .", Toast.LENGTH_LONG).show();
                                     }
 
-                                    //Response parsing
-                                    Boolean status;
-                                    if (userDetails == null) {
-                                        status = false;
-                                    } else {
-                                        status = true;
-                                    }
+                                });
+                            }
+                        });
 
-                                    if (status) {
-
-                                        //Share preference save data
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        Gson gson = new Gson();
-                                        String json = gson.toJson(userDetails);
-                                        editor.putString(USER_DATA, json);
-                                        editor.apply();
-                                        // end share preference
-
-                                        finish();
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                        AllToasts.successToast(LoginActivity.this, "Successfully Logged In");
-                                    } else {
-                                        AllToasts.errorToast(LoginActivity.this, "Phone or Password is not correct!");
-                                    }
-                                }
-
-
-                                @Override
-                                public void onFailure(Call<UserModelClass> call, Throwable t) {
-                                    Toast.makeText(LoginActivity.this, t.getMessage() + " .", Toast.LENGTH_LONG).show();
-                                }
-
-                            });
+                        T.start();
+                        try {
+                            T.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                    });
+                    }
+                    else{
+                        AllToasts.errorToast(LoginActivity.this, "Please Check Internet Connection and try again !");
 
-                    T.start();
-                    try {
-                        T.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
 
                 }
@@ -154,6 +164,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
     private void init() {
         mPhone = findViewById(R.id.textInputLoginPhone);
         mPassword = findViewById(R.id.textInputLoginPass);
@@ -167,6 +178,21 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
         finish();
         System.exit(0);
+    }
+
+
+    public boolean checkInternetConnectivity(){
+        boolean connected ;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        }
+        else
+            connected = false;
+        return connected;
     }
 
 }

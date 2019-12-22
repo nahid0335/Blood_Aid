@@ -4,6 +4,7 @@ import com.example.bloodaid.models.AdminModelClass;
 import com.example.bloodaid.models.AdminRequestModelClass;
 import com.example.bloodaid.models.AmbulanceModelClass;
 import com.example.bloodaid.models.AmbulanceRequestModelClass;
+import com.example.bloodaid.models.BloodRequestModelClass;
 import com.example.bloodaid.models.DonorModelClass;
 import com.example.bloodaid.models.DonorPositionModelClass;
 import com.example.bloodaid.models.DonorRequestModelClass;
@@ -71,7 +72,7 @@ public interface BloodAidService {
 
 
     @GET("api/getrequestfeed.php")
-    Call<ArrayList<DonorRequestModelClass>> donorRequestsFeed();
+    Call<ArrayList<BloodRequestModelClass>> donorRequestsFeed();
 
 
 
@@ -171,6 +172,30 @@ public interface BloodAidService {
             @Field("latitude") Double latitude,
             @Field("longitude") Double longitude
     );
+
+
+    @FormUrlEncoded
+    @POST("api/senddonorreport.php")
+    Call<ResponseBody> sendDonorReport(
+            @Field("id") int userid);
+
+
+
+    @FormUrlEncoded
+    @POST("api/sendambulancereport.php")
+    Call<ResponseBody> sendAmbulanceReport(
+            @Field("id") int userid);
+
+    @FormUrlEncoded
+    @POST("api/sendhospitalreport.php")
+    Call<ResponseBody> sendHospitalReport(
+            @Field("id") int userid);
+
+    @FormUrlEncoded
+    @POST("api/sendorgreport.php")
+    Call<ResponseBody> sendOrgReport(
+            @Field("id") int userid);
+
 
 
 

@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity{
     public void bloodGroupSearchClicked(View view){
         SearchDialog searchDialog = new SearchDialog();
         Bundle bundle = new Bundle();
-        SearchFragment searchFragment = new SearchFragment();
 
         if(R.id.group_a_pos == view.getId()){
             bundle.putString("bloodgroup", "A+");

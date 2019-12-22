@@ -12,23 +12,23 @@
 
     <TextView
         android:id="@+id/blood_group_text"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="AB+"
-        android:textColor="@color/redish"
-        android:shadowColor="@color/light_red"
-        android:shadowDy="4"
-        android:shadowDx="4"
-        android:shadowRadius="10"
-        android:textSize="45dp"
+        android:textColor="@color/white"
+        android:background="@drawable/feed_blood_group_bg"
+        android:textSize="25dp"
         android:gravity="center"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/district_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:padding="10dp"></TextView>
+        android:padding="5dp"></TextView>
 
     <TextView
+        android:drawablePadding="5dp"
+        android:layout_marginLeft="8dp"
         android:id="@+id/name_text"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -36,14 +36,16 @@
         android:text="Name: Rk Prnato"
         android:layout_marginTop="10dp"
         android:textSize="18sp"
+        android:drawableLeft="@drawable/ic_person"
         app:layout_constraintBottom_toTopOf="@id/district_text"
         android:textColor="@color/blackish"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toEndOf="@+id/blood_group_text"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:drawablePadding="5dp"
+        android:layout_marginLeft="8dp"
         android:id="@+id/district_text"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -51,39 +53,40 @@
         android:text="District: Gaibandha"
         android:textColor="@color/blackish"
         android:textSize="18sp"
+        android:drawableLeft="@drawable/ic_location_on"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/last_donated_text"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/hospital_text"
         app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintStart_toEndOf="@+id/blood_group_text"
         app:layout_constraintTop_toBottomOf="@id/name_text" />
 
     <TextView
-        android:id="@+id/last_donated_text"
+        android:drawablePadding="5dp"
+        android:layout_marginLeft="8dp"
+        android:id="@+id/hospital_text"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:gravity="start"
-        android:text="Last Donated: 02-04-2019"
+        android:text="Hospital: KMC KDKD"
         android:textColor="@color/blackish"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/donate_count_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.175"
+        android:drawableLeft="@drawable/ic_home"
+        app:layout_constraintBottom_toTopOf="@id/reason_text"
         app:layout_constraintStart_toEndOf="@+id/blood_group_text"
         app:layout_constraintTop_toBottomOf="@id/district_text" />
 
     <TextView
-        android:id="@+id/donate_count_text"
+        android:layout_marginLeft="8dp"
+        android:id="@+id/reason_text"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:gravity="start"
-        android:text="Donated : 2 times"
+        android:drawablePadding="5dp"
+        android:drawableLeft="@drawable/ic_info"
+        android:text="Reason : 2 times"
         android:textSize="18sp"
         android:textColor="@color/blackish"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toEndOf="@+id/blood_group_text"
-        app:layout_constraintTop_toBottomOf="@id/last_donated_text" />
+        app:layout_constraintTop_toBottomOf="@id/hospital_text" />
 
 
     <Button
@@ -102,7 +105,7 @@
         app:layout_constraintEnd_toStartOf="@id/message_btn"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/blood_group_text"
-        app:layout_constraintTop_toBottomOf="@id/donate_count_text" />
+        app:layout_constraintTop_toBottomOf="@id/reason_text" />
 
     <Button
         android:id="@+id/message_btn"
@@ -120,7 +123,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.802"
         app:layout_constraintStart_toEndOf="@+id/call_btn"
-        app:layout_constraintTop_toBottomOf="@id/donate_count_text"
+        app:layout_constraintTop_toBottomOf="@id/reason_text"
         app:layout_constraintVertical_bias="0.0" />
 
 

@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -77,8 +79,8 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
     ImageView mProfilePic, mRightArrow, mLeftArrow;
     CardView userProfile;
     TextView UserName;
-    ImageView mDonorImg, mOrgImg, mHospitalImg, mAmbulanceImg, mTopDonor, mFacts, mAppInfo, mHistory;
-    TextView mDonorTxt, mOrgTxt, mHospitalTxt, mAmbulanceTxt;
+    ImageView mDonorImg, mOrgImg, mHospitalImg, mAmbulanceImg, mNotificationBell;
+    TextView mDonorTxt, mOrgTxt, mHospitalTxt, mAmbulanceTxt, mNewNotification;
     Context context ;
     //informations
     RecyclerView mInfoRecycler;
@@ -131,6 +133,9 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
             name = userDetails.getName();
             useridStr = (long)userDetails.getUserId();
             UserName.setText(name);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("user_id", (int)useridStr);
+            editor.commit();
         }
 
         if(sharedPreferences.contains(TOKEN_DATA) &&
@@ -180,18 +185,74 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
             }
         });
 
-
         additionActions(v);
         informationsActions(v);
+
+
+        mNotificationBell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NotificationFragment notificationFragment = new NotificationFragment();
+                loadFragment(notificationFragment);
+            }
+        });
+        newNotificationActions(v);
+
 
 
 
         return v;
     }
 
+    private void newNotificationActions(View v) {
+        if(checkInternetConnectivity()){
+
+            final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                    .create(BloodAidNotificationInterface.class)
+                    .getNewNotificationCount();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (!response.isSuccessful()) {
+                                Toast.makeText(getContext(), "Error Code : " + response.code() + " .", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                try {
+                                    String s = response.body().string();
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    int num = jsonObject.getInt("count");
+                                    if (num>0) {
+                                        mNewNotification.setText(String.valueOf(num));
+                                        mNewNotification.setVisibility(View.VISIBLE);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(getContext(), t.getMessage() + " .", Toast.LENGTH_LONG).show();
+                        }
+
+                    });
+                }
+            }).start();
+        }
+        else{
+            AllToasts.errorToast(getContext(), "Please Check Internet Connection and try again !");
+        }
+
+    }
+
     private void storeTokenToDatabase() {
 
-        Log.d("TAG", "TOKEN FUNC: "+ tokenStr+" \nUSER: "+useridStr);
+        //Log.d("TAG", "TOKEN FUNC: "+ tokenStr+" \nUSER: "+useridStr);
 
         final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidNotificationInterface.class)
@@ -301,6 +362,8 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
         mBloodSearchIcon = v.findViewById(R.id.search_btn);
         userProfile = v.findViewById(R.id.main_profile);
         UserName = v.findViewById(R.id.textView_userHome_userName);
+        mNotificationBell = v.findViewById(R.id.imageView_homefragment_notification_bell);
+        mNewNotification = v.findViewById(R.id.textView_homefragment_new_notification);
 
         //addition
         mDonorImg = v.findViewById(R.id.donar_add_img);
@@ -500,5 +563,20 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
             }
         }
     };
+
+
+    public boolean checkInternetConnectivity(){
+        boolean connected ;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        }
+        else
+            connected = false;
+        return connected;
+    }
 
 }
