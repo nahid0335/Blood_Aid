@@ -131,6 +131,9 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
             name = userDetails.getName();
             useridStr = (long)userDetails.getUserId();
             UserName.setText(name);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("user_id", (int)useridStr);
+            editor.commit();
         }
 
         if(sharedPreferences.contains(TOKEN_DATA) &&

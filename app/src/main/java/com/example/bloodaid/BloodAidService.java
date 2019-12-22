@@ -161,6 +161,13 @@ public interface BloodAidService {
     );
 
 
+    @FormUrlEncoded
+    @POST("api/senddonorreport.php")
+    Call<ResponseBody> sendDonorReport(
+            @Field("id") int userid);
+
+
+
 
 
 

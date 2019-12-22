@@ -79,10 +79,10 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
         TextView seen = convertView.findViewById(R.id.textView_notification_seen);
         if(parent.getSeen().equals("yes")){
             seen.setText("Seen");
-            seen.setTextColor(Color.GREEN);
         }
         else{
             seen.setText("Unseen");
+            seen.setTextColor(context.getResources().getColor(R.color.redish, null));
         }
 
         return convertView;

@@ -2,6 +2,7 @@ package com.example.bloodaid.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bloodaid.AllToasts;
+import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
+import com.example.bloodaid.RetrofitInstance;
 import com.example.bloodaid.models.DonorModelClass;
 import com.example.bloodaid.models.TopDonorModelClass;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.bloodaid.MainActivity.SHARED_PREFerence_Key;
 
 public class DonorSearchResultAdapter extends RecyclerView.Adapter<DonorSearchResultAdapter.DonorSearchResultViewHolder> {
     private Context context;
@@ -68,6 +83,13 @@ public class DonorSearchResultAdapter extends RecyclerView.Adapter<DonorSearchRe
                 AllToasts.infoToast(view.getContext(), "CALL to: "+donor.getMobile());
             }
         });
+        holder.reportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendReportToDatabase(donor.getDonorId());
+                holder.reportBtn.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -79,7 +101,7 @@ public class DonorSearchResultAdapter extends RecyclerView.Adapter<DonorSearchRe
         TextView bloodgroupTxt, nametxt,districttxt, bloodGroupTxt,
                 phoneNumberTxt, lastDonationTxt, totalDonationTxt;
 
-        Button callBtn, msgBtn;
+        Button callBtn, msgBtn, reportBtn;
 
         public DonorSearchResultViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,9 +113,50 @@ public class DonorSearchResultAdapter extends RecyclerView.Adapter<DonorSearchRe
             lastDonationTxt = itemView.findViewById(R.id.last_donate_text);
             callBtn = itemView.findViewById(R.id.call_btn);
             msgBtn = itemView.findViewById(R.id.message_btn);
-        }
+            reportBtn = itemView.findViewById(R.id.report_btn);        }
     }
 
+
+    private void sendReportToDatabase(Integer donorId) {
+
+        final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
+                .create(BloodAidService.class)
+                .sendDonorReport(donorId);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            String s = response.body().string();
+                            JSONObject jsonObject = new JSONObject(s);
+                            Boolean status = jsonObject.getBoolean("reported");
+                            if(status){
+                                AllToasts.successToast(context, "Your have reported .");
+                            }
+                            else{
+                                AllToasts.errorToast(context, "Sorry ! Something wrong when you were reporting !"+response.errorBody());
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(context, t.getMessage()+" .", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }).start();
+
+
+    }
 
 
 }
