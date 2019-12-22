@@ -168,6 +168,23 @@ public interface BloodAidService {
 
 
 
+    @FormUrlEncoded
+    @POST("api/sendambulancereport.php")
+    Call<ResponseBody> sendAmbulanceReport(
+            @Field("id") int userid);
+
+    @FormUrlEncoded
+    @POST("api/sendhospitalreport.php")
+    Call<ResponseBody> sendHospitalReport(
+            @Field("id") int userid);
+
+    @FormUrlEncoded
+    @POST("api/sendorgreport.php")
+    Call<ResponseBody> sendOrgReport(
+            @Field("id") int userid);
+
+
+
 
 
 
