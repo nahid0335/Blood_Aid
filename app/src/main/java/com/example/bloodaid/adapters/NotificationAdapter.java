@@ -2,6 +2,7 @@ package com.example.bloodaid.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,7 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 
     @Override
     public BloodRequestModelClass getChild(int i, int i1) {
-        return childs.get(parents.get(i).getMessage());
+        return childs.get(parents.get(i).getCreated_at());
     }
 
     @Override
@@ -74,6 +75,15 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 
         TextView message = convertView.findViewById(R.id.textView_notification_message);
         message.setText(parent.getMessage());
+
+        TextView seen = convertView.findViewById(R.id.textView_notification_seen);
+        if(parent.getSeen().equals("yes")){
+            seen.setText("Seen");
+            seen.setTextColor(Color.GREEN);
+        }
+        else{
+            seen.setText("Unseen");
+        }
 
         return convertView;
     }

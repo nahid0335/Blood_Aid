@@ -2,6 +2,7 @@ package com.example.bloodaid.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,12 +51,20 @@ public class DonorSearchResultAdapter extends RecyclerView.Adapter<DonorSearchRe
         holder.msgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Uri uri = Uri.parse("smsto:"+donor.getMobile());
+                Intent i = new Intent(Intent.ACTION_SENDTO, uri);
+                if(i.resolveActivity(context.getPackageManager()) != null){
+                    context.startActivity(i);
+                }
                 AllToasts.infoToast(view.getContext(), "MESSAGE to: "+donor.getMobile());
             }
         });
         holder.callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Uri uri = Uri.parse("tel:"+donor.getMobile());
+                Intent i = new Intent(Intent.ACTION_DIAL, uri);
+                context.startActivity(i);
                 AllToasts.infoToast(view.getContext(), "CALL to: "+donor.getMobile());
             }
         });

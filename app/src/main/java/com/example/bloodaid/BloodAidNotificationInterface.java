@@ -1,5 +1,6 @@
 package com.example.bloodaid;
 
+import com.example.bloodaid.models.NotificationModelClass;
 import com.example.bloodaid.models.TopDonorModelClass;
 import com.example.bloodaid.models.UserModelClass;
 
@@ -24,5 +25,13 @@ public interface BloodAidNotificationInterface {
 
     @GET("api/newnotificationcount.php")
     Call<ResponseBody> getNewNotificationCount();
+
+
+    @GET("api/bloodrequestnotification.php")
+    Call<ArrayList<NotificationModelClass>> getNotificationList();
+
+    @FormUrlEncoded
+    @POST("api/makeseennotificationitem.php")
+    Call<ResponseBody> makeSeenNotificationItem(@Field("id") int id);
 
 }

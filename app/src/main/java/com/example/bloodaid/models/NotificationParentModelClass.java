@@ -5,14 +5,24 @@ public class NotificationParentModelClass {
     String message;
     String need_date;
     String created_at;
+    String seen;
 
     public NotificationParentModelClass(){}
 
-    public NotificationParentModelClass(int notificationId, String message, String need_date, String created_at) {
+    public NotificationParentModelClass(int notificationId, String message, String need_date, String created_at, String seen) {
         this.notificationId = notificationId;
         this.message = message;
         this.need_date = need_date;
         this.created_at = created_at;
+        this.seen = seen;
+    }
+
+    public String getSeen() {
+        return seen;
+    }
+
+    public void setSeen(String seen) {
+        this.seen = seen;
     }
 
     public int getNotificationId() {

@@ -32,6 +32,18 @@
             android:textColor="#000"
             android:textSize="15sp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_notification_seen"
+            android:text="Seen"
+            android:layout_gravity="end"
+            android:textStyle="bold"
+            android:textColor="#338D8D"
+            android:textSize="15sp"/>
+
+
+
     </LinearLayout>
 
 
