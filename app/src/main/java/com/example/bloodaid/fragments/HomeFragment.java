@@ -144,7 +144,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
             tokenStr = sharedPreferences.getString(TOKEN_DATA, null);
             //store token to database
             storeTokenToDatabase();
-            Log.d("TAG", "TOKEN INSIDE");
+            //Log.d("TAG", "TOKEN INSIDE");
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(TOKEN_CHECKOUT,"checkedout");
             editor.commit();
@@ -478,7 +478,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
                                     longitude = location.getLongitude();
                                 }
                                 dataSendToServer();
-                                Log.d("TAGG", latitude+ " "+longitude);
+                               // Log.d("TAGG", latitude+ " "+longitude);
                             }
                         }
                 );
@@ -498,9 +498,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
                 .updateLocation(userDetails.getUserId(),
                         latitude,
                         longitude);
-        Log.d("TAGG", userDetails.getUserId()+" "+
-                latitude+ " "+
-                longitude);
+       // Log.d("TAGG", userDetails.getUserId()+" "+latitude+ " "+longitude);
 
         new Thread(new Runnable() {
             @Override
@@ -520,7 +518,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
                                 JSONObject object = new JSONObject(s);
                                 status = object.getBoolean("validity"); // true or false will be returned as response
                             }
-                            Log.d("TAGG", status.toString());
+                            //Log.d("TAGG", status.toString());
 
                         } catch (IOException e) {
                             e.printStackTrace();

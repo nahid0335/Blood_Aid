@@ -133,7 +133,8 @@ public class NotificationFragment extends Fragment {
                                                 n.getNeed_date(), n.getCreated_at(), n.getSeen()));
 
                                 request_details.put(n.getCreated_at(),new BloodRequestModelClass(
-                                   n.getName(), n.getPhone(), n.getDistrict(), n.getHospital(), n.getReason(), n.getBlood_group()
+                                        n.getRequestId(),n.getName(), n.getPhone(), n.getDistrict(),
+                                        n.getHospital(), n.getReason(), n.getBlood_group()
                                 ));
                             }
 

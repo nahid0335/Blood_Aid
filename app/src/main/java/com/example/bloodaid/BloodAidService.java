@@ -34,7 +34,6 @@ public interface BloodAidService {
 
     //Frontend Start
 
-
     @FormUrlEncoded
     @POST("api/login.php")
     Call<UserModelClass> loginUser(
@@ -61,6 +60,7 @@ public interface BloodAidService {
     @POST("api/sendrequest.php")
     Call<ResponseBody> bloodRequestSend(
         @Field("name")String name,
+        @Field("user_id")int userId,
         @Field("phone")String phone,
         @Field("area_id")int area_id,
         @Field("blood_unit")int blood_unit,
@@ -75,14 +75,23 @@ public interface BloodAidService {
     Call<ArrayList<BloodRequestModelClass>> donorRequestsFeed();
 
 
+    @FormUrlEncoded
+    @POST("api/donorhistoryfeed.php")
+    Call<ArrayList<BloodRequestModelClass>> donorHistoryFeed(
+            @Field("userid") Integer userid
+    );
+
+    @FormUrlEncoded
+    @POST("api/deletehistoryfeed.php")
+    Call<ResponseBody> deleteHistoryFeed(
+            @Field("requestid") int requestid
+    );
 
     @FormUrlEncoded
     @POST("api/readSingleUser.php")
     Call<UserModelClass> singleUserData(
             @Field("userid") Integer userid
     );
-
-
 
     //Insert Donor Start
 
@@ -96,8 +105,6 @@ public interface BloodAidService {
 
     //Insert Donor End
 
-
-
     @FormUrlEncoded
     @POST("api/addhospital.php")
     Call<ResponseBody> addHospital(
@@ -107,9 +114,6 @@ public interface BloodAidService {
             @Field("details") String details,
             @Field("area_id") long area_id
     );
-
-
-
 
     @FormUrlEncoded
     @POST("api/addambulance.php")
@@ -131,7 +135,6 @@ public interface BloodAidService {
             @Field("area_id") long area_id
     );
 
-
     @GET("api/topdonor.php")
     Call<ArrayList<TopDonorModelClass>> topDonor();
 
@@ -140,7 +143,6 @@ public interface BloodAidService {
     Call<List<DonorModelClass>> donorSearchResult(
             @Field("bloodgroup") String bloodgroup,
             @Field("district") String district);
-
 
     //donor Position in Map Start
 
@@ -151,8 +153,6 @@ public interface BloodAidService {
             @Field("district") String district);
 
     //donor Position in Map End
-
-
     @GET("api/hospitalsearchresult.php")
     Call<ArrayList<HospitalModelClass>> hospitalrSearchResult(
             @Query("district") String district);

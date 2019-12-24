@@ -3,6 +3,7 @@ package com.example.bloodaid.fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
 
@@ -27,8 +28,10 @@ import com.example.bloodaid.MainActivity;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RegisterActivity;
 import com.example.bloodaid.RetrofitInstance;
+import com.example.bloodaid.models.UserModelClass;
 import com.example.bloodaid.utils.AreaData;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +49,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class RequestFragment extends Fragment {
     TextInputLayout mName, mPhoneNo, mBloodUnit, mHospital;
@@ -53,10 +58,14 @@ public class RequestFragment extends Fragment {
     EditText mReason;
     Button mNeedDate, mRequest;
     String districtStr, needDateStr, bloodGroupStr, nameStr, phoneStr, hospitalStr, reasonStr;
-    int  areaId;
+    int  areaId, userId;
     int bloodUnit = 0;
     Calendar myCalendar;
     AreaData data = new AreaData();
+
+    public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
+    public static final String USER_DATA = "user_data";
+
 
 
     public RequestFragment() {
@@ -73,6 +82,12 @@ public class RequestFragment extends Fragment {
         districtAndBloodGroupSpinnerWork();
         setNeedBloodDate();
 
+        //get user id from shared preference
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+        if(sharedPreferences.contains(USER_DATA)){
+            userId = sharedPreferences.getInt("user_id", 0);
+        }
+
         mRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +96,6 @@ public class RequestFragment extends Fragment {
                     convertDistrictStrToAreaId();
                     dataSendToServer();
                 }
-
             }
         });
 
@@ -187,10 +201,9 @@ public class RequestFragment extends Fragment {
     }
 
     private void dataSendToServer() {
-
         final Call<ResponseBody> call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidService.class)
-                .bloodRequestSend(nameStr,phoneStr, areaId, bloodUnit,
+                .bloodRequestSend(nameStr, userId, phoneStr, areaId, bloodUnit,
                         hospitalStr,reasonStr, needDateStr , bloodGroupStr);
 
         new Thread(new Runnable() {

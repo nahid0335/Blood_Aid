@@ -84,10 +84,6 @@ public class MapSearchResultFragment extends Fragment {
         pinpoint = gson.fromJson(json,type);
         Log.d("Tag",pinpoint.toString());
 
-
-
-
-
         mMapView = rootView.findViewById(R.id.mapView_userSearchDonor_list);
         mMapView.onCreate(savedInstanceState);
 

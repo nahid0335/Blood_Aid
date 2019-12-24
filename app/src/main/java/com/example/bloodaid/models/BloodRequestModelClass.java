@@ -1,6 +1,7 @@
 package com.example.bloodaid.models;
 
 public class BloodRequestModelClass {
+    int requestId;
     String name;
     String phone;
     String district;
@@ -10,13 +11,22 @@ public class BloodRequestModelClass {
 
     public BloodRequestModelClass(){}
 
-    public BloodRequestModelClass(String name, String phone, String district, String hospital, String reason, String blood_group) {
+    public BloodRequestModelClass(int requestId, String name, String phone, String district, String hospital, String reason, String blood_group) {
+        this.requestId = requestId;
         this.name = name;
         this.phone = phone;
         this.district = district;
         this.hospital = hospital;
         this.reason = reason;
         this.blood_group = blood_group;
+    }
+
+    public int getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(int requestId) {
+        this.requestId = requestId;
     }
 
     public String getName() {

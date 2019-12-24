@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.FeedFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="10dp"
+        android:backgroundTint="#FCF7F7"
+        android:layout_marginHorizontal="5dp"
+        app:cardCornerRadius="15dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Request Feeds"
+            android:layout_gravity="center"
+            android:textSize="24dp"
+            android:textColor="#000"/>
+
+    </androidx.cardview.widget.CardView>
 
     <ListView
         android:layout_width="match_parent"
@@ -12,4 +33,4 @@
         android:divider="@null"
         android:id="@+id/list_feed"/>
 
-</FrameLayout>
+</LinearLayout>

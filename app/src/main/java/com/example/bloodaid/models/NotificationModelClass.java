@@ -5,6 +5,7 @@ public class NotificationModelClass {
     String message;
     String need_date;
     String created_at;
+    int requestId;
     String name;
     String seen;
     String phone;
@@ -12,6 +13,14 @@ public class NotificationModelClass {
     String hospital;
     String reason;
     String blood_group;
+
+    public int getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(int requestId) {
+        this.requestId = requestId;
+    }
 
     public int getNotificationId() {
         return notificationId;
