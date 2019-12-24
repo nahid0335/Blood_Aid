@@ -71,7 +71,7 @@ public class SearchFragment extends Fragment {
         init(v);
         searchOptionHandle(v);
         districtAndBloodGroupSpinnerWork();
-        //fetchDonorPositionFromDatabase();
+
 
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,12 +84,8 @@ public class SearchFragment extends Fragment {
                     AllToasts.infoToast(getContext(), "Please Select Blood Group !");
                 }
                 else{
-                    Intent i = new Intent(getContext(), SearchResultActivity.class);
-                    i.putExtra("searchfor", searchFor);
-                    i.putExtra("district", districtStr);
-                    i.putExtra("bloodgroup", bloodGroupStr);
-                    //Toast.makeText(getContext(), districtStr, Toast.LENGTH_LONG).show();
-                    startActivity(i);
+                    fetchDonorPositionFromDatabase();
+
                 }
 
             }
@@ -293,8 +289,17 @@ public class SearchFragment extends Fragment {
                         editor.putString(DONOR_LOCATION, json);
                         editor.apply();
                         AllToasts.successToast(getContext(),"save");
+                        Intent i = new Intent(getContext(), SearchResultActivity.class);
+                        i.putExtra("searchfor", searchFor);
+                        i.putExtra("district", districtStr);
+                        i.putExtra("bloodgroup", bloodGroupStr);
+                        //Toast.makeText(getContext(), districtStr, Toast.LENGTH_LONG).show();
+                        startActivity(i);
                     }
                 }
+
+
+
             }
 
             @Override
