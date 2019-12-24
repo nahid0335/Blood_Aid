@@ -3,9 +3,12 @@ package com.example.bloodaid;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +30,8 @@ import com.google.firebase.iid.InstanceIdResult;
 public class MainActivity extends AppCompatActivity{
     public static BottomNavigationView mBottomNav;
     public static TextView UserName;
+    boolean doubleBackToExitPressedOnce = false;
+    boolean anotherFragment = false;
 
 
 
@@ -74,13 +79,17 @@ public class MainActivity extends AppCompatActivity{
             switch (menuItem.getItemId()){
                 case R.id.nav_feed:
                     selectedFragment = new FeedFragment();
+                    anotherFragment = true;
                     loadFragment(selectedFragment);
+                    Log.d("TAGGG", anotherFragment+"FLAS");
                     return true;
                 case R.id.nav_request:
+                    anotherFragment = true;
                     selectedFragment = new RequestFragment();
                     loadFragment(selectedFragment);
                     return true;
                 case R.id.nav_home:
+                    anotherFragment = false;
                     selectedFragment = new HomeFragment(MainActivity.this);
                     loadFragment(selectedFragment);
                     return true;
@@ -88,6 +97,7 @@ public class MainActivity extends AppCompatActivity{
                     /*SearchDialog searchDialog = new SearchDialog();
                     searchDialog.show(getSupportFragmentManager(), "Hello");
                     return true;*/
+                    anotherFragment = true;
                     selectedFragment = new SearchFragment();
                     loadFragment(selectedFragment);
                     return true;
@@ -112,8 +122,7 @@ public class MainActivity extends AppCompatActivity{
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_display, fragment).addToBackStack(null);
-        transaction.addToBackStack(null);
+        transaction.replace(R.id.main_display, fragment);
         transaction.commit();
     }
 
@@ -181,9 +190,28 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        finish();
-        System.exit(0);
+        if(anotherFragment){
+            anotherFragment = false;
+            HomeFragment homeFragment = new HomeFragment(this);
+            loadFragment(homeFragment);
+            mBottomNav.getMenu().getItem(2).setChecked(true);
+        }
+        else{
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please press BACK twice to EXIT", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 5000);
+        }
     }
-
-
 }
