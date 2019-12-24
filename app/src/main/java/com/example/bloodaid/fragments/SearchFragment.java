@@ -2,6 +2,7 @@ package com.example.bloodaid.fragments;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -19,18 +20,37 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bloodaid.AllToasts;
+import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.MainActivity;
 import com.example.bloodaid.R;
+import com.example.bloodaid.RetrofitInstance;
 import com.example.bloodaid.SearchResultActivity;
+import com.example.bloodaid.models.DonorPositionModelClass;
 import com.example.bloodaid.utils.AreaData;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
+
 public class SearchFragment extends Fragment {
+
+    private ArrayList<LatLng> pinpoint = new ArrayList<>();
+    public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
+    public static final String DONOR_LOCATION = "donor_location";
+
+
+
 
     View v ;
     Button mDonarOption, mAmbulanceOption, mOrgOption, mHospitalOption, mSearchBtn;
@@ -51,6 +71,7 @@ public class SearchFragment extends Fragment {
         init(v);
         searchOptionHandle(v);
         districtAndBloodGroupSpinnerWork();
+        //fetchDonorPositionFromDatabase();
 
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,5 +255,54 @@ public class SearchFragment extends Fragment {
             }
         });
     }
+
+
+    private  void fetchDonorPositionFromDatabase(){
+
+        final Call<List<DonorPositionModelClass>> call = RetrofitInstance.getRetrofitInstance()
+                .create(BloodAidService.class)
+                .donorPosition(bloodGroupStr,districtStr);
+        call.enqueue(new Callback<List<DonorPositionModelClass>>() {
+            @Override
+            public void onResponse(Call<List<DonorPositionModelClass>> call, Response<List<DonorPositionModelClass>> response) {
+
+                if(!response.isSuccessful()){
+                    Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
+                }
+                else {
+
+                    List<DonorPositionModelClass> responseList = response.body();
+                    if(responseList.get(0).getDonorId() == -1){
+                        AllToasts.infoToast(getContext(),
+                                "No data found !");
+                    }else {
+                        for(DonorPositionModelClass position : responseList){
+                            Double latitude = position.getLatitude();
+                            Double longitude = position.getLongitude();
+                            pinpoint.add(new LatLng(latitude,longitude));
+
+                        }
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        if(sharedPreferences.contains(DONOR_LOCATION)){
+                            editor.remove(DONOR_LOCATION);
+                            editor.apply();
+                        }
+                        Gson gson = new Gson();
+                        String json = gson.toJson(pinpoint);
+                        editor.putString(DONOR_LOCATION, json);
+                        editor.apply();
+                        AllToasts.successToast(getContext(),"save");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DonorPositionModelClass>> call, Throwable t) {
+                Toast.makeText(getContext(), "OPPSS!! Failded to fetch database: "+t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
 }

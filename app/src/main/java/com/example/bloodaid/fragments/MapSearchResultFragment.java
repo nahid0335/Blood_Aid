@@ -82,7 +82,7 @@ public class MapSearchResultFragment extends Fragment {
         String json = sharedPreferences.getString(DONOR_LOCATION,null);
         Type type = new TypeToken<ArrayList<LatLng>>() {}.getType();
         pinpoint = gson.fromJson(json,type);
-        //Log.d("Tag",pinpoint.toString());
+        Log.d("Tag",pinpoint.toString());
 
 
 

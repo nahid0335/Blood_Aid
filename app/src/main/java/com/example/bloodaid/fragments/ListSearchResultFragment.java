@@ -52,9 +52,7 @@ public class ListSearchResultFragment extends Fragment {
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String DONOR_LOCATION = "donor_location";
 
-
-
-    private ArrayList<LatLng> pinpoint = new ArrayList<>();
+    //private ArrayList<LatLng> pinpoint = new ArrayList<>();
 
     //donor
     List<DonorModelClass> donorList ;
@@ -345,13 +343,13 @@ public class ListSearchResultFragment extends Fragment {
             }
         });
 
-        fetchDonorPositionFromDatabase();
+        //fetchDonorPositionFromDatabase();
 
     }
 
 
 
-    private  void fetchDonorPositionFromDatabase(){
+    /*private  void fetchDonorPositionFromDatabase(){
 
         final Call<List<DonorPositionModelClass>> call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidService.class)
@@ -397,5 +395,5 @@ public class ListSearchResultFragment extends Fragment {
             }
         });
     }
-
+*/
 }
