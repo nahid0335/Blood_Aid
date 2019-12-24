@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
     Boolean bloodGroupShowState = true;
     ImageView mProfilePic, mRightArrow, mLeftArrow;
     CardView userProfile;
-    TextView UserName;
+    TextView UserName, userType;
     ImageView mDonorImg, mOrgImg, mHospitalImg, mAmbulanceImg, mNotificationBell;
     TextView mDonorTxt, mOrgTxt, mHospitalTxt, mAmbulanceTxt, mNewNotification;
     Context context ;
@@ -133,6 +133,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
             name = userDetails.getName();
             useridStr = (long)userDetails.getUserId();
             UserName.setText(name);
+            userType.setText((userDetails.getDonorStatus()==1?"Donor":"User"));
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("user_id", (int)useridStr);
             editor.commit();
@@ -362,6 +363,7 @@ public class HomeFragment extends Fragment implements InformationsAdapter.Fragme
         mBloodSearchIcon = v.findViewById(R.id.search_btn);
         userProfile = v.findViewById(R.id.main_profile);
         UserName = v.findViewById(R.id.textView_userHome_userName);
+        userType = v.findViewById(R.id.textView_userHome_userType);
         mNotificationBell = v.findViewById(R.id.imageView_homefragment_notification_bell);
         mNewNotification = v.findViewById(R.id.textView_homefragment_new_notification);
 

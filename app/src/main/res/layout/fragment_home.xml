@@ -92,7 +92,7 @@
             android:paddingLeft="7dp"
             android:singleLine="true"
             android:text="User"
-            android:textColor="#000000"
+            android:textColor="#E62C2C2C"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/imageView_homefragment_notification_bell"
