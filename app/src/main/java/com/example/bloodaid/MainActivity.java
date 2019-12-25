@@ -190,9 +190,8 @@ public class MainActivity extends AppCompatActivity{
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key,MODE_PRIVATE);
         if(sharedPreferences.contains("anotherFragment") &&
                 sharedPreferences.getBoolean("anotherFragment", false)){
-            Log.d("TT", "INSIDE");
+            //Log.d("TT", "INSIDE");
             anotherFragment = sharedPreferences.getBoolean("anotherFragment", false);
-
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("anotherFragment", false);
             editor.apply();

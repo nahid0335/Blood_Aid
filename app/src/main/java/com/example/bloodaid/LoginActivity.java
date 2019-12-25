@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                                         UserModelClass userDetails = null;
                                         if(response.body() != null){
                                             userDetails = response.body();
-                                            Log.d("TAG",userDetails.getName());
+                                           // Log.d("TAG",userDetails.getName());
                                         }
 
                                         //Response parsing

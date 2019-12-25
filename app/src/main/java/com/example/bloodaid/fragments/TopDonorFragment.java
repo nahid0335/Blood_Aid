@@ -88,7 +88,7 @@ public class TopDonorFragment extends Fragment {
                     for (TopDonorModelClass value : responseList) {
                         topDonorList.add(value);
                     }
-                    Log.d("TAG", responseList.toString());
+                    //Log.d("TAG", responseList.toString());
                     topDonorList = responseList;
                     topDonorAdapter = new TopDonorAdapter(getContext(), topDonorList);
                     recyclerView.setAdapter(topDonorAdapter);
