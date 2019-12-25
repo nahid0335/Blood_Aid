@@ -1,6 +1,7 @@
 package com.example.bloodaid.fragments;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -291,6 +292,11 @@ public class SearchFragment extends Fragment {
 
 
     private  void fetchDonorPositionFromDatabase(){
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         final Call<List<DonorPositionModelClass>> call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidService.class)
@@ -301,6 +307,7 @@ public class SearchFragment extends Fragment {
 
                 if(!response.isSuccessful()){
                     Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
                 }
                 else {
 
@@ -308,6 +315,7 @@ public class SearchFragment extends Fragment {
                     if(responseList.get(0).getDonorId() == -1){
                         AllToasts.infoToast(getContext(),
                                 "No data found !");
+                        progressDialog.dismiss();
                     }else {
                         for(DonorPositionModelClass position : responseList){
                             Double latitude = position.getLatitude();
@@ -325,9 +333,10 @@ public class SearchFragment extends Fragment {
                         String json = gson.toJson(pinpoint);
                         editor.putString(DONOR_LOCATION, json);
                         editor.apply();
-                        AllToasts.infoToast(getContext(),pinpoint.toString());
+                        //AllToasts.infoToast(getContext(),pinpoint.toString());
                         pinpoint.clear();
                        // AllToasts.successToast(getContext(),"save");
+                        progressDialog.dismiss();
 
                         Intent i = new Intent(getContext(), SearchResultActivity.class);
                         i.putExtra("searchfor", searchFor);
@@ -345,8 +354,11 @@ public class SearchFragment extends Fragment {
             @Override
             public void onFailure(Call<List<DonorPositionModelClass>> call, Throwable t) {
                 Toast.makeText(getContext(), "OPPSS!! Failded to fetch database: "+t.getMessage(), Toast.LENGTH_LONG).show();
+                progressDialog.dismiss();
             }
         });
+
+        progressDialog.show();
     }
 
 

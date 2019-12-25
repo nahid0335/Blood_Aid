@@ -84,6 +84,8 @@ public class MapSearchResultFragment extends Fragment {
         pinpoint = gson.fromJson(json,type);
         Log.d("Tag",pinpoint.toString());
 
+
+
         mMapView = rootView.findViewById(R.id.mapView_userSearchDonor_list);
         mMapView.onCreate(savedInstanceState);
 
@@ -95,8 +97,6 @@ public class MapSearchResultFragment extends Fragment {
             e.printStackTrace();
         }
 
-
-
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
@@ -104,6 +104,9 @@ public class MapSearchResultFragment extends Fragment {
 
                 // For showing a move to my location button
                 googleMap.setMyLocationEnabled(true);
+                googleMap.getUiSettings().setZoomControlsEnabled(true);
+                googleMap.getUiSettings().setCompassEnabled(true);
+
 
                 for(LatLng point : pinpoint){
                     markerOptions.position(point);
