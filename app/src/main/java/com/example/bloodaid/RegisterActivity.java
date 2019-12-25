@@ -34,8 +34,7 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
 
     private Spinner mDistrictSpinner, mBloodSpinner;
-    private CheckBox donarCheckBox;
-    private String name, phone, email, password, confirm_pass, donar_status="1",  district="",  admin_status="0", blood_group="";
+    private String name, phone, email, password, confirm_pass, donar_status="0",  district="",  admin_status="0", blood_group="";
     private long area_id;
     private Double latitude, longitude;
     private TextInputLayout mNameLayout, mPhoneLayout, mEmailLayout, mPasswordLayout,
@@ -52,13 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
         init();
 
         districtAndBloodGroupSpinnerWork();
-
-        donarCheckBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                takeDonarStatusValue();
-            }
-        });
 
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if(status){
                                 AllToasts.successToast(RegisterActivity.this, "Registration Successfully Completed !");
                                 finish();
-                                startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+                                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
                             }
                             else{
                                 AllToasts.errorToast(RegisterActivity.this, "Registration Failed");
@@ -194,16 +186,7 @@ public class RegisterActivity extends AppCompatActivity {
         confirm_pass = mConfirmPasswordLayout.getEditText().getText().toString();
     }
 
-    private void takeDonarStatusValue() {
-        if(donarCheckBox.isChecked())
-        {
-            donar_status = "1";
-        }
-        else
-        {
-            donar_status = "0";
-        }
-    }
+
 
     private void districtAndBloodGroupSpinnerWork() {
 
@@ -257,7 +240,6 @@ public class RegisterActivity extends AppCompatActivity {
     private void init() {
         mDistrictSpinner = findViewById(R.id.district_spinner);
         mBloodSpinner = findViewById(R.id.blood_spinner);
-        donarCheckBox = findViewById(R.id.ckboxDonar);
 
         mNameLayout = findViewById(R.id.name_input);
         mPhoneLayout = findViewById(R.id.phone_input);

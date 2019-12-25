@@ -170,30 +170,19 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
                         android:orientation="horizontal">
 
                         <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/blood_spinner"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:paddingLeft="15dp"
-                            android:background="@drawable/border_button_bg"
-                            android:textAlignment="center"
                             android:layout_margin="10dp"
-                            android:id="@+id/blood_spinner"
-                            android:entries="@array/blood_items"/>
+                            android:background="@drawable/border_button_bg"
+                            android:entries="@array/blood_items"
+                            android:paddingLeft="15dp"
+                            android:textAlignment="center" />
                     </LinearLayout>
-
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Become a Donar"
-                        android:textSize="18sp"
-                        android:checked="true"
-                        android:buttonTint="@color/redish"
-                        android:layout_marginBottom="30dp"
-                        android:textColor="@color/blackish"
-                        android:id="@+id/ckboxDonar"
-                        />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
