@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
@@ -77,41 +78,44 @@ public class DonorRequestFragment extends Fragment {
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
+                        }else{
+                            List<DonorRequestModelClass> arrayObjects = response.body();
+
+                            if(arrayObjects.get(0).getDonorRequestId() == -1){
+                                AllToasts.infoToast(getContext(),
+                                        "No data found !");
+                                progressDialog.dismiss();
+                            }else{
+                                //Response parsing
+                                for(DonorRequestModelClass value : arrayObjects){
+
+                                    Integer donorRequestId = value.getDonorRequestId();
+                                    String name = value.getName();
+                                    String mobile = value.getMobile();
+                                    String district = value.getDistrict();
+                                    String bloodgrp = value.getBloodGroup();
+                                    Integer donatecount = value.getDonateCount();
+                                    String lastdonate = value.getLastDonate();
+                                    Integer status = value.getStatus();
+
+                                    HashMap<String,String> donorDetails = new HashMap<>();
+                                    donorDetails.put("donorrequestid",Integer.toString(donorRequestId));
+                                    donorDetails.put("name",name);
+                                    donorDetails.put("mobile",mobile);
+                                    donorDetails.put("district",district);
+                                    donorDetails.put("bloodgrp",bloodgrp);
+                                    donorDetails.put("donatecount",Integer.toString(donatecount));
+                                    donorDetails.put("lastdonate",lastdonate);
+                                    donorDetails.put("status",Integer.toString(status));
+
+                                    donorRequestList.add(donorDetails);
+
+                                }
+                                progressDialog.dismiss();
+                                adminDonorListAdapter = new AdminDonorListAdapter(getContext(),donorRequestList);
+                                recyclerView.setAdapter(adminDonorListAdapter);
+                            }
                         }
-
-
-                        List<DonorRequestModelClass> arrayObjects = response.body();
-
-                        //Response parsing
-                        for(DonorRequestModelClass value : arrayObjects){
-
-                            Integer donorRequestId = value.getDonorRequestId();
-                            String name = value.getName();
-                            String mobile = value.getMobile();
-                            String district = value.getDistrict();
-                            String bloodgrp = value.getBloodGroup();
-                            Integer donatecount = value.getDonateCount();
-                            String lastdonate = value.getLastDonate();
-                            Integer status = value.getStatus();
-
-                            HashMap<String,String> donorDetails = new HashMap<>();
-                            donorDetails.put("donorrequestid",Integer.toString(donorRequestId));
-                            donorDetails.put("name",name);
-                            donorDetails.put("mobile",mobile);
-                            donorDetails.put("district",district);
-                            donorDetails.put("bloodgrp",bloodgrp);
-                            donorDetails.put("donatecount",Integer.toString(donatecount));
-                            donorDetails.put("lastdonate",lastdonate);
-                            donorDetails.put("status",Integer.toString(status));
-
-                            donorRequestList.add(donorDetails);
-
-                        }
-                        progressDialog.dismiss();
-                        adminDonorListAdapter = new AdminDonorListAdapter(getContext(),donorRequestList);
-                        recyclerView.setAdapter(adminDonorListAdapter);
-
-
                     }
 
                     @Override
@@ -190,9 +194,14 @@ public class DonorRequestFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Donor Request Deleted")){
+                                                adminDonorListAdapter.notifyDataSetChanged();
+                                                donorRequestList.remove(donorRequestList.get(idx));
+                                            }else{
+                                                adminDonorListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminDonorListAdapter.notifyDataSetChanged();
-                                            donorRequestList.remove(donorRequestList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {
@@ -252,9 +261,14 @@ public class DonorRequestFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Donor Request Accepted")){
+                                                adminDonorListAdapter.notifyDataSetChanged();
+                                                donorRequestList.remove(donorRequestList.get(idx));
+                                            }else{
+                                                adminDonorListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminDonorListAdapter.notifyDataSetChanged();
-                                            donorRequestList.remove(donorRequestList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {

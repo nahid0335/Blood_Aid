@@ -25,7 +25,6 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-
         BottomNavigationView ReportNavBer = findViewById(R.id.bottomNavigationView_adminReport_navBer);
         ReportNavBer.setOnNavigationItemSelectedListener(navListener);
         ReportNavBer.setSelectedItemId(R.id.icon_adminReport_donor);
@@ -43,8 +42,6 @@ public class ReportActivity extends AppCompatActivity {
         }else if(getIntent().getIntExtra("ReportOrganizationActivity",0)==18){
             loadFragment(new ReportOrganizationFragment());
             ReportNavBer.setSelectedItemId(R.id.icon_adminReport_organization);
-        }else if (savedInstanceState == null) {
-            loadFragment(new DonorListFragment());
         }
 
     }
@@ -58,6 +55,7 @@ public class ReportActivity extends AppCompatActivity {
                 case R.id.icon_adminReport_home:
                     startActivity(new Intent(ReportActivity.this,AdminHome.class));
                     finish();
+                    return true;
                 case R.id.icon_adminReport_donor:
                     selectedFragment = new ReportDonorFragment();
                     loadFragment(selectedFragment);
@@ -82,7 +80,7 @@ public class ReportActivity extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameLayout_adminReport_show, fragment).addToBackStack(null);
+        transaction.replace(R.id.frameLayout_adminReport_show, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

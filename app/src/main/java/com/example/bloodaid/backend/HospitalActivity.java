@@ -32,8 +32,6 @@ public class HospitalActivity extends AppCompatActivity {
         {
             loadFragment(new HospitalRequestFragment());
             DonorNavBer.setSelectedItemId(R.id.icon_adminMenu_request);
-        }else if (savedInstanceState == null) {
-            loadFragment(new HospitalListFragment());
         }
 
     }
@@ -46,6 +44,7 @@ public class HospitalActivity extends AppCompatActivity {
                 case R.id.icon_adminMenu_home:
                     startActivity(new Intent(HospitalActivity.this,AdminHome.class));
                     finish();
+                    return true;
                 case R.id.icon_adminMenu_list:
                     selectedFragment = new HospitalListFragment();
                     loadFragment(selectedFragment);

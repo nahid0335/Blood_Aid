@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
@@ -76,37 +77,40 @@ public class HospitalRequestFragment extends Fragment {
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
+                        }else{
+                            List<HospitalRequestModelClass> arrayObjects = response.body();
+
+                            if(arrayObjects.get(0).getHospitalRequestId() == -1){
+                                AllToasts.infoToast(getContext(),
+                                        "No data found !");
+                                progressDialog.dismiss();
+                            }else{
+                                //Response parsing
+                                for(HospitalRequestModelClass value : arrayObjects){
+
+                                    Integer hospitalRequestId = value.getHospitalRequestId();
+                                    String name = value.getName();
+                                    String mobile = value.getMobile();
+                                    String district = value.getDistrict();
+                                    String email = value.getEmail();
+                                    String details = value.getDetails();
+
+                                    HashMap<String,String> hospitalDetails = new HashMap<>();
+                                    hospitalDetails.put("hospitalrequestid",Integer.toString(hospitalRequestId));
+                                    hospitalDetails.put("name",name);
+                                    hospitalDetails.put("mobile",mobile);
+                                    hospitalDetails.put("district",district);
+                                    hospitalDetails.put("email",email);
+                                    hospitalDetails.put("details",details);
+
+                                    hospitalRequestList.add(hospitalDetails);
+
+                                }
+                                progressDialog.dismiss();
+                                adminHospitalListAdapter = new AdminHospitalListAdapter(getContext(),hospitalRequestList);
+                                recyclerView.setAdapter(adminHospitalListAdapter);
+                            }
                         }
-
-
-                        List<HospitalRequestModelClass> arrayObjects = response.body();
-
-                        //Response parsing
-                        for(HospitalRequestModelClass value : arrayObjects){
-
-                            Integer hospitalRequestId = value.getHospitalRequestId();
-                            String name = value.getName();
-                            String mobile = value.getMobile();
-                            String district = value.getDistrict();
-                            String email = value.getEmail();
-                            String details = value.getDetails();
-
-                            HashMap<String,String> hospitalDetails = new HashMap<>();
-                            hospitalDetails.put("hospitalrequestid",Integer.toString(hospitalRequestId));
-                            hospitalDetails.put("name",name);
-                            hospitalDetails.put("mobile",mobile);
-                            hospitalDetails.put("district",district);
-                            hospitalDetails.put("email",email);
-                            hospitalDetails.put("details",details);
-
-                            hospitalRequestList.add(hospitalDetails);
-
-                        }
-                        progressDialog.dismiss();
-                        adminHospitalListAdapter = new AdminHospitalListAdapter(getContext(),hospitalRequestList);
-                        recyclerView.setAdapter(adminHospitalListAdapter);
-
-
                     }
 
                     @Override
@@ -186,9 +190,14 @@ public class HospitalRequestFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Hospital Request Deleted")){
+                                                adminHospitalListAdapter.notifyDataSetChanged();
+                                                hospitalRequestList.remove(hospitalRequestList.get(idx));
+                                            }else{
+                                                adminHospitalListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminHospitalListAdapter.notifyDataSetChanged();
-                                            hospitalRequestList.remove(hospitalRequestList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {
@@ -248,9 +257,14 @@ public class HospitalRequestFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Hospital Request Accepted")){
+                                                adminHospitalListAdapter.notifyDataSetChanged();
+                                                hospitalRequestList.remove(hospitalRequestList.get(idx));
+                                            }else{
+                                                adminHospitalListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminHospitalListAdapter.notifyDataSetChanged();
-                                            hospitalRequestList.remove(hospitalRequestList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {

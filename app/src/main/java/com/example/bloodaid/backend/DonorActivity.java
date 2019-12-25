@@ -30,8 +30,6 @@ public class DonorActivity extends AppCompatActivity {
         {
             loadFragment(new DonorRequestFragment());
             DonorNavBer.setSelectedItemId(R.id.icon_adminMenu_request);
-        }else if (savedInstanceState == null) {
-            loadFragment(new DonorListFragment());
         }
 
     }
@@ -44,6 +42,7 @@ public class DonorActivity extends AppCompatActivity {
                 case R.id.icon_adminMenu_home:
                     startActivity(new Intent(DonorActivity.this,AdminHome.class));
                     finish();
+                    return true;
                 case R.id.icon_adminMenu_list:
                     selectedFragment = new DonorListFragment();
                     loadFragment(selectedFragment);
