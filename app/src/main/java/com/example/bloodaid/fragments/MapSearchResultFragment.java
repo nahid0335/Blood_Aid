@@ -2,7 +2,9 @@ package com.example.bloodaid.fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -97,13 +99,34 @@ public class MapSearchResultFragment extends Fragment {
             e.printStackTrace();
         }
 
+
+
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
 
-                // For showing a move to my location button
-                googleMap.setMyLocationEnabled(true);
+               /* // For showing a move to my location button
+                LocationManager lm = (LocationManager)
+                        getActivity().getSystemService(Context. LOCATION_SERVICE ) ;
+                boolean gps_enabled = false;
+                boolean network_enabled = false;
+                try {
+                    gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER ) ;
+                } catch (Exception e) {
+                    e.printStackTrace() ;
+                }
+                try {
+                    network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER ) ;
+                } catch (Exception e) {
+                    e.printStackTrace() ;
+                }
+                if(gps_enabled==false || network_enabled == false){
+                    AllToasts.errorToast(getContext(),"Please open GPS and Internet !!");
+                }else{
+                    googleMap.setMyLocationEnabled(true);
+                }*/
+
                 /*googleMap.getUiSettings().setZoomControlsEnabled(true);
                 googleMap.getUiSettings().setCompassEnabled(true);*/
 

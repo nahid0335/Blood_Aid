@@ -162,6 +162,9 @@ public class RegisterActivity extends AppCompatActivity {
         else if(!mobile.equals("01")){
             mPhoneLayout.setError("Please enter a valid Phone number !");
         }
+        else if(email.isEmpty()){
+            mEmailLayout.setError("Please enter a valid Email !!");
+        }
         else if(password.isEmpty()){
             mPasswordLayout.setError("Password Field can't be empty");
         }
