@@ -1,6 +1,7 @@
 package com.example.bloodaid.fragments;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -36,6 +37,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.bloodaid.fragments.TopDonorFragment.SHARED_PREFerence_Key;
+
 
 public class AmbulanceAddFragment extends Fragment {
 
@@ -57,6 +61,14 @@ public class AmbulanceAddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_ambulance_add, container, false);
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("anotherFragment", true);
+        editor.apply();
+
+
+
 
         init(v);
         districtSpinnerWork();

@@ -2,6 +2,7 @@ package com.example.bloodaid.fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,9 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.bloodaid.fragments.TopDonorFragment.SHARED_PREFerence_Key;
 
 public class FeedFragment extends Fragment {
     ListView mFeedList;

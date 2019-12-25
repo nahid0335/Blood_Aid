@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <!--Profile section-->
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView"
             android:layout_width="65dp"
             android:layout_height="65dp"
@@ -20,7 +20,9 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:elevation="5dp"
-            android:src="@drawable/ic_person"
+            app:civ_border_color="#F44336"
+            app:civ_border_width="2dp"
+            android:src="@drawable/profile_pic"
             app:layout_constraintBottom_toBottomOf="@+id/main_profile"
             app:layout_constraintStart_toStartOf="@id/main_profile"
             app:layout_constraintTop_toTopOf="@id/main_profile"

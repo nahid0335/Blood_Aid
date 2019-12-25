@@ -22,7 +22,7 @@
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/profile_default" />
+            app:srcCompat="@drawable/profile_pic" />
 
         <TextView
             android:id="@+id/textView_adminDonorList_donorName"

@@ -1,6 +1,7 @@
 package com.example.bloodaid.fragments;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -36,6 +37,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.bloodaid.fragments.DonorAddFragment.SHARED_PREFerence_Key;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -58,6 +62,12 @@ public class HospitalAddFragment extends Fragment {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_hospital_add, container, false);
         init(v);
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("anotherFragment", true);
+        editor.apply();
+
 
         districtSpinnerWork();
 

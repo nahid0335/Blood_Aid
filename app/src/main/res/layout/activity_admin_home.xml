@@ -15,7 +15,6 @@
         android:elevation="2dp"
         android:foreground="?android:selectableItemBackground"
         app:cardElevation="2dp"
-        app:cardMaxElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,17 +23,17 @@
 
     <ImageView
         android:id="@+id/imageView_adminHome_profilePicture"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:contentDescription="@string/todo"
         android:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/cardView_admnHome_topBer"
         app:layout_constraintStart_toStartOf="@+id/cardView_admnHome_topBer"
         app:layout_constraintTop_toTopOf="@+id/cardView_admnHome_topBer"
-        app:srcCompat="@drawable/profile_default"
-        android:contentDescription="@string/todo" />
+        app:srcCompat="@drawable/profile_pic" />
 
     <TextView
         android:id="@+id/textView_adminHome_adminName"

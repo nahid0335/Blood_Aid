@@ -1,6 +1,7 @@
 package com.example.bloodaid.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -36,6 +37,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.bloodaid.fragments.HomeFragment.SHARED_PREFerence_Key;
+
 public class NotificationFragment extends Fragment {
     ExpandableListView mNotificationExpandable;
     NotificationAdapter adapter ;
@@ -54,6 +58,12 @@ public class NotificationFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_notification, container, false);
         mNotificationExpandable = v.findViewById(R.id.explandable_notification);
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("anotherFragment", true);
+        editor.apply();
+
 
         if(checkInternetConnectivity()){
             fetchNotificationDataFromDatabase();

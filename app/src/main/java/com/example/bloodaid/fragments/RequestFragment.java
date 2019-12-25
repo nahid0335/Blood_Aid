@@ -82,6 +82,7 @@ public class RequestFragment extends Fragment {
         districtAndBloodGroupSpinnerWork();
         setNeedBloodDate();
 
+
         //get user id from shared preference
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
         if(sharedPreferences.contains(USER_DATA)){

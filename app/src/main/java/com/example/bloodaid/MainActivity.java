@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity{
     boolean doubleBackToExitPressedOnce = false;
     boolean anotherFragment = false;
 
-
-
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String USER_ID = "user_id";
     public static final String USER_DATA = "user_data";
@@ -54,7 +52,6 @@ public class MainActivity extends AppCompatActivity{
             Fragment donorAddFragment = new DonorAddFragment();
             loadFragment(donorAddFragment);
         }else if(getIntent().getIntExtra("BackPressActivity",0)==2){
-
             Fragment homeFragment = new HomeFragment();
             replaceFragments(homeFragment);
         }
@@ -190,6 +187,17 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFerence_Key,MODE_PRIVATE);
+        if(sharedPreferences.contains("anotherFragment") &&
+                sharedPreferences.getBoolean("anotherFragment", false)){
+            Log.d("TT", "INSIDE");
+            anotherFragment = sharedPreferences.getBoolean("anotherFragment", false);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("anotherFragment", false);
+            editor.apply();
+        }
+
         if(anotherFragment){
             anotherFragment = false;
             HomeFragment homeFragment = new HomeFragment(this);

@@ -54,7 +54,12 @@ public class HistoryFragment extends Fragment {
         mHistoryList = v.findViewById(R.id.listView_history);
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
-        if(sharedPreferences.contains(USER_DATA)){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("anotherFragment", true);
+        editor.apply();
+
+
+         if(sharedPreferences.contains(USER_DATA)){
             userId = sharedPreferences.getInt("user_id", 0);
         }
 

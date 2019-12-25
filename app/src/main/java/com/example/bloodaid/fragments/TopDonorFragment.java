@@ -2,8 +2,11 @@ package com.example.bloodaid.fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,16 +31,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class TopDonorFragment extends Fragment {
     ArrayList<TopDonorModelClass> topDonorList = new ArrayList<>();
     TopDonorAdapter topDonorAdapter;
     RecyclerView recyclerView;
 
-    public TopDonorFragment() {
+    public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
 
-    }
-
+    public TopDonorFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +49,13 @@ public class TopDonorFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_top_donor, container, false);
         recyclerView = view.findViewById(R.id.recyclerView_topDonor);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("anotherFragment", true);
+        editor.apply();
+
 
         //data ready
         dataFetchFromDatabase();
@@ -91,6 +102,8 @@ public class TopDonorFragment extends Fragment {
                 progressDialog.dismiss();
             }
         });
+
     }
+
 
 }

@@ -65,12 +65,17 @@ public class DonorAddFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_donor_add, container, false);
 
 
+        final SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("anotherFragment", true);
+        editor.apply();
+
+
         final TextView lastDonate = rootView.findViewById(R.id.textView_donorAddFragment_lastDonate);
         final Switch status = rootView.findViewById(R.id.switch1);
         Button doneBtn = rootView.findViewById(R.id.button_donorAddFragment_done);
 
-        final SharedPreferences sharedPreferences = getContext().getSharedPreferences(SHARED_PREFerence_Key, MODE_PRIVATE);
-        Gson gson = new Gson();
+         Gson gson = new Gson();
         String json = sharedPreferences.getString(USER_DATA,null);
         UserModelClass userDetails = gson.fromJson(json,UserModelClass.class);
         final int userId = userDetails.getUserId();
