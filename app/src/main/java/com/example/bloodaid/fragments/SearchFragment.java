@@ -48,7 +48,7 @@ public class SearchFragment extends Fragment {
     private ArrayList<LatLng> pinpoint = new ArrayList<>();
     public static final String SHARED_PREFerence_Key = "BloodAid_Alpha_Version";
     public static final String DONOR_LOCATION = "donor_location";
-
+    public String bloodGroup;
 
 
 
@@ -76,7 +76,7 @@ public class SearchFragment extends Fragment {
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                districtAndBloodGroupSpinnerWork();
+               // districtAndBloodGroupSpinnerWork();
                 if(districtStr.equals("Choose District")){
                     AllToasts.infoToast(getContext(), "Please Select District !");
                 }
@@ -84,6 +84,8 @@ public class SearchFragment extends Fragment {
                     AllToasts.infoToast(getContext(), "Please Select Blood Group !");
                 }
                 else{
+                    bloodGroup = bloodGroupStr;
+                    renameBloodGroup();
                     fetchDonorPositionFromDatabase();
 
                 }
@@ -253,11 +255,46 @@ public class SearchFragment extends Fragment {
     }
 
 
+    private void renameBloodGroup() {
+
+        if(bloodGroup.equals("A+")){
+            bloodGroup = "A_pos";
+        }
+        else if(bloodGroup.equals("A-")){
+            bloodGroup = "A_neg";
+        }
+        else if(bloodGroup.equals("B+")){
+            bloodGroup = "B_pos";
+        }
+        else if(bloodGroup.equals("B-")){
+            bloodGroup = "B_neg";
+        }
+        else if(bloodGroup.equals("O+")){
+            bloodGroup = "O_pos";
+        }
+        else if(bloodGroup.equals("O-")){
+            bloodGroup = "O_neg";
+        }
+        else if(bloodGroup.equals("AB+")){
+            bloodGroup = "AB_pos";
+        }
+        else if(bloodGroup.equals("AB-")){
+            bloodGroup = "AB_neg";
+        }
+        else{
+            AllToasts.errorToast(getContext(), "Something went wrong on blood group selection !");
+        }
+    }
+
+
+
+
+
     private  void fetchDonorPositionFromDatabase(){
 
         final Call<List<DonorPositionModelClass>> call = RetrofitInstance.getRetrofitInstance()
                 .create(BloodAidService.class)
-                .donorPosition(bloodGroupStr,districtStr);
+                .donorPosition(bloodGroup,districtStr);
         call.enqueue(new Callback<List<DonorPositionModelClass>>() {
             @Override
             public void onResponse(Call<List<DonorPositionModelClass>> call, Response<List<DonorPositionModelClass>> response) {
@@ -288,7 +325,10 @@ public class SearchFragment extends Fragment {
                         String json = gson.toJson(pinpoint);
                         editor.putString(DONOR_LOCATION, json);
                         editor.apply();
-                        AllToasts.successToast(getContext(),"save");
+                        AllToasts.infoToast(getContext(),pinpoint.toString());
+                        pinpoint.clear();
+                       // AllToasts.successToast(getContext(),"save");
+
                         Intent i = new Intent(getContext(), SearchResultActivity.class);
                         i.putExtra("searchfor", searchFor);
                         i.putExtra("district", districtStr);

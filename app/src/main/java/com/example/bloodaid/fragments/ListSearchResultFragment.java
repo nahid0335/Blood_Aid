@@ -287,8 +287,6 @@ public class ListSearchResultFragment extends Fragment {
         else{
             AllToasts.errorToast(getContext(), "Something went wrong on blood group selection !");
         }
-
-
     }
 
     private  void fetchDonorSearchResultFromDatabase(){

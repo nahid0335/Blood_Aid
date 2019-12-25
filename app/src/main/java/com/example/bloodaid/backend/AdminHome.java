@@ -277,4 +277,10 @@ public class AdminHome extends AppCompatActivity {
         startActivity(new Intent(AdminHome.this, AdminLoginActivity.class));
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AdminHome.this, MainActivity.class));
+        finish();
+    }
 }

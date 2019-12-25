@@ -106,9 +106,10 @@ public class OrganizationRequestFragment extends Fragment {
                             organizationRequestList.add(organizationDetails);
 
                         }
+                        progressDialog.dismiss();
                         adminOrganizationListAdapter = new AdminOrganizationListAdapter(getContext(),organizationRequestList);
                         recyclerView.setAdapter(adminOrganizationListAdapter);
-                        progressDialog.dismiss();
+
 
                     }
 

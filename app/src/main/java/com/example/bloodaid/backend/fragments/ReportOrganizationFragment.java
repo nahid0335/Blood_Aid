@@ -105,9 +105,10 @@ public class ReportOrganizationFragment extends Fragment {
                             reportOrganizationList.add(reportOrganizationDetails);
 
                         }
+                        progressDialog.dismiss();
                         adminReportListAdapter = new AdminReportListAdapter(getContext(),reportOrganizationList);
                         recyclerView.setAdapter(adminReportListAdapter);
-                        progressDialog.dismiss();
+
 
                     }
 

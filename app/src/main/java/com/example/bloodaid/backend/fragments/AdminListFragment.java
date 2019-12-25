@@ -106,9 +106,10 @@ public class AdminListFragment extends Fragment {
                             adminList.add(adminDetails);
 
                         }
+                        progressDialog.dismiss();
                         adminManageListAdapter = new AdminManageListAdapter(getContext(),adminList);
                         recyclerView.setAdapter(adminManageListAdapter);
-                        progressDialog.dismiss();
+
                     }
 
                     @Override

@@ -108,9 +108,10 @@ public class DonorListFragment extends Fragment {
                                 donorList.add(donorDetails);
 
                             }
+                        progressDialog.dismiss();
                         adminDonorListAdapter = new AdminDonorListAdapter(getContext(),donorList);
                         recyclerView.setAdapter(adminDonorListAdapter);
-                        progressDialog.dismiss();
+
                     }
 
                     @Override

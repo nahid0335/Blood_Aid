@@ -106,9 +106,10 @@ public class ReportDonorFragment extends Fragment {
                             reportDonorList.add(reportDonorDetails);
 
                         }
+                        progressDialog.dismiss();
                         adminReportListAdapter = new AdminReportListAdapter(getContext(),reportDonorList);
                         recyclerView.setAdapter(adminReportListAdapter);
-                        progressDialog.dismiss();
+
 
                     }
 

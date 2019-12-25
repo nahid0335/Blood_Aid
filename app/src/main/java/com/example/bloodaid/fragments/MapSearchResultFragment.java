@@ -112,6 +112,8 @@ public class MapSearchResultFragment extends Fragment {
                     markerOptions.snippet("District :"+district);
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
                     googleMap.addMarker(markerOptions);
+
+                   // AllToasts.infoToast(getContext(),point.toString());
                 }
 
                 LatLng init = new LatLng(pinpoint.get(0).latitude,pinpoint.get(0).longitude);
@@ -164,11 +166,6 @@ public class MapSearchResultFragment extends Fragment {
         mMapView.onLowMemory();
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mMapView.onSaveInstanceState(outState);
-    }
 
 
 

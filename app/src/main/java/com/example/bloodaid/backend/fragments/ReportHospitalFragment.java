@@ -105,9 +105,10 @@ public class ReportHospitalFragment extends Fragment {
                             reportHospitalList.add(reportHospitalDetails);
 
                         }
+                        progressDialog.dismiss();
                         adminReportListAdapter = new AdminReportListAdapter(getContext(),reportHospitalList);
                         recyclerView.setAdapter(adminReportListAdapter);
-                        progressDialog.dismiss();
+
 
                     }
 

@@ -211,4 +211,11 @@ public class AdminLoginActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AdminLoginActivity.this,MainActivity.class));
+        finish();
+    }
+
 }

@@ -102,9 +102,10 @@ public class HospitalRequestFragment extends Fragment {
                             hospitalRequestList.add(hospitalDetails);
 
                         }
+                        progressDialog.dismiss();
                         adminHospitalListAdapter = new AdminHospitalListAdapter(getContext(),hospitalRequestList);
                         recyclerView.setAdapter(adminHospitalListAdapter);
-                        progressDialog.dismiss();
+
 
                     }
 

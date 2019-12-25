@@ -283,8 +283,13 @@ public class AdminNotificationActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
 
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AdminNotificationActivity.this,AdminHome.class));
+        finish();
     }
 }

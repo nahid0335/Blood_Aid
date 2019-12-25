@@ -106,9 +106,10 @@ public class AmbulanceListFragment extends Fragment {
                             ambulanceList.add(ambulanceDetails);
 
                         }
+                        progressDialog.dismiss();
                         adminAmbulanceListadapter = new AdminAmbulanceListadAdapter(getContext(),ambulanceList);
                         recyclerView.setAdapter(adminAmbulanceListadapter);
-                        progressDialog.dismiss();
+
                     }
 
                     @Override
