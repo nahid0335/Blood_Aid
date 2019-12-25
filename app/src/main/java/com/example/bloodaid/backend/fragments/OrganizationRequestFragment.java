@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
@@ -80,37 +81,40 @@ public class OrganizationRequestFragment extends Fragment {
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
+                        }else{
+                            List<OrganizationRequestModelClass> arrayObjects = response.body();
+
+                            if(arrayObjects.get(0).getOrganizationRequestId() == -1){
+                                AllToasts.infoToast(getContext(),
+                                        "No data found !");
+                                progressDialog.dismiss();
+                            }else{
+                                //Response parsing
+                                for(OrganizationRequestModelClass value : arrayObjects){
+
+                                    Integer organizationRequestId = value.getOrganizationRequestId();
+                                    String name = value.getName();
+                                    String mobile = value.getMobile();
+                                    String district = value.getDistrict();
+                                    String email = value.getEmail();
+                                    String details = value.getDetails();
+
+                                    HashMap<String,String> organizationDetails = new HashMap<>();
+                                    organizationDetails.put("organizationrequestid",Integer.toString(organizationRequestId));
+                                    organizationDetails.put("name",name);
+                                    organizationDetails.put("mobile",mobile);
+                                    organizationDetails.put("district",district);
+                                    organizationDetails.put("email",email);
+                                    organizationDetails.put("details",details);
+
+                                    organizationRequestList.add(organizationDetails);
+
+                                }
+                                progressDialog.dismiss();
+                                adminOrganizationListAdapter = new AdminOrganizationListAdapter(getContext(),organizationRequestList);
+                                recyclerView.setAdapter(adminOrganizationListAdapter);
+                            }
                         }
-
-
-                        List<OrganizationRequestModelClass> arrayObjects = response.body();
-
-                        //Response parsing
-                        for(OrganizationRequestModelClass value : arrayObjects){
-
-                            Integer organizationRequestId = value.getOrganizationRequestId();
-                            String name = value.getName();
-                            String mobile = value.getMobile();
-                            String district = value.getDistrict();
-                            String email = value.getEmail();
-                            String details = value.getDetails();
-
-                            HashMap<String,String> organizationDetails = new HashMap<>();
-                            organizationDetails.put("organizationrequestid",Integer.toString(organizationRequestId));
-                            organizationDetails.put("name",name);
-                            organizationDetails.put("mobile",mobile);
-                            organizationDetails.put("district",district);
-                            organizationDetails.put("email",email);
-                            organizationDetails.put("details",details);
-
-                            organizationRequestList.add(organizationDetails);
-
-                        }
-                        progressDialog.dismiss();
-                        adminOrganizationListAdapter = new AdminOrganizationListAdapter(getContext(),organizationRequestList);
-                        recyclerView.setAdapter(adminOrganizationListAdapter);
-
-
                     }
 
                     @Override
@@ -190,9 +194,14 @@ public class OrganizationRequestFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Organization Request Deleted")){
+                                                adminOrganizationListAdapter.notifyDataSetChanged();
+                                                organizationRequestList.remove(organizationRequestList.get(idx));
+                                            }else{
+                                                adminOrganizationListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminOrganizationListAdapter.notifyDataSetChanged();
-                                            organizationRequestList.remove(organizationRequestList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {
@@ -252,9 +261,14 @@ public class OrganizationRequestFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Organization Request Accepted")){
+                                                adminOrganizationListAdapter.notifyDataSetChanged();
+                                                organizationRequestList.remove(organizationRequestList.get(idx));
+                                            }else{
+                                                adminOrganizationListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminOrganizationListAdapter.notifyDataSetChanged();
-                                            organizationRequestList.remove(organizationRequestList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {

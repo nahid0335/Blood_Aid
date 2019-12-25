@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
@@ -80,36 +81,40 @@ public class AmbulanceListFragment extends Fragment {
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
+                        }else{
+                            List<AmbulanceModelClass> arrayObjects = response.body();
+                            if(arrayObjects.get(0).getAmbulanceId() == -1){
+                                AllToasts.infoToast(getContext(),
+                                        "No data found !");
+                                progressDialog.dismiss();
+                            }
+                            else{
+                                //Response parsing
+                                for(AmbulanceModelClass value : arrayObjects){
+
+                                    Integer ambulanceId = value.getAmbulanceId();
+                                    String name = value.getName();
+                                    String mobile = value.getMobile();
+                                    String district = value.getDistrict();
+                                    String email = value.getEmail();
+                                    String details = value.getDetails();
+
+                                    HashMap<String,String> ambulanceDetails = new HashMap<>();
+                                    ambulanceDetails.put("ambulanceid",Integer.toString(ambulanceId));
+                                    ambulanceDetails.put("name",name);
+                                    ambulanceDetails.put("mobile",mobile);
+                                    ambulanceDetails.put("district",district);
+                                    ambulanceDetails.put("email",email);
+                                    ambulanceDetails.put("details",details);
+
+                                    ambulanceList.add(ambulanceDetails);
+
+                                }
+                                progressDialog.dismiss();
+                                adminAmbulanceListadapter = new AdminAmbulanceListadAdapter(getContext(),ambulanceList);
+                                recyclerView.setAdapter(adminAmbulanceListadapter);
+                            }
                         }
-
-
-                        List<AmbulanceModelClass> arrayObjects = response.body();
-
-                        //Response parsing
-                        for(AmbulanceModelClass value : arrayObjects){
-
-                            Integer ambulanceId = value.getAmbulanceId();
-                            String name = value.getName();
-                            String mobile = value.getMobile();
-                            String district = value.getDistrict();
-                            String email = value.getEmail();
-                            String details = value.getDetails();
-
-                            HashMap<String,String> ambulanceDetails = new HashMap<>();
-                            ambulanceDetails.put("ambulanceid",Integer.toString(ambulanceId));
-                            ambulanceDetails.put("name",name);
-                            ambulanceDetails.put("mobile",mobile);
-                            ambulanceDetails.put("district",district);
-                            ambulanceDetails.put("email",email);
-                            ambulanceDetails.put("details",details);
-
-                            ambulanceList.add(ambulanceDetails);
-
-                        }
-                        progressDialog.dismiss();
-                        adminAmbulanceListadapter = new AdminAmbulanceListadAdapter(getContext(),ambulanceList);
-                        recyclerView.setAdapter(adminAmbulanceListadapter);
-
                     }
 
                     @Override
@@ -186,9 +191,15 @@ public class AmbulanceListFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Ambulance Item Deleted")){
+                                                adminAmbulanceListadapter.notifyDataSetChanged();
+                                                ambulanceList.remove(ambulanceList.get(idx));
+                                            }
+                                            else{
+                                                adminAmbulanceListadapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminAmbulanceListadapter.notifyDataSetChanged();
-                                            ambulanceList.remove(ambulanceList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {

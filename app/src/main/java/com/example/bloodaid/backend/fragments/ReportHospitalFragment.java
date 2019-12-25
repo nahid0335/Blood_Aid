@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
@@ -79,37 +80,40 @@ public class ReportHospitalFragment extends Fragment {
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
+                        }else{
+                            List<ReportHospitalModelClass> arrayObjects = response.body();
+
+                            if(arrayObjects.get(0).getReportHospitalId() == -1){
+                                AllToasts.infoToast(getContext(),
+                                        "No data found !");
+                                progressDialog.dismiss();
+                            }else{
+                                //Response parsing
+                                for(ReportHospitalModelClass value : arrayObjects){
+
+                                    Integer reportHospitalId = value.getReportHospitalId();
+                                    String name = value.getName();
+                                    String mobile = value.getMobile();
+                                    String district = value.getDistrict();
+                                    String email = value.getEmail();
+                                    Integer count = value.getReportCount();
+
+                                    HashMap<String,String> reportHospitalDetails = new HashMap<>();
+                                    reportHospitalDetails.put("reporthospitalid",Integer.toString(reportHospitalId));
+                                    reportHospitalDetails.put("name",name);
+                                    reportHospitalDetails.put("mobile",mobile);
+                                    reportHospitalDetails.put("district",district);
+                                    reportHospitalDetails.put("email",email);
+                                    reportHospitalDetails.put("reportcount",Integer.toString(count));
+
+                                    reportHospitalList.add(reportHospitalDetails);
+
+                                }
+                                progressDialog.dismiss();
+                                adminReportListAdapter = new AdminReportListAdapter(getContext(),reportHospitalList);
+                                recyclerView.setAdapter(adminReportListAdapter);
+                            }
                         }
-
-
-                        List<ReportHospitalModelClass> arrayObjects = response.body();
-
-                        //Response parsing
-                        for(ReportHospitalModelClass value : arrayObjects){
-
-                            Integer reportHospitalId = value.getReportHospitalId();
-                            String name = value.getName();
-                            String mobile = value.getMobile();
-                            String district = value.getDistrict();
-                            String email = value.getEmail();
-                            Integer count = value.getReportCount();
-
-                            HashMap<String,String> reportHospitalDetails = new HashMap<>();
-                            reportHospitalDetails.put("reporthospitalid",Integer.toString(reportHospitalId));
-                            reportHospitalDetails.put("name",name);
-                            reportHospitalDetails.put("mobile",mobile);
-                            reportHospitalDetails.put("district",district);
-                            reportHospitalDetails.put("email",email);
-                            reportHospitalDetails.put("reportcount",Integer.toString(count));
-
-                            reportHospitalList.add(reportHospitalDetails);
-
-                        }
-                        progressDialog.dismiss();
-                        adminReportListAdapter = new AdminReportListAdapter(getContext(),reportHospitalList);
-                        recyclerView.setAdapter(adminReportListAdapter);
-
-
                     }
 
                     @Override
@@ -189,9 +193,14 @@ public class ReportHospitalFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Reported Hospital Id Removed")){
+                                                adminReportListAdapter.notifyDataSetChanged();
+                                                reportHospitalList.remove(reportHospitalList.get(idx));
+                                            }else{
+                                                adminReportListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminReportListAdapter.notifyDataSetChanged();
-                                            reportHospitalList.remove(reportHospitalList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {
@@ -251,9 +260,14 @@ public class ReportHospitalFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Reported Hospital Id  Deleted")){
+                                                adminReportListAdapter.notifyDataSetChanged();
+                                                reportHospitalList.remove(reportHospitalList.get(idx));
+                                            }else {
+                                                adminReportListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminReportListAdapter.notifyDataSetChanged();
-                                            reportHospitalList.remove(reportHospitalList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {

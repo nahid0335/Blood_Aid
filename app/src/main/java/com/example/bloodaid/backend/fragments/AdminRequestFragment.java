@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
@@ -81,34 +82,39 @@ public class AdminRequestFragment extends Fragment {
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
                         }
+                        else{
+                            List<AdminRequestModelClass> arrayObjects = response.body();
 
+                            if(arrayObjects.get(0).getAdminRequestId() == -1){
+                                AllToasts.infoToast(getContext(),
+                                        "No data found !");
+                                progressDialog.dismiss();
+                            }
+                            else{
+                                //Response parsing
+                                for(AdminRequestModelClass value : arrayObjects){
 
-                        List<AdminRequestModelClass> arrayObjects = response.body();
+                                    Integer adminRequestId = value.getAdminRequestId();
+                                    String name = value.getName();
+                                    String mobile = value.getMobile();
+                                    String district = value.getDistrict();
+                                    String email = value.getEmail();
 
-                        //Response parsing
-                        for(AdminRequestModelClass value : arrayObjects){
+                                    HashMap<String,String> adminDetails = new HashMap<>();
+                                    adminDetails.put("adminrequestid",Integer.toString(adminRequestId));
+                                    adminDetails.put("name",name);
+                                    adminDetails.put("mobile",mobile);
+                                    adminDetails.put("district",district);
+                                    adminDetails.put("email",email);
 
-                            Integer adminRequestId = value.getAdminRequestId();
-                            String name = value.getName();
-                            String mobile = value.getMobile();
-                            String district = value.getDistrict();
-                            String email = value.getEmail();
+                                    adminRequestList.add(adminDetails);
 
-                            HashMap<String,String> adminDetails = new HashMap<>();
-                            adminDetails.put("adminrequestid",Integer.toString(adminRequestId));
-                            adminDetails.put("name",name);
-                            adminDetails.put("mobile",mobile);
-                            adminDetails.put("district",district);
-                            adminDetails.put("email",email);
-
-                            adminRequestList.add(adminDetails);
-
+                                }
+                                progressDialog.dismiss();
+                                adminManageListAdapter = new AdminManageListAdapter(getContext(),adminRequestList);
+                                recyclerView.setAdapter(adminManageListAdapter);
+                            }
                         }
-                        progressDialog.dismiss();
-                        adminManageListAdapter = new AdminManageListAdapter(getContext(),adminRequestList);
-                        recyclerView.setAdapter(adminManageListAdapter);
-
-
                     }
 
                     @Override
@@ -188,9 +194,14 @@ public class AdminRequestFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Admin Request Deleted")){
+                                                adminManageListAdapter.notifyDataSetChanged();
+                                                adminRequestList.remove(adminRequestList.get(idx));
+                                            }else{
+                                                adminManageListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminManageListAdapter.notifyDataSetChanged();
-                                            adminRequestList.remove(adminRequestList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {
@@ -250,9 +261,14 @@ public class AdminRequestFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Admin Request Accepted")){
+                                                adminManageListAdapter.notifyDataSetChanged();
+                                                adminRequestList.remove(adminRequestList.get(idx));
+                                            }else{
+                                                adminManageListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminManageListAdapter.notifyDataSetChanged();
-                                            adminRequestList.remove(adminRequestList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {

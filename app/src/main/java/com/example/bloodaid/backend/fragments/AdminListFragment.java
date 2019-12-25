@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
@@ -82,34 +83,39 @@ public class AdminListFragment extends Fragment {
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
+                        }else{
+                            List<AdminModelClass> arrayObjects = response.body();
+
+                            if(arrayObjects.get(0).getUserId() == -1){
+                                AllToasts.infoToast(getContext(),
+                                        "No data found !");
+                                progressDialog.dismiss();
+                            }
+                            else{
+                                //Response parsing
+                                for(AdminModelClass value : arrayObjects){
+
+                                    Integer userId = value.getUserId();
+                                    String name = value.getName();
+                                    String mobile = value.getMobile();
+                                    String district = value.getDistrict();
+                                    String email = value.getEmail();
+
+                                    HashMap<String,String> adminDetails = new HashMap<>();
+                                    adminDetails.put("userid",Integer.toString(userId));
+                                    adminDetails.put("name",name);
+                                    adminDetails.put("mobile",mobile);
+                                    adminDetails.put("district",district);
+                                    adminDetails.put("email",email);
+
+                                    adminList.add(adminDetails);
+
+                                }
+                                progressDialog.dismiss();
+                                adminManageListAdapter = new AdminManageListAdapter(getContext(),adminList);
+                                recyclerView.setAdapter(adminManageListAdapter);
+                            }
                         }
-
-
-                        List<AdminModelClass> arrayObjects = response.body();
-
-                        //Response parsing
-                        for(AdminModelClass value : arrayObjects){
-
-                            Integer userId = value.getUserId();
-                            String name = value.getName();
-                            String mobile = value.getMobile();
-                            String district = value.getDistrict();
-                            String email = value.getEmail();
-
-                            HashMap<String,String> adminDetails = new HashMap<>();
-                            adminDetails.put("userid",Integer.toString(userId));
-                            adminDetails.put("name",name);
-                            adminDetails.put("mobile",mobile);
-                            adminDetails.put("district",district);
-                            adminDetails.put("email",email);
-
-                            adminList.add(adminDetails);
-
-                        }
-                        progressDialog.dismiss();
-                        adminManageListAdapter = new AdminManageListAdapter(getContext(),adminList);
-                        recyclerView.setAdapter(adminManageListAdapter);
-
                     }
 
                     @Override
@@ -186,9 +192,15 @@ public class AdminListFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Admin Item Deleted")){
+                                                adminManageListAdapter.notifyDataSetChanged();
+                                                adminList.remove(adminList.get(idx));
+                                            }
+                                            else{
+                                                adminManageListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminManageListAdapter.notifyDataSetChanged();
-                                            adminList.remove(adminList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {

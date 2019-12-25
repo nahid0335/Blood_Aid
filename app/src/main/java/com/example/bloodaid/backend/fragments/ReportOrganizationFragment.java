@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
@@ -79,37 +80,40 @@ public class ReportOrganizationFragment extends Fragment {
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
+                        }else{
+                            List<ReportOrganizationModelClass> arrayObjects = response.body();
+
+                            if(arrayObjects.get(0).getReportOrganizationId() == -1){
+                                AllToasts.infoToast(getContext(),
+                                        "No data found !");
+                                progressDialog.dismiss();
+                            }else{
+                                //Response parsing
+                                for(ReportOrganizationModelClass value : arrayObjects){
+
+                                    Integer reportOrganizationId = value.getReportOrganizationId();
+                                    String name = value.getName();
+                                    String mobile = value.getMobile();
+                                    String district = value.getDistrict();
+                                    String email = value.getEmail();
+                                    Integer count = value.getReportCount();
+
+                                    HashMap<String,String> reportOrganizationDetails = new HashMap<>();
+                                    reportOrganizationDetails.put("reportorganizationid",Integer.toString(reportOrganizationId));
+                                    reportOrganizationDetails.put("name",name);
+                                    reportOrganizationDetails.put("mobile",mobile);
+                                    reportOrganizationDetails.put("district",district);
+                                    reportOrganizationDetails.put("email",email);
+                                    reportOrganizationDetails.put("reportcount",Integer.toString(count));
+
+                                    reportOrganizationList.add(reportOrganizationDetails);
+
+                                }
+                                progressDialog.dismiss();
+                                adminReportListAdapter = new AdminReportListAdapter(getContext(),reportOrganizationList);
+                                recyclerView.setAdapter(adminReportListAdapter);
+                            }
                         }
-
-
-                        List<ReportOrganizationModelClass> arrayObjects = response.body();
-
-                        //Response parsing
-                        for(ReportOrganizationModelClass value : arrayObjects){
-
-                            Integer reportOrganizationId = value.getReportOrganizationId();
-                            String name = value.getName();
-                            String mobile = value.getMobile();
-                            String district = value.getDistrict();
-                            String email = value.getEmail();
-                            Integer count = value.getReportCount();
-
-                            HashMap<String,String> reportOrganizationDetails = new HashMap<>();
-                            reportOrganizationDetails.put("reportorganizationid",Integer.toString(reportOrganizationId));
-                            reportOrganizationDetails.put("name",name);
-                            reportOrganizationDetails.put("mobile",mobile);
-                            reportOrganizationDetails.put("district",district);
-                            reportOrganizationDetails.put("email",email);
-                            reportOrganizationDetails.put("reportcount",Integer.toString(count));
-
-                            reportOrganizationList.add(reportOrganizationDetails);
-
-                        }
-                        progressDialog.dismiss();
-                        adminReportListAdapter = new AdminReportListAdapter(getContext(),reportOrganizationList);
-                        recyclerView.setAdapter(adminReportListAdapter);
-
-
                     }
 
                     @Override
@@ -189,9 +193,14 @@ public class ReportOrganizationFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Reported Organization Id Removed")){
+                                                adminReportListAdapter.notifyDataSetChanged();
+                                                reportOrganizationList.remove(reportOrganizationList.get(idx));
+                                            }else{
+                                                adminReportListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminReportListAdapter.notifyDataSetChanged();
-                                            reportOrganizationList.remove(reportOrganizationList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {
@@ -251,9 +260,14 @@ public class ReportOrganizationFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Reported Organization Id  Deleted")){
+                                                adminReportListAdapter.notifyDataSetChanged();
+                                                reportOrganizationList.remove(reportOrganizationList.get(idx));
+                                            }else{
+                                                adminReportListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminReportListAdapter.notifyDataSetChanged();
-                                            reportOrganizationList.remove(reportOrganizationList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {

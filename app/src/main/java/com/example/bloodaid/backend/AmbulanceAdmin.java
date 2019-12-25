@@ -30,8 +30,6 @@ public class AmbulanceAdmin extends AppCompatActivity {
         {
             loadFragment(new AmbulanceRequestFragment());
             DonorNavBer.setSelectedItemId(R.id.icon_adminMenu_request);
-        }else if (savedInstanceState == null) {
-            loadFragment(new AmbulanceListFragment());
         }
 
     }
@@ -44,6 +42,7 @@ public class AmbulanceAdmin extends AppCompatActivity {
                 case R.id.icon_adminMenu_home:
                     startActivity(new Intent(AmbulanceAdmin.this,AdminHome.class));
                     finish();
+                    return true;
                 case R.id.icon_adminMenu_list:
                     selectedFragment = new AmbulanceListFragment();
                     loadFragment(selectedFragment);

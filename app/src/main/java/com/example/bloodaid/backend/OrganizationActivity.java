@@ -32,8 +32,6 @@ public class OrganizationActivity extends AppCompatActivity {
         {
             loadFragment(new OrganizationRequestFragment());
             DonorNavBer.setSelectedItemId(R.id.icon_adminMenu_request);
-        }else if (savedInstanceState == null) {
-            loadFragment(new OrganizationListFragment());
         }
 
     }
@@ -46,6 +44,7 @@ public class OrganizationActivity extends AppCompatActivity {
                 case R.id.icon_adminMenu_home:
                     startActivity(new Intent(OrganizationActivity.this,AdminHome.class));
                     finish();
+                    return true;
                 case R.id.icon_adminMenu_list:
                     selectedFragment = new OrganizationListFragment();
                     loadFragment(selectedFragment);

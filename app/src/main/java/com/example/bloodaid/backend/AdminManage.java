@@ -29,8 +29,6 @@ public class AdminManage extends AppCompatActivity {
         {
             loadFragment(new AdminRequestFragment());
             DonorNavBer.setSelectedItemId(R.id.icon_adminMenu_request);
-        }else if (savedInstanceState == null) {
-            loadFragment(new AdminListFragment());
         }
     }
 
@@ -42,6 +40,7 @@ public class AdminManage extends AppCompatActivity {
                 case R.id.icon_adminMenu_home:
                     startActivity(new Intent(AdminManage.this,AdminHome.class));
                     finish();
+                    return true;
                 case R.id.icon_adminMenu_list:
                     selectedFragment = new AdminListFragment();
                     loadFragment(selectedFragment);

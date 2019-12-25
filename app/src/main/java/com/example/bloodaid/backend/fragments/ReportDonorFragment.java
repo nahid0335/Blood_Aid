@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
@@ -80,37 +81,40 @@ public class ReportDonorFragment extends Fragment {
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
+                        }else{
+                            List<ReportDonorModelClass> arrayObjects = response.body();
+
+                            if(arrayObjects.get(0).getReportDonorId() == -1){
+                                AllToasts.infoToast(getContext(),
+                                        "No Donor Reports found !");
+                                progressDialog.dismiss();
+                            }else{
+                                //Response parsing
+                                for(ReportDonorModelClass value : arrayObjects){
+
+                                    Integer reportDonorId = value.getReportDonorId();
+                                    String name = value.getName();
+                                    String mobile = value.getMobile();
+                                    String district = value.getDistrict();
+                                    String email = value.getEmail();
+                                    Integer count = value.getReportCount();
+
+                                    HashMap<String,String> reportDonorDetails = new HashMap<>();
+                                    reportDonorDetails.put("reportdonorid",Integer.toString(reportDonorId));
+                                    reportDonorDetails.put("name",name);
+                                    reportDonorDetails.put("mobile",mobile);
+                                    reportDonorDetails.put("district",district);
+                                    reportDonorDetails.put("email",email);
+                                    reportDonorDetails.put("reportcount",Integer.toString(count));
+
+                                    reportDonorList.add(reportDonorDetails);
+
+                                }
+                                progressDialog.dismiss();
+                                adminReportListAdapter = new AdminReportListAdapter(getContext(),reportDonorList);
+                                recyclerView.setAdapter(adminReportListAdapter);
+                            }
                         }
-
-
-                        List<ReportDonorModelClass> arrayObjects = response.body();
-
-                        //Response parsing
-                        for(ReportDonorModelClass value : arrayObjects){
-
-                            Integer reportDonorId = value.getReportDonorId();
-                            String name = value.getName();
-                            String mobile = value.getMobile();
-                            String district = value.getDistrict();
-                            String email = value.getEmail();
-                            Integer count = value.getReportCount();
-
-                            HashMap<String,String> reportDonorDetails = new HashMap<>();
-                            reportDonorDetails.put("reportdonorid",Integer.toString(reportDonorId));
-                            reportDonorDetails.put("name",name);
-                            reportDonorDetails.put("mobile",mobile);
-                            reportDonorDetails.put("district",district);
-                            reportDonorDetails.put("email",email);
-                            reportDonorDetails.put("reportcount",Integer.toString(count));
-
-                            reportDonorList.add(reportDonorDetails);
-
-                        }
-                        progressDialog.dismiss();
-                        adminReportListAdapter = new AdminReportListAdapter(getContext(),reportDonorList);
-                        recyclerView.setAdapter(adminReportListAdapter);
-
-
                     }
 
                     @Override
@@ -190,9 +194,14 @@ public class ReportDonorFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Reported Donor Id Removed")){
+                                                adminReportListAdapter.notifyDataSetChanged();
+                                                reportDonorList.remove(reportDonorList.get(idx));
+                                            }else{
+                                                adminReportListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminReportListAdapter.notifyDataSetChanged();
-                                            reportDonorList.remove(reportDonorList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {
@@ -252,9 +261,14 @@ public class ReportDonorFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Reported Donor Id  Deleted")){
+                                                adminReportListAdapter.notifyDataSetChanged();
+                                                reportDonorList.remove(reportDonorList.get(idx));
+                                            }else{
+                                                adminReportListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminReportListAdapter.notifyDataSetChanged();
-                                            reportDonorList.remove(reportDonorList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {

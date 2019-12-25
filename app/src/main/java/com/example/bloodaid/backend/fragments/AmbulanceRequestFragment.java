@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
@@ -78,37 +79,42 @@ public class AmbulanceRequestFragment extends Fragment {
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
+                        }else{
+                            List<AmbulanceRequestModelClass> arrayObjects = response.body();
+
+                            if(arrayObjects.get(0).getAmbulanceRequestId() == -1){
+                                AllToasts.infoToast(getContext(),
+                                        "No data found !");
+                                progressDialog.dismiss();
+                            }
+                            else{
+                                //Response parsing
+                                for(AmbulanceRequestModelClass value : arrayObjects){
+
+                                    Integer ambulanceRequestId = value.getAmbulanceRequestId();
+                                    String name = value.getName();
+                                    String mobile = value.getMobile();
+                                    String district = value.getDistrict();
+                                    String email = value.getEmail();
+                                    String details = value.getDetails();
+
+                                    HashMap<String,String> ambulanceDetails = new HashMap<>();
+                                    ambulanceDetails.put("ambulancerequestid",Integer.toString(ambulanceRequestId));
+                                    ambulanceDetails.put("name",name);
+                                    ambulanceDetails.put("mobile",mobile);
+                                    ambulanceDetails.put("district",district);
+                                    ambulanceDetails.put("email",email);
+                                    ambulanceDetails.put("details",details);
+
+                                    ambulanceRequestList.add(ambulanceDetails);
+
+                                }
+                                progressDialog.dismiss();
+                                adminAmbulanceListadapter = new AdminAmbulanceListadAdapter(getContext(),ambulanceRequestList);
+                                recyclerView.setAdapter(adminAmbulanceListadapter);
+
+                            }
                         }
-
-
-                        List<AmbulanceRequestModelClass> arrayObjects = response.body();
-
-                        //Response parsing
-                        for(AmbulanceRequestModelClass value : arrayObjects){
-
-                            Integer ambulanceRequestId = value.getAmbulanceRequestId();
-                            String name = value.getName();
-                            String mobile = value.getMobile();
-                            String district = value.getDistrict();
-                            String email = value.getEmail();
-                            String details = value.getDetails();
-
-                            HashMap<String,String> ambulanceDetails = new HashMap<>();
-                            ambulanceDetails.put("ambulancerequestid",Integer.toString(ambulanceRequestId));
-                            ambulanceDetails.put("name",name);
-                            ambulanceDetails.put("mobile",mobile);
-                            ambulanceDetails.put("district",district);
-                            ambulanceDetails.put("email",email);
-                            ambulanceDetails.put("details",details);
-
-                            ambulanceRequestList.add(ambulanceDetails);
-
-                        }
-                        progressDialog.dismiss();
-                        adminAmbulanceListadapter = new AdminAmbulanceListadAdapter(getContext(),ambulanceRequestList);
-                        recyclerView.setAdapter(adminAmbulanceListadapter);
-
-
                     }
 
                     @Override
@@ -188,9 +194,14 @@ public class AmbulanceRequestFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Ambulance Request Deleted")){
+                                                adminAmbulanceListadapter.notifyDataSetChanged();
+                                                ambulanceRequestList.remove(ambulanceRequestList.get(idx));
+                                            }else{
+                                                adminAmbulanceListadapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminAmbulanceListadapter.notifyDataSetChanged();
-                                            ambulanceRequestList.remove(ambulanceRequestList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {
@@ -250,9 +261,13 @@ public class AmbulanceRequestFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Ambulance Request Accepted")){
+                                                adminAmbulanceListadapter.notifyDataSetChanged();
+                                                ambulanceRequestList.remove(ambulanceRequestList.get(idx));
+                                            }else{
+                                                adminAmbulanceListadapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminAmbulanceListadapter.notifyDataSetChanged();
-                                            ambulanceRequestList.remove(ambulanceRequestList.get(idx));
                                         }
 
                                     } catch (JSONException e) {

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
@@ -81,36 +82,40 @@ public class OrganizationListFragment extends Fragment {
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
+                        }else{
+                            List<OrganizationModelClass> arrayObjects = response.body();
+
+                            if(arrayObjects.get(0).getOrganizationId() == -1){
+                                AllToasts.infoToast(getContext(),
+                                        "No data found !");
+                                progressDialog.dismiss();
+                            }else{
+                                //Response parsing
+                                for(OrganizationModelClass value : arrayObjects){
+
+                                    Integer organizationId = value.getOrganizationId();
+                                    String name = value.getName();
+                                    String mobile = value.getMobile();
+                                    String district = value.getDistrict();
+                                    String email = value.getEmail();
+                                    String details = value.getDetails();
+
+                                    HashMap<String,String> organizationDetails = new HashMap<>();
+                                    organizationDetails.put("organizationid",Integer.toString(organizationId));
+                                    organizationDetails.put("name",name);
+                                    organizationDetails.put("mobile",mobile);
+                                    organizationDetails.put("district",district);
+                                    organizationDetails.put("email",email);
+                                    organizationDetails.put("details",details);
+
+                                    organizationList.add(organizationDetails);
+
+                                }
+                                progressDialog.dismiss();
+                                adminOrganizationListAdapter = new AdminOrganizationListAdapter(getContext(),organizationList);
+                                recyclerView.setAdapter(adminOrganizationListAdapter);
+                            }
                         }
-
-
-                        List<OrganizationModelClass> arrayObjects = response.body();
-
-                        //Response parsing
-                        for(OrganizationModelClass value : arrayObjects){
-
-                            Integer organizationId = value.getOrganizationId();
-                            String name = value.getName();
-                            String mobile = value.getMobile();
-                            String district = value.getDistrict();
-                            String email = value.getEmail();
-                            String details = value.getDetails();
-
-                            HashMap<String,String> organizationDetails = new HashMap<>();
-                            organizationDetails.put("organizationid",Integer.toString(organizationId));
-                            organizationDetails.put("name",name);
-                            organizationDetails.put("mobile",mobile);
-                            organizationDetails.put("district",district);
-                            organizationDetails.put("email",email);
-                            organizationDetails.put("details",details);
-
-                            organizationList.add(organizationDetails);
-
-                        }
-                        progressDialog.dismiss();
-                        adminOrganizationListAdapter = new AdminOrganizationListAdapter(getContext(),organizationList);
-                        recyclerView.setAdapter(adminOrganizationListAdapter);
-
                     }
 
                     @Override
@@ -187,9 +192,14 @@ public class OrganizationListFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Organization Item Deleted")){
+                                                adminOrganizationListAdapter.notifyDataSetChanged();
+                                                organizationList.remove(organizationList.get(idx));
+                                            }else {
+                                                adminOrganizationListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminOrganizationListAdapter.notifyDataSetChanged();
-                                            organizationList.remove(organizationList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.bloodaid.AllToasts;
 import com.example.bloodaid.BloodAidService;
 import com.example.bloodaid.R;
 import com.example.bloodaid.RetrofitInstance;
@@ -78,36 +79,40 @@ public class HospitalListFragment extends Fragment {
                         if(!response.isSuccessful()){
                             Toast.makeText(getContext(), "Code : "+response.code()+" .", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
+                        }else{
+                            List<HospitalModelClass> arrayObjects = response.body();
+
+                            if(arrayObjects.get(0).getHospitalId() == -1){
+                                AllToasts.infoToast(getContext(),
+                                        "No data found !");
+                                progressDialog.dismiss();
+                            }else{
+                                //Response parsing
+                                for(HospitalModelClass value : arrayObjects){
+
+                                    Integer hospitalId = value.getHospitalId();
+                                    String name = value.getName();
+                                    String mobile = value.getMobile();
+                                    String district = value.getDistrict();
+                                    String email = value.getEmail();
+                                    String details = value.getDetails();
+
+                                    HashMap<String,String> hospitalDetails = new HashMap<>();
+                                    hospitalDetails.put("hospitalid",Integer.toString(hospitalId));
+                                    hospitalDetails.put("name",name);
+                                    hospitalDetails.put("mobile",mobile);
+                                    hospitalDetails.put("district",district);
+                                    hospitalDetails.put("email",email);
+                                    hospitalDetails.put("details",details);
+
+                                    hospitalList.add(hospitalDetails);
+
+                                }
+                                progressDialog.dismiss();
+                                adminHospitalListAdapter = new AdminHospitalListAdapter(getContext(),hospitalList);
+                                recyclerView.setAdapter(adminHospitalListAdapter);
+                            }
                         }
-
-
-                        List<HospitalModelClass> arrayObjects = response.body();
-
-                        //Response parsing
-                        for(HospitalModelClass value : arrayObjects){
-
-                            Integer hospitalId = value.getHospitalId();
-                            String name = value.getName();
-                            String mobile = value.getMobile();
-                            String district = value.getDistrict();
-                            String email = value.getEmail();
-                            String details = value.getDetails();
-
-                            HashMap<String,String> hospitalDetails = new HashMap<>();
-                            hospitalDetails.put("hospitalid",Integer.toString(hospitalId));
-                            hospitalDetails.put("name",name);
-                            hospitalDetails.put("mobile",mobile);
-                            hospitalDetails.put("district",district);
-                            hospitalDetails.put("email",email);
-                            hospitalDetails.put("details",details);
-
-                            hospitalList.add(hospitalDetails);
-
-                        }
-                        progressDialog.dismiss();
-                        adminHospitalListAdapter = new AdminHospitalListAdapter(getContext(),hospitalList);
-                        recyclerView.setAdapter(adminHospitalListAdapter);
-
                     }
 
                     @Override
@@ -184,9 +189,14 @@ public class HospitalListFragment extends Fragment {
                                         } else {
                                             JSONObject object = new JSONObject(s);
                                             status = object.getString("message");
+                                            if(status.equals("Hospital Item Deleted")){
+                                                adminHospitalListAdapter.notifyDataSetChanged();
+                                                hospitalList.remove(hospitalList.get(idx));
+                                            }else{
+                                                adminHospitalListAdapter.notifyDataSetChanged();
+                                            }
                                             Toast.makeText(getContext(), status + " .", Toast.LENGTH_LONG).show();
-                                            adminHospitalListAdapter.notifyDataSetChanged();
-                                            hospitalList.remove(hospitalList.get(idx));
+
                                         }
 
                                     } catch (JSONException e) {

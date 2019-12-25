@@ -38,7 +38,7 @@ public class AllToasts {
 
     public static void infoToast(Context context, String info_text){
         Toast toast = new Toast(context);
-        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_SHORT);
         View v = LayoutInflater.from(context)
                 .inflate(R.layout.info_toast, null);
         TextView t = v.findViewById(R.id.error_text);
